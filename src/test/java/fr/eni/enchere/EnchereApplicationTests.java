@@ -17,7 +17,7 @@ class EnchereApplicationTests {
 
     @Test
     void  createTables(){
-        jdbcTemplate.execute("IF OBJECT_ID('CATEGORIE', 'U') IS NOT NULL DROP TABLE CATEGORIE");
+        jdbcTemplate.execute("IF OBJECT_ID('CATEGORIES', 'U') IS NOT NULL DROP TABLE CATEGORIES");
 
         jdbcTemplate.execute("create table Categories( " +
                         "id_categorie bigint identity constraint categorie_pk primary key, " +
