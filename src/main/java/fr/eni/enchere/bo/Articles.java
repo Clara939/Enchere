@@ -12,4 +12,9 @@ public class Articles {
     private int prix_vente;
     private String etat_vente;
 
+    private Retraits lieuxRetrait;
+    private Categorie categorieArticle;
+    private Utilisateurs vendeur;
+
+
 }
