@@ -2,6 +2,7 @@ package fr.eni.enchere.repository;
 
 
 import fr.eni.enchere.bo.Utilisateur;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -51,7 +52,9 @@ public class UtilisateurRepositorySql implements UtilisateurRepository{
 
     @Override
     public List<Utilisateur> readAll() {
-        return List.of();
+        String sql = "select * from Utilisateurs";
+
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Utilisateur.class));
     }
 
     @Override
