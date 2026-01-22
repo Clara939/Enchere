@@ -1,5 +1,6 @@
 package fr.eni.enchere.bo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Utilisateurs {
@@ -17,7 +18,7 @@ public class Utilisateurs {
     private boolean administrateur;
     private boolean actif;
 
-    private List<Articles>articlesList;
+    private List<Articles>articlesList = new ArrayList<>();
 
     public Utilisateurs() { }
 
