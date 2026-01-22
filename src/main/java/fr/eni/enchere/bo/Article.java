@@ -15,10 +15,11 @@ public class Article {
     private Retrait lieuxRetrait;
     private Categorie categorieArticle;
     private Utilisateur vendeur;
+    private Utilisateur acheteur;
 
     public Article() {}
 
-    public Article(long id_article, String nom_article, String description, LocalDate date_debut_encheres, LocalDate date_fin_encheres, int prix_initial, int prix_vente, String etat_vente, Retrait lieuxRetrait, Categorie categorieArticle, Utilisateur vendeur) {
+    public Article(long id_article, String nom_article, String description, LocalDate date_debut_encheres, LocalDate date_fin_encheres, int prix_initial, int prix_vente, String etat_vente, Retrait lieuxRetrait, Categorie categorieArticle, Utilisateur vendeur, Utilisateur acheteur) {
         this.id_article = id_article;
         this.nom_article = nom_article;
         this.description = description;
@@ -30,9 +31,10 @@ public class Article {
         this.lieuxRetrait = lieuxRetrait;
         this.categorieArticle = categorieArticle;
         this.vendeur = vendeur;
+        this.acheteur = acheteur;
     }
 
-    public Article(String nom_article, String description, LocalDate date_debut_encheres, LocalDate date_fin_encheres, int prix_initial, int prix_vente, String etat_vente, Retrait lieuxRetrait, Categorie categorieArticle, Utilisateur vendeur) {
+    public Article(String nom_article, String description, LocalDate date_debut_encheres, LocalDate date_fin_encheres, int prix_initial, int prix_vente, String etat_vente, Retrait lieuxRetrait, Categorie categorieArticle, Utilisateur vendeur, Utilisateur acheteur) {
         this.nom_article = nom_article;
         this.description = description;
         this.date_debut_encheres = date_debut_encheres;
@@ -43,46 +45,47 @@ public class Article {
         this.lieuxRetrait = lieuxRetrait;
         this.categorieArticle = categorieArticle;
         this.vendeur = vendeur;
+        this.acheteur = acheteur;
     }
 
-    public long getId_article() {
-        return id_article;
+    public Utilisateur getAcheteur() {
+        return acheteur;
     }
 
-    public void setId_article(long id_article) {
-        this.id_article = id_article;
+    public void setAcheteur(Utilisateur acheteur) {
+        this.acheteur = acheteur;
     }
 
-    public String getNom_article() {
-        return nom_article;
+    public Utilisateur getVendeur() {
+        return vendeur;
     }
 
-    public void setNom_article(String nom_article) {
-        this.nom_article = nom_article;
+    public void setVendeur(Utilisateur vendeur) {
+        this.vendeur = vendeur;
     }
 
-    public String getDescription() {
-        return description;
+    public Categorie getCategorieArticle() {
+        return categorieArticle;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setCategorieArticle(Categorie categorieArticle) {
+        this.categorieArticle = categorieArticle;
     }
 
-    public LocalDate getDate_debut_encheres() {
-        return date_debut_encheres;
+    public Retrait getLieuxRetrait() {
+        return lieuxRetrait;
     }
 
-    public void setDate_debut_encheres(LocalDate date_debut_encheres) {
-        this.date_debut_encheres = date_debut_encheres;
+    public void setLieuxRetrait(Retrait lieuxRetrait) {
+        this.lieuxRetrait = lieuxRetrait;
     }
 
-    public LocalDate getDate_fin_encheres() {
-        return date_fin_encheres;
+    public String getEtat_vente() {
+        return etat_vente;
     }
 
-    public void setDate_fin_encheres(LocalDate date_fin_encheres) {
-        this.date_fin_encheres = date_fin_encheres;
+    public void setEtat_vente(String etat_vente) {
+        this.etat_vente = etat_vente;
     }
 
     public int getPrix_initial() {
@@ -101,35 +104,61 @@ public class Article {
         this.prix_vente = prix_vente;
     }
 
-    public String getEtat_vente() {
-        return etat_vente;
+    public LocalDate getDate_debut_encheres() {
+        return date_debut_encheres;
     }
 
-    public void setEtat_vente(String etat_vente) {
-        this.etat_vente = etat_vente;
+    public void setDate_debut_encheres(LocalDate date_debut_encheres) {
+        this.date_debut_encheres = date_debut_encheres;
     }
 
-    public Retrait getLieuxRetrait() {
-        return lieuxRetrait;
+    public LocalDate getDate_fin_encheres() {
+        return date_fin_encheres;
     }
 
-    public void setLieuxRetrait(Retrait lieuxRetrait) {
-        this.lieuxRetrait = lieuxRetrait;
+    public void setDate_fin_encheres(LocalDate date_fin_encheres) {
+        this.date_fin_encheres = date_fin_encheres;
     }
 
-    public Categorie getCategorieArticle() {
-        return categorieArticle;
+    public String getDescription() {
+        return description;
     }
 
-    public void setCategorieArticle(Categorie categorieArticle) {
-        this.categorieArticle = categorieArticle;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public Utilisateur getVendeur() {
-        return vendeur;
+    public String getNom_article() {
+        return nom_article;
     }
 
-    public void setVendeur(Utilisateur vendeur) {
-        this.vendeur = vendeur;
+    public void setNom_article(String nom_article) {
+        this.nom_article = nom_article;
+    }
+
+    public long getId_article() {
+        return id_article;
+    }
+
+    public void setId_article(long id_article) {
+        this.id_article = id_article;
+    }
+
+    @Override
+    public String toString() {
+        return "Article{" +
+                "id_article=" + id_article +
+                ", nom_article='" + nom_article + '\'' +
+                ", description='" + description + '\'' +
+                ", date_debut_encheres=" + date_debut_encheres +
+                ", date_fin_encheres=" + date_fin_encheres +
+                ", prix_initial=" + prix_initial +
+                ", prix_vente=" + prix_vente +
+                ", etat_vente='" + etat_vente + '\'' +
+                ", lieuxRetrait=" + lieuxRetrait +
+                ", categorieArticle=" + categorieArticle +
+                ", vendeur=" + vendeur +
+                ", acheteur=" + acheteur +
+                '}';
     }
 }
