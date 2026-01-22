@@ -1,6 +1,6 @@
-package fr.eni.enchere.repository.rowMapper;
+package fr.eni.enchere.repository;
 
-import fr.eni.enchere.bo.Categories;
+import fr.eni.enchere.bo.Categorie;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ public interface CategorieRepository {
     public List<Categorie> readAll();
     void create(Categorie categorie);
 
-    Categorie getById(long id);
+    Categorie readById(long id);
 
     void delete(long id);
 
