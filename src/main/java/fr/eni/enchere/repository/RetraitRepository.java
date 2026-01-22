@@ -1,17 +1,15 @@
 package fr.eni.enchere.repository;
 
-import fr.eni.enchere.bo.Retraits;
+import fr.eni.enchere.bo.Retrait;
 import java.util.List;
 
 public interface RetraitRepository {
 
-    // Retraits
-    public List<Retraits> readRetraits();
+    public List<Retrait> readAll();
 
-    Retraits getRetraitById(long id);
-    void createRetrait(Retraits retrait);
-    void updateRetrait(Retraits retrait);
-    void deleteRetraitById(long id);
-
+    Retrait readRetraitById(long id);
+    void createRetrait(Retrait retrait);
+    void updateRetrait(Retrait retrait);
+    void deleteRetrait(long id);
 
 }
