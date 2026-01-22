@@ -1,17 +1,17 @@
 package fr.eni.enchere.bo;
 
-public class Categories {
+public class Categorie {
     private long id_categorie;
     private String libelle;
 
-    public Categories() {}
+    public Categorie() {}
 
-    public Categories(long id_categorie, String libelle) {
+    public Categorie(long id_categorie, String libelle) {
         this.id_categorie = id_categorie;
         this.libelle = libelle;
     }
 
-    public Categories(String libelle) {
+    public Categorie(String libelle) {
         this.libelle = libelle;
     }
 

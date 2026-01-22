@@ -2,7 +2,7 @@ package fr.eni.enchere.bo;
 
 import java.time.LocalDate;
 
-public class Articles {
+public class Article {
     private long id_article;
     private String nom_article;
     private String description;
@@ -12,13 +12,13 @@ public class Articles {
     private int prix_vente;
     private String etat_vente;
 
-    private Retraits lieuxRetrait;
-    private Categories categorieArticle;
-    private Utilisateurs vendeur;
+    private Retrait lieuxRetrait;
+    private Categorie categorieArticle;
+    private Utilisateur vendeur;
 
-    public Articles() {}
+    public Article() {}
 
-    public Articles(long id_article, String nom_article, String description, LocalDate date_debut_encheres, LocalDate date_fin_encheres, int prix_initial, int prix_vente, String etat_vente, Retraits lieuxRetrait, Categories categorieArticle, Utilisateurs vendeur) {
+    public Article(long id_article, String nom_article, String description, LocalDate date_debut_encheres, LocalDate date_fin_encheres, int prix_initial, int prix_vente, String etat_vente, Retrait lieuxRetrait, Categorie categorieArticle, Utilisateur vendeur) {
         this.id_article = id_article;
         this.nom_article = nom_article;
         this.description = description;
@@ -32,7 +32,7 @@ public class Articles {
         this.vendeur = vendeur;
     }
 
-    public Articles(String nom_article, String description, LocalDate date_debut_encheres, LocalDate date_fin_encheres, int prix_initial, int prix_vente, String etat_vente, Retraits lieuxRetrait, Categories categorieArticle, Utilisateurs vendeur) {
+    public Article(String nom_article, String description, LocalDate date_debut_encheres, LocalDate date_fin_encheres, int prix_initial, int prix_vente, String etat_vente, Retrait lieuxRetrait, Categorie categorieArticle, Utilisateur vendeur) {
         this.nom_article = nom_article;
         this.description = description;
         this.date_debut_encheres = date_debut_encheres;
@@ -109,27 +109,27 @@ public class Articles {
         this.etat_vente = etat_vente;
     }
 
-    public Retraits getLieuxRetrait() {
+    public Retrait getLieuxRetrait() {
         return lieuxRetrait;
     }
 
-    public void setLieuxRetrait(Retraits lieuxRetrait) {
+    public void setLieuxRetrait(Retrait lieuxRetrait) {
         this.lieuxRetrait = lieuxRetrait;
     }
 
-    public Categories getCategorieArticle() {
+    public Categorie getCategorieArticle() {
         return categorieArticle;
     }
 
-    public void setCategorieArticle(Categories categorieArticle) {
+    public void setCategorieArticle(Categorie categorieArticle) {
         this.categorieArticle = categorieArticle;
     }
 
-    public Utilisateurs getVendeur() {
+    public Utilisateur getVendeur() {
         return vendeur;
     }
 
-    public void setVendeur(Utilisateurs vendeur) {
+    public void setVendeur(Utilisateur vendeur) {
         this.vendeur = vendeur;
     }
 }

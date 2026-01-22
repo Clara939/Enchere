@@ -2,17 +2,17 @@ package fr.eni.enchere.bo;
 
 import java.time.LocalDate;
 
-public class Encheres {
+public class Enchere {
     private long id_enchere;
     private LocalDate date_enchere;
     private int montant_enchere;
 
-    private Utilisateurs encherisseur;
-    private Articles articles;
+    private Utilisateur encherisseur;
+    private Article articles;
 
-    public Encheres() {}
+    public Enchere() {}
 
-    public Encheres(long id_enchere, LocalDate date_enchere, int montant_enchere, Utilisateurs encherisseur, Articles articles) {
+    public Enchere(long id_enchere, LocalDate date_enchere, int montant_enchere, Utilisateur encherisseur, Article articles) {
         this.id_enchere = id_enchere;
         this.date_enchere = date_enchere;
         this.montant_enchere = montant_enchere;
@@ -20,7 +20,7 @@ public class Encheres {
         this.articles = articles;
     }
 
-    public Encheres(LocalDate date_enchere, int montant_enchere, Utilisateurs encherisseur, Articles articles) {
+    public Enchere(LocalDate date_enchere, int montant_enchere, Utilisateur encherisseur, Article articles) {
         this.date_enchere = date_enchere;
         this.montant_enchere = montant_enchere;
         this.encherisseur = encherisseur;
@@ -43,11 +43,11 @@ public class Encheres {
         this.date_enchere = date_enchere;
     }
 
-    public Utilisateurs getEncherisseur() {
+    public Utilisateur getEncherisseur() {
         return encherisseur;
     }
 
-    public void setEncherisseur(Utilisateurs encherisseur) {
+    public void setEncherisseur(Utilisateur encherisseur) {
         this.encherisseur = encherisseur;
     }
 
@@ -59,11 +59,11 @@ public class Encheres {
         this.montant_enchere = montant_enchere;
     }
 
-    public Articles getArticles() {
+    public Article getArticles() {
         return articles;
     }
 
-    public void setArticles(Articles articles) {
+    public void setArticles(Article articles) {
         this.articles = articles;
     }
 
