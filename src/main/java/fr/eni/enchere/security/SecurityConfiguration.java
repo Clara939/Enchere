@@ -20,7 +20,7 @@ public class SecurityConfiguration {
 
         //détermine quelles informations utiliser pour la connexion
         //requete utilisée pour l'utilisateur
-        jdbc.setUsersByUsernameQuery("select pseudo, password, actif from utilisateur where pseudo = ?");
+        jdbc.setUsersByUsernameQuery("select pseudo, mot_de_passe, actif from utilisateur where pseudo = ?");
 
         //requete utilisée pour le role
         jdbc.setAuthoritiesByUsernameQuery("select pseudo, role from roles where pseudo = ?");
