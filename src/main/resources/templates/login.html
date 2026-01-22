@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="fr" th:replace="~{layout/layout::frag_layout(content=~{::main})}">
+<main>
+  <h2>Page de connexion</h2>
+  <form th:action="@{/login}"
+        method="post">
+    <ul class="flex-outer">
+      <li>
+        <label for="idUsername">Identifiant</label>
+        <input id="idUsername" type="text" name="username">
+      </li>
+      <li>
+        <label for="idPassword">Mot de passe</label>
+        <input id="idPassword" type="password" name="password">
+      </li>
+      <li>
+        <button type="submit">se connecter</button>
+      </li>
+    </ul>
+  </form>
+</main>
+</html>
