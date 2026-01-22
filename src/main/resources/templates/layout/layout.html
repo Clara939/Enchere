@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+
+
+
+<html lang="fr" data-th-fragment="frag_layout(content)">
+<head>
+    <meta charset="UTF-8">
+    <!--  la balise sera remplacée par le contenu de title -->
+    <title>Enchères</title>
+
+    <link rel="stylesheet" href="/css/general.css">
+</head>
+<body class="master">
+<header>
+    <h1 id="nav-title">Enchères</h1>
+<!--    <img src="/image/barbie.jpg" />-->
+    <nav>
+        <ul>
+            <li><a href="/" class="nav-link">Accueil</a></li>
+            <li ><a href="/barbies" class="nav-link">Enchères</a></li>
+            <li th:if="${#authorization.expression('hasRole(''UTILISATEUR'')')}"><a href="/encheres/add" class="nav-link">Ajout Produit</a></li>
+<!--            <li th:if="${#authorization.expression('hasRole(''EMPLOYE'')')}"><a href="/types" class="nav-link">Types</a></li>-->
+<!--            <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a th:href="@{/types/add}" class="nav-link">Ajout Type</a></li>-->
+            <!-- le lien s'affiche uniquement si on est déconnecté -->
+            <li th:if="${!#authorization.expression('isAuthenticated()')}"
+            ><a href="/login" class="nav-link">connexion</a></li>
+            <li th:if="${#authorization.expression('isAuthenticated()')}">
+                <form th:action="@{/logout}" method="post">
+                    <input type="hidden" name="_csrf" value="${_csrf.token}">
+                    <button type="submit" class="nav-link">déconnexion</button>
+                </form>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<main data-th-replace="${content}"></main>
+
+<footer>
+    <p>&copy; Mattel</p>
+</footer>
+</body>
+</html>
