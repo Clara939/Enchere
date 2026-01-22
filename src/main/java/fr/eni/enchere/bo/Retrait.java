@@ -1,21 +1,21 @@
 package fr.eni.enchere.bo;
 
-public class Retraits {
+public class Retrait {
     private String rue;
     private String code_postal;
     private String ville;
     private long id_retrait;
 
-    public Retraits() { }
+    public Retrait() { }
 
-    public Retraits(String code_postal, String rue, String ville, long id_retrait) {
+    public Retrait(String code_postal, String rue, String ville, long id_retrait) {
         this.code_postal = code_postal;
         this.rue = rue;
         this.ville = ville;
         this.id_retrait = id_retrait;
     }
 
-    public Retraits(String rue, String code_postal, String ville) {
+    public Retrait(String rue, String code_postal, String ville) {
         this.rue = rue;
         this.code_postal = code_postal;
         this.ville = ville;

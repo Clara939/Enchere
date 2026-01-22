@@ -3,7 +3,7 @@ package fr.eni.enchere.bo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Utilisateurs {
+public class Utilisateur {
     private long id_utilisateur;
     private String pseudo;
     private String nom;
@@ -18,11 +18,11 @@ public class Utilisateurs {
     private boolean administrateur;
     private boolean actif;
 
-    private List<Articles>articlesList = new ArrayList<>();
+    private List<Article>articlesList = new ArrayList<>();
 
-    public Utilisateurs() { }
+    public Utilisateur() { }
 
-    public Utilisateurs(long id_utilisateur, String pseudo, String nom, String prenom, String email, String telephone, String rue, String code_postal, String ville, String mot_de_passe, int credit, boolean administrateur, boolean actif, List<Articles> articlesList) {
+    public Utilisateur(long id_utilisateur, String pseudo, String nom, String prenom, String email, String telephone, String rue, String code_postal, String ville, String mot_de_passe, int credit, boolean administrateur, boolean actif, List<Article> articlesList) {
         this.id_utilisateur = id_utilisateur;
         this.pseudo = pseudo;
         this.nom = nom;
@@ -39,7 +39,7 @@ public class Utilisateurs {
         this.articlesList = articlesList;
     }
 
-    public Utilisateurs(String pseudo, String nom, String prenom, String email, String telephone, String rue, String code_postal, String ville, String mot_de_passe, int credit, boolean administrateur, boolean actif, List<Articles> articlesList) {
+    public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, String code_postal, String ville, String mot_de_passe, int credit, boolean administrateur, boolean actif, List<Article> articlesList) {
         this.pseudo = pseudo;
         this.nom = nom;
         this.prenom = prenom;
@@ -159,11 +159,11 @@ public class Utilisateurs {
         this.actif = actif;
     }
 
-    public List<Articles> getArticlesList() {
+    public List<Article> getArticlesList() {
         return articlesList;
     }
 
-    public void setArticlesList(List<Articles> articlesList) {
+    public void setArticlesList(List<Article> articlesList) {
         this.articlesList = articlesList;
     }
 
