@@ -18,17 +18,31 @@ public class Utilisateur {
     private boolean administrateur;
     private boolean actif;
 
-    private List<Article>articlesList = new ArrayList<>();
 
     public Utilisateur() { }
 
-    public Utilisateur(long id_utilisateur, String pseudo, String nom, String prenom, String email, String telephone, String rue, String code_postal, String ville, String mot_de_passe, int credit, boolean administrateur, boolean actif, List<Article> articlesList) {
+    public Utilisateur(String pseudo, String nom, String prenom, String telephone, String email, String rue, String code_postal, String ville, String mot_de_passe, int credit, boolean administrateur, boolean actif) {
+        this.pseudo = pseudo;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.telephone = telephone;
+        this.email = email;
+        this.rue = rue;
+        this.code_postal = code_postal;
+        this.ville = ville;
+        this.mot_de_passe = mot_de_passe;
+        this.credit = credit;
+        this.administrateur = administrateur;
+        this.actif = actif;
+    }
+
+    public Utilisateur(long id_utilisateur, String pseudo, String nom, String prenom, String telephone, String email, String rue, String code_postal, String ville, String mot_de_passe, int credit, boolean administrateur, boolean actif) {
         this.id_utilisateur = id_utilisateur;
         this.pseudo = pseudo;
         this.nom = nom;
         this.prenom = prenom;
-        this.email = email;
         this.telephone = telephone;
+        this.email = email;
         this.rue = rue;
         this.code_postal = code_postal;
         this.ville = ville;
@@ -36,23 +50,6 @@ public class Utilisateur {
         this.credit = credit;
         this.administrateur = administrateur;
         this.actif = actif;
-        this.articlesList = articlesList;
-    }
-
-    public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, String code_postal, String ville, String mot_de_passe, int credit, boolean administrateur, boolean actif, List<Article> articlesList) {
-        this.pseudo = pseudo;
-        this.nom = nom;
-        this.prenom = prenom;
-        this.email = email;
-        this.telephone = telephone;
-        this.rue = rue;
-        this.code_postal = code_postal;
-        this.ville = ville;
-        this.mot_de_passe = mot_de_passe;
-        this.credit = credit;
-        this.administrateur = administrateur;
-        this.actif = actif;
-        this.articlesList = articlesList;
     }
 
     public long getId_utilisateur() {
@@ -87,20 +84,20 @@ public class Utilisateur {
         this.prenom = prenom;
     }
 
-    public String getTelephone() {
-        return telephone;
-    }
-
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
-    }
-
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
     }
 
     public String getRue() {
@@ -159,17 +156,9 @@ public class Utilisateur {
         this.actif = actif;
     }
 
-    public List<Article> getArticlesList() {
-        return articlesList;
-    }
-
-    public void setArticlesList(List<Article> articlesList) {
-        this.articlesList = articlesList;
-    }
-
     @Override
     public String toString() {
-        return "Utilisateurs{" +
+        return "Utilisateur{" +
                 "id_utilisateur=" + id_utilisateur +
                 ", pseudo='" + pseudo + '\'' +
                 ", nom='" + nom + '\'' +
@@ -183,7 +172,6 @@ public class Utilisateur {
                 ", credit=" + credit +
                 ", administrateur=" + administrateur +
                 ", actif=" + actif +
-                ", articlesList=" + articlesList +
                 '}';
     }
 }
