@@ -210,10 +210,16 @@ class EnchereApplicationTests {
     }
 
     @Test
-    void deleteArticle(){
+    void deleteArticle() {
         articleRepository.delete(1);
         articleRepository.readAll().forEach(System.out::println);
     }
+
+        @Test
+                void readAllArticle(){
+            articleRepository.readAll().forEach(System.out::println);
+        }
+
 
 // TEST DE ENCHERE-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
