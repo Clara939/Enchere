@@ -43,13 +43,12 @@ JdbcTemplate jdbcTemplate;
         map.addValue("id_vendeur", article.getVendeur().getId_utilisateur());
         map.addValue("id_categorie", article.getCategorieArticle().getId_categorie());
         map.addValue("id_retrait", article.getLieuxRetrait().getId_retrait());
-        map.addValue("id_acheteur", article.getAcheteur().getId_utilisateur());
 
-        //si il n'y a pas de type associé on met null ; le type est un nombre ici
-        if (barbie.getType() != null) {
-            map.addValue("type_id", barbie.getType().getId());
+        //si il n'y a pas d'acheteur associé on met null ; l'acheteur est un nombre ici
+        if (article.getAcheteur() != null) {
+            map.addValue("id_acheteur", article.getAcheteur().getId_utilisateur());
         } else {
-            map.addValue("type_id", null);
+            map.addValue("id_acheteur", null);
         }
 
         //je passe le keyHolder à la requète pour récupérer l'id
