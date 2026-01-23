@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr" th:replace="~{layout/layout :: frag_layout(content=~{::main})}">
+<main>
+    <h2>Inscription</h2>
+    <form th:action="@{/inscription}"
+          method="post"
+          th:object="${utilisateur}">
+        <ul class="flex-outer">
+            <li>
+                <label for="idPseudo">Pseudo</label>
+                <input id="idPseudo" type="text" th:field="${utilisateur.pseudo}">
+            </li>
+            <li>
+                <label for="idNom">Nom</label>
+                <input id="idNom" type="text" th:field="${utilisateur.nom}">
+            </li>
+            <li>
+                <label for="idPrenom">Prenom</label>
+                <input id="idPrenom" type="text" th:field="${utilisateur.prenom}">
+            </li>
+            <li>
+                <label for="idEmail">Email</label>
+                <input id="idEmail" type="email" th:field="${utilisateur.email}">
+            </li>
+            <li>
+                <label for="idTelephone">Téléphone</label>
+                <input id="idTelephone" type="tel" th:field="${utilisateur.telephone}">
+            </li>
+            <li>
+                <label for="idRue">Rue</label>
+                <input id="idRue" type="text" th:field="${utilisateur.rue}">
+            </li>
+            <li>
+                <label for="idCode_postal">Code Postal</label>
+                <input id="idCode_postal" type="text" th:field="${utilisateur.code_postal}">
+            </li>
+            <li>
+                <label for="idVille">Ville</label>
+                <input id="idVille" type="text" th:field="${utilisateur.ville}">
+            </li>
+            <li>
+                <label for="idMotDePasse">Mot de Passe</label>
+                <input id="idMotDePasse" type="password" th:field="${utilisateur.mot_de_passe}">
+            </li>
+            <li>
+                <label for="idConfirmationMotDePasse">Confirmation du mot de passe</label>
+                <input id="idConfirmationMotDePasse" type="password" th:field="${utilisateur.mot_de_passe}">
+            </li>
+            <li>
+                <button type="submit">Créer</button>
+            </li>
+            <li>
+                <a  href="/" >Annuler</a>
+            </li>
+        </ul>
+    </form>
+</main>
+</html>

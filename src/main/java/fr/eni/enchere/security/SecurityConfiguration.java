@@ -45,7 +45,8 @@ public class SecurityConfiguration {
 
                     /* *********************************************
                      jusqu'à là */
-
+                    //donne à tous la permission de s'inscrire
+                    .requestMatchers("/inscription").permitAll()
                     //donne à tous la permission sur la page d'accueil
                     .requestMatchers("/*").permitAll()
                     //donner acces au css
