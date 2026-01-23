@@ -33,12 +33,12 @@ class EnchereApplicationTests {
     void dropTables() {
             jdbcTemplate.execute("IF OBJECT_ID('ENCHERES', 'U') IS NOT NULL DROP TABLE ENCHERES");
             jdbcTemplate.execute("IF OBJECT_ID('ARTICLES', 'U') IS NOT NULL DROP TABLE ARTICLES");
-            //jdbcTemplate.execute("IF OBJECT_ID('ROLES', 'U') IS NOT NULL DROP TABLE ROLES");
+        jdbcTemplate.execute("IF OBJECT_ID('ROLES', 'U') IS NOT NULL DROP TABLE ROLES");
             jdbcTemplate.execute("IF OBJECT_ID('UTILISATEURS', 'U') IS NOT NULL DROP TABLE UTILISATEURS");
             jdbcTemplate.execute("IF OBJECT_ID('CATEGORIES', 'U') IS NOT NULL DROP TABLE CATEGORIES");
             jdbcTemplate.execute("IF OBJECT_ID('RETRAITS', 'U') IS NOT NULL DROP TABLE RETRAITS");
             jdbcTemplate.execute("create table Categories( " + "id_categorie bigint identity constraint categorie_pk primary key, " + "libelle varchar(30) not null unique)");
-            jdbcTemplate.execute("create table Retraits\n " + "(\n " + "    id_retrait  bigint      not null\n " + "        constraint retrait_pk\n " + "            primary key,\n " + "    rue         varchar(55) not null,\n " + "    code_postal varchar(10) not null,\n " + "    ville       varchar(30) not null\n " + ")");
+            jdbcTemplate.execute("create table Retraits\n " + "(\n " + "    id_retrait  bigint   identity   not null\n " + "        constraint retrait_pk\n " + "            primary key,\n " + "    rue         varchar(55) not null,\n " + "    code_postal varchar(10) not null,\n " + "    ville       varchar(30) not null\n " + ")");
             jdbcTemplate.execute("create table Utilisateurs\n " +
                     "(\n " +
                     "    id_utilisateur bigint identity\n " +
@@ -169,11 +169,11 @@ class EnchereApplicationTests {
 
     // TEST DE ARTICLE -------------------------------------------------------------------------------------------------------------------------------------------------------
 
-//@Test
-//void createArticle(){
-  //      articleRepository.create(new Article("bureau", "magnifique bureau en bois", LocalDate.of(2026, 1, 24), LocalDate.of(2026, 1, 31), 200, 200, "créé", categorieRepository.readById(1), utilisateurDAO.readById(1), null));
-        //ajouter retrait après "créé"
-//}
+@Test
+void createArticle(){
+        articleRepository.create(new Article("bureau", "magnifique bureau en bois", LocalDate.of(2026, 1, 24), LocalDate.of(2026, 1, 31), 200, 200, "créé", retraitRepository.readRetraitById(3), categorieRepository.readById(1), utilisateurDAO.readById(2), null));
+
+}
 
 
 // TEST DE ENCHERE-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
