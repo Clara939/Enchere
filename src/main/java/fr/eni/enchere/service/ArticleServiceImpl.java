@@ -22,7 +22,7 @@ public class ArticleServiceImpl implements ArticleService{
     public void create(Article article) { this.articleRepository.create(article); }
 
     @Override
-    public Categorie readById(long id) { return this.articleRepository.readById(id); }
+    public Article readById(long id) { return this.articleRepository.readById(id); }
 
     @Override
     public void delete(long id) { this.articleRepository.delete(id); }

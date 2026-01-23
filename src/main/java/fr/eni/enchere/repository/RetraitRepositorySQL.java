@@ -46,6 +46,7 @@ public class RetraitRepositorySQL implements RetraitRepository {
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder(); // To hold the generated key
         String sql = "INSERT INTO Retraits (rue, code_postal, ville) " +
                 "VALUES (:rue, :code_postal, :ville)";
+
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
         parameterSource.addValue("rue", retrait.getRue());
         parameterSource.addValue("code_postal", retrait.getCode_postal());
