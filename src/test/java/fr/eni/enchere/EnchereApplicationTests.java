@@ -1,6 +1,8 @@
 package fr.eni.enchere;
 
+import fr.eni.enchere.bo.Article;
 import fr.eni.enchere.bo.Utilisateur;
+import fr.eni.enchere.repository.ArticleRepository;
 import fr.eni.enchere.repository.UtilisateurRepositorySql;
 import fr.eni.enchere.bo.Categorie;
 import fr.eni.enchere.repository.CategorieRepository;
@@ -9,22 +11,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.time.LocalDate;
+
 @SpringBootTest
 class EnchereApplicationTests {
 
     @Autowired
-    UtilisateurRepositorySql utilisateurDAO;
-
-    @Autowired
     JdbcTemplate jdbcTemplate;
     @Autowired
+    UtilisateurRepositorySql utilisateurDAO;
+    @Autowired
     CategorieRepository categorieRepository;
+    @Autowired
+    ArticleRepository articleRepository;
 
 
     @Test
     void dropTables() {
             jdbcTemplate.execute("IF OBJECT_ID('ENCHERES', 'U') IS NOT NULL DROP TABLE ENCHERES");
             jdbcTemplate.execute("IF OBJECT_ID('ARTICLES', 'U') IS NOT NULL DROP TABLE ARTICLES");
+        jdbcTemplate.execute("IF OBJECT_ID('ROLES', 'U') IS NOT NULL DROP TABLE ROLES");
             jdbcTemplate.execute("IF OBJECT_ID('UTILISATEURS', 'U') IS NOT NULL DROP TABLE UTILISATEURS");
             jdbcTemplate.execute("IF OBJECT_ID('CATEGORIES', 'U') IS NOT NULL DROP TABLE CATEGORIES");
             jdbcTemplate.execute("IF OBJECT_ID('RETRAITS', 'U') IS NOT NULL DROP TABLE RETRAITS");
@@ -50,6 +56,13 @@ class EnchereApplicationTests {
                     "    administrateur bit         not null,\n " +
                     "    actif          bit         not null\n " +
                     ")");
+        jdbcTemplate.execute("create table ROLES\n " +
+                "(\n" +
+                "    pseudo varchar(30) not null\n " +
+                "        references Utilisateurs(pseudo),\n " +
+                "    role   varchar(50)  not null,\n " +
+                "    primary key (pseudo, role)\n " +
+                ")");
             jdbcTemplate.execute("create table Articles\n " +
                     "(\n " +
                     "    id_article          bigint identity\n " +
@@ -86,7 +99,8 @@ class EnchereApplicationTests {
                     "            references Articles,\n " +
                     "    date_enchere    datetime not null,\n " +
                     "    montant_enchere int      not null\n " +
-                    ")");   }
+                    ")");
+}
     // TEST DE UTILISATEUR ----------------------------------------------------------------------------------------------------------------------------------------------------
     @Test
     void testCreateUtilisateur() {
@@ -154,5 +168,14 @@ class EnchereApplicationTests {
     void updateCategorie() {
         categorieRepository.update(new Categorie(1, "jouets"));
     }
+
+
+    // TEST DE ARTICLE -------------------------------------------------------------------------------------------------------------------------------------------------------
+
+@Test
+void createArticle(){
+        articleRepository.create(new Article("bureau", "magnifique bureau en bois", LocalDate.of(2026, 1, 24), LocalDate.of(2026, 1, 31), 200, 200, "créé", categorieRepository.readById(1), utilisateurDAO.readById(1), null));
+        //ajouter retrait après "créé"
+}
 
 }
