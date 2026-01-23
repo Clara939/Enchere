@@ -50,6 +50,10 @@ public class RetraitRepositorySQL implements RetraitRepository {
         parameterSource.addValue("ville", retrait.getVille());
         // Execute the insert operation
         namedParameterJdbcTemplate.update(sql, parameterSource, keyHolder);
+        // Retrieve the generated id
+        long id = keyHolder.getKey().longValue();
+        // Set the generated id back to the Retrait object
+        retrait.setId_retrait(id);
     }
 
     @Override

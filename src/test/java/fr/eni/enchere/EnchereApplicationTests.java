@@ -1,6 +1,8 @@
 package fr.eni.enchere;
 
+import fr.eni.enchere.bo.Retrait;
 import fr.eni.enchere.bo.Utilisateur;
+import fr.eni.enchere.repository.RetraitRepository;
 import fr.eni.enchere.repository.UtilisateurRepositorySql;
 import fr.eni.enchere.bo.Categorie;
 import fr.eni.enchere.repository.CategorieRepository;
@@ -19,6 +21,8 @@ class EnchereApplicationTests {
     JdbcTemplate jdbcTemplate;
     @Autowired
     CategorieRepository categorieRepository;
+    @Autowired
+    RetraitRepository retraitRepository;
 
 
     @Test
@@ -154,5 +158,17 @@ class EnchereApplicationTests {
     void updateCategorie() {
         categorieRepository.update(new Categorie(1, "jouets"));
     }
+
+
+    //-------------------------- TEST DE RETRAIT -------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    @Test
+    void createRetrait() {
+        retraitRepository.createRetrait(new Retrait("75000", "10 rue de la Paix", "Paris", 1));
+        retraitRepository.createRetrait(new Retrait("35000", "20 avenue des Champs", "Rennes", 2));
+        retraitRepository.createRetrait(new Retrait("38000", "5 boulevard Saint-Michel", "Rennes", 3));
+    }
+
+
 
 }
