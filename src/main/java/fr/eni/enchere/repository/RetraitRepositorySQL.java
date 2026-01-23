@@ -2,8 +2,10 @@ package fr.eni.enchere.repository;
 
 import fr.eni.enchere.bo.Retrait;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -38,7 +40,7 @@ public class RetraitRepositorySQL implements RetraitRepository {
         return namedParameterJdbcTemplate.queryForObject(sql, parameterSource,
                 new BeanPropertyRowMapper<>(Retrait.class));
     }
-
+    // Create a new Retrait
     @Override
     public void createRetrait(Retrait retrait) {
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder(); // To hold the generated key
@@ -55,14 +57,23 @@ public class RetraitRepositorySQL implements RetraitRepository {
         // Set the generated id back to the Retrait object
         retrait.setId_retrait(id);
     }
-
+    // Update an existing Retrait
     @Override
     public void updateRetrait(Retrait retrait) {
+        String sql = "UPDATE Retraits SET rue = :rue, code_postal = :code_postal, ville = :ville " +
+                "WHERE id_retrait = :id_retrait";
 
+        BeanPropertySqlParameterSource parameterSource = new BeanPropertySqlParameterSource(retrait);
+        namedParameterJdbcTemplate.update(sql, parameterSource);
     }
-
+    // Delete a Retrait by ID
     @Override
-    public void deleteRetrait(long id) {
-
+    public void deleteRetrait(long id) { // DELETE a Retrait by id
+        String sql = "DELETE FROM Retraits WHERE id_retrait = :id_retrait";
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        // Add the id parameter
+        parameterSource.addValue("id_retrait", id);
+        // Execute the delete operation
+        namedParameterJdbcTemplate.update(sql, parameterSource);
     }
 }
