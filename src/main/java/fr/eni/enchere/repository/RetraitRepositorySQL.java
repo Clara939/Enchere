@@ -41,10 +41,10 @@ public class RetraitRepositorySQL implements RetraitRepository {
     @Override
     public void createRetrait(Retrait retrait) {
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder(); // To hold the generated key
-        String sql = "INSERT INTO Retraits (id_article, rue, code_postal, ville) " +
-                "VALUES (:id_article, :rue, :code_postal, :ville)";
+        String sql = "INSERT INTO Retraits (id_retrait, rue, code_postal, ville) " +
+                "VALUES (:id_retrait, :rue, :code_postal, :ville)";
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
-        parameterSource.addValue("id_article", retrait.getId_retrait());
+        parameterSource.addValue("id_retrait", retrait.getId_retrait());
         parameterSource.addValue("rue", retrait.getRue());
         parameterSource.addValue("code_postal", retrait.getCode_postal());
         parameterSource.addValue("ville", retrait.getVille());
