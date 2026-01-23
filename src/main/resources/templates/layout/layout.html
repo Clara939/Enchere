@@ -10,21 +10,22 @@
 <body class="master">
 <header>
     <h1 id="nav-title">Enchères</h1>
-<!--    <img src="/image/barbie.jpg" />-->
+
     <nav>
         <ul>
             <li><a href="/" class="nav-link">Accueil</a></li>
-            <li ><a href="/barbies" class="nav-link">Enchères</a></li>
+            <li ><a href="/encheres" class="nav-link">Enchères</a></li>
             <li th:if="${#authorization.expression('hasRole(''UTILISATEUR'')')}"><a href="/encheres/add" class="nav-link">Ajout Produit</a></li>
-<!--            <li th:if="${#authorization.expression('hasRole(''EMPLOYE'')')}"><a href="/types" class="nav-link">Types</a></li>-->
-<!--            <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a th:href="@{/types/add}" class="nav-link">Ajout Type</a></li>-->
+            <li th:if="${!#authorization.expression('isAuthenticated()')}"
+            ><a href="/inscription" class="nav-link">Inscription</a> </li>
+
             <!-- le lien s'affiche uniquement si on est déconnecté -->
             <li th:if="${!#authorization.expression('isAuthenticated()')}"
-            ><a href="/login" class="nav-link">connexion</a></li>
+            ><a href="/login" class="nav-link">Connexion</a></li>
             <li th:if="${#authorization.expression('isAuthenticated()')}">
                 <form th:action="@{/logout}" method="post">
                     <input type="hidden" name="_csrf" value="${_csrf.token}">
-                    <button type="submit" class="nav-link">déconnexion</button>
+                    <button type="submit" class="nav-link">Déconnexion</button>
                 </form>
             </li>
         </ul>
@@ -34,7 +35,7 @@
 <main data-th-replace="${content}"></main>
 
 <footer>
-    <p>&copy; Mattel</p>
+    <p>&copy; ENI - ENCHERE</p>
 </footer>
 </body>
 </html>
