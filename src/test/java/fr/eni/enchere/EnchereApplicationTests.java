@@ -1,7 +1,8 @@
 package fr.eni.enchere;
 
 import fr.eni.enchere.bo.Utilisateur;
-import fr.eni.enchere.repository.UtilisateurRepositorySql;
+import fr.eni.enchere.repository.EnchereRepository;
+import fr.eni.enchere.repository.UtilisateurRepository;
 import fr.eni.enchere.bo.Categorie;
 import fr.eni.enchere.repository.CategorieRepository;
 import org.junit.jupiter.api.Test;
@@ -13,13 +14,15 @@ import org.springframework.jdbc.core.JdbcTemplate;
 class EnchereApplicationTests {
 
     @Autowired
-    UtilisateurRepositorySql utilisateurDAO;
+    UtilisateurRepository utilisateurDAO;
 
     @Autowired
     JdbcTemplate jdbcTemplate;
     @Autowired
     CategorieRepository categorieRepository;
 
+    @Autowired
+    EnchereRepository enchereDAO;
 
     @Test
     void dropTables() {
@@ -124,9 +127,6 @@ class EnchereApplicationTests {
     // TEST DE CATEGORIE -------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-
-
-
     @Test
     void createCategorie() {
         categorieRepository.create(new Categorie("Meubles"));
@@ -154,5 +154,54 @@ class EnchereApplicationTests {
     void updateCategorie() {
         categorieRepository.update(new Categorie(1, "jouets"));
     }
+
+
+// TEST DE ENCHERE-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+    @Test
+    void testReadAllEnchere() {
+    enchereDAO.readAll().forEach(System.out::println); }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
