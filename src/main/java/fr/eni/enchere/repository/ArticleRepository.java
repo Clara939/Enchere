@@ -9,7 +9,7 @@ public interface ArticleRepository {
     public List<Article> readAll();
     void create(Article article);
 
-    Categorie readById(long id);
+    Article readById(long id);
 
     void delete(long id);
 
