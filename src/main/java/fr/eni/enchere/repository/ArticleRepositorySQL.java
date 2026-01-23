@@ -58,7 +58,7 @@ JdbcTemplate jdbcTemplate;
         long id = keyHolder.getKey().longValue();
 
         //associe la clé à l'objet passé en paramètre
-        // barbie.setId(id);
+        //barbie.setId(id);
     }
 
     @Override

@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 import java.util.List;
+import java.util.Objects;
 
 
 @Repository
@@ -41,17 +42,16 @@ public class RetraitRepositorySQL implements RetraitRepository {
     @Override
     public void createRetrait(Retrait retrait) {
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder(); // To hold the generated key
-        String sql = "INSERT INTO Retraits (id_retrait, rue, code_postal, ville) " +
-                "VALUES (:id_retrait, :rue, :code_postal, :ville)";
+        String sql = "INSERT INTO Retraits (rue, code_postal, ville) " +
+                "VALUES (:rue, :code_postal, :ville)";
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
-        parameterSource.addValue("id_retrait", retrait.getId_retrait());
         parameterSource.addValue("rue", retrait.getRue());
         parameterSource.addValue("code_postal", retrait.getCode_postal());
         parameterSource.addValue("ville", retrait.getVille());
         // Execute the insert operation
         namedParameterJdbcTemplate.update(sql, parameterSource, keyHolder);
         // Retrieve the generated id
-        long id = keyHolder.getKey().longValue();
+        long id = Objects.requireNonNull(keyHolder.getKey()).longValue();
         // Set the generated id back to the Retrait object
         retrait.setId_retrait(id);
     }
