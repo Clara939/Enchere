@@ -81,7 +81,7 @@ JdbcTemplate jdbcTemplate;
 
     @Override
     public void delete(long id) {
-        String sql = "delete from articles where id_article=:id_article";
+        String sql = "delete from Articles where id_article=:id_article";
         //impossible d'utiliser BeanPropertySqlParameterSource il n'y a pas d'objet
         MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue("id_article", id);
@@ -92,7 +92,7 @@ JdbcTemplate jdbcTemplate;
 
     @Override
     public void update(Article article) {
-        String sql = "update dbo.Articles set nom_article=:nom_article, description=:description, date_debut_encheres=:date_debut_encheres, date_fin_encheres=:date_fin_encheres, prix_initial=:prix_initial, prix_vente=:prix_vente, etat_vente=:etat_vente, id_vendeur=:id_vendeur, id_categorie=:id_categorie, id_retrait=:id_retrait, id_acheteur=:id_acheteur where id_article=:id_article";
+        String sql = "update Articles set nom_article=:nom_article, description=:description, date_debut_encheres=:date_debut_encheres, date_fin_encheres=:date_fin_encheres, prix_initial=:prix_initial, prix_vente=:prix_vente, etat_vente=:etat_vente, id_vendeur=:id_vendeur, id_categorie=:id_categorie, id_retrait=:id_retrait, id_acheteur=:id_acheteur where id_article=:id_article";
         MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue("id_article", article.getId_article());
         map.addValue("nom_article", article.getNom_article());

@@ -5,7 +5,6 @@ import fr.eni.enchere.bo.Retrait;
 import fr.eni.enchere.bo.Utilisateur;
 import fr.eni.enchere.repository.*;
 import fr.eni.enchere.bo.Categorie;
-import fr.eni.enchere.repository.CategorieRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,7 +22,6 @@ class EnchereApplicationTests {
     JdbcTemplate jdbcTemplate;
     @Autowired
     ArticleRepository articleRepository;
-    @Autowired
     CategorieRepository categorieRepository;
     @Autowired
     RetraitRepository retraitRepository;
@@ -224,45 +222,6 @@ class EnchereApplicationTests {
     void testReadAllEnchere() {
         enchereDAO.readAll().forEach(System.out::println);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
