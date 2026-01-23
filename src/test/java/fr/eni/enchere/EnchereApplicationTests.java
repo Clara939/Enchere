@@ -33,34 +33,34 @@ class EnchereApplicationTests {
 
     @Test
     void dropTables() {
-            jdbcTemplate.execute("IF OBJECT_ID('ENCHERES', 'U') IS NOT NULL DROP TABLE ENCHERES");
-            jdbcTemplate.execute("IF OBJECT_ID('ARTICLES', 'U') IS NOT NULL DROP TABLE ARTICLES");
+        jdbcTemplate.execute("IF OBJECT_ID('ENCHERES', 'U') IS NOT NULL DROP TABLE ENCHERES");
+        jdbcTemplate.execute("IF OBJECT_ID('ARTICLES', 'U') IS NOT NULL DROP TABLE ARTICLES");
         jdbcTemplate.execute("IF OBJECT_ID('ROLES', 'U') IS NOT NULL DROP TABLE ROLES");
-            jdbcTemplate.execute("IF OBJECT_ID('UTILISATEURS', 'U') IS NOT NULL DROP TABLE UTILISATEURS");
-            jdbcTemplate.execute("IF OBJECT_ID('CATEGORIES', 'U') IS NOT NULL DROP TABLE CATEGORIES");
-            jdbcTemplate.execute("IF OBJECT_ID('RETRAITS', 'U') IS NOT NULL DROP TABLE RETRAITS");
-            jdbcTemplate.execute("create table Categories( " + "id_categorie bigint identity constraint categorie_pk primary key, " + "libelle varchar(30) not null unique)");
-            jdbcTemplate.execute("create table Retraits\n " + "(\n " + "    id_retrait  bigint   identity   not null\n " + "        constraint retrait_pk\n " + "            primary key,\n " + "    rue         varchar(55) not null,\n " + "    code_postal varchar(10) not null,\n " + "    ville       varchar(30) not null\n " + ")");
-            jdbcTemplate.execute("create table Utilisateurs\n " +
-                    "(\n " +
-                    "    id_utilisateur bigint identity\n " +
-                    "        constraint utilisateur_pk\n " +
-                    "            primary key,\n " +
-                    "    pseudo         varchar(30) not null\n " +
-                    "        unique,\n " +
-                    "    nom            varchar(30) not null,\n " +
-                    "    prenom         varchar(30) not null,\n " +
-                    "    email          varchar(100) not null\n " +
-                    "        unique,\n " +
-                    "    telephone      varchar(15),\n " +
-                    "    rue            varchar(55) not null,\n " +
-                    "    code_postal    varchar(10) not null,\n " +
-                    "    ville          varchar(30) not null,\n " +
-                    "    mot_de_passe   varchar(30) not null,\n " +
-                    "    credit         int         not null,\n " +
-                    "    administrateur bit         not null,\n " +
-                    "    actif          bit         not null\n " +
-                    ")");
+        jdbcTemplate.execute("IF OBJECT_ID('UTILISATEURS', 'U') IS NOT NULL DROP TABLE UTILISATEURS");
+        jdbcTemplate.execute("IF OBJECT_ID('CATEGORIES', 'U') IS NOT NULL DROP TABLE CATEGORIES");
+        jdbcTemplate.execute("IF OBJECT_ID('RETRAITS', 'U') IS NOT NULL DROP TABLE RETRAITS");
+        jdbcTemplate.execute("create table Categories( " + "id_categorie bigint identity constraint categorie_pk primary key, " + "libelle varchar(30) not null unique)");
+        jdbcTemplate.execute("create table Retraits\n " + "(\n " + "    id_retrait  bigint   identity   not null\n " + "        constraint retrait_pk\n " + "            primary key,\n " + "    rue         varchar(55) not null,\n " + "    code_postal varchar(10) not null,\n " + "    ville       varchar(30) not null\n " + ")");
+        jdbcTemplate.execute("create table Utilisateurs\n " +
+                "(\n " +
+                "    id_utilisateur bigint identity\n " +
+                "        constraint utilisateur_pk\n " +
+                "            primary key,\n " +
+                "    pseudo         varchar(30) not null\n " +
+                "        unique,\n " +
+                "    nom            varchar(30) not null,\n " +
+                "    prenom         varchar(30) not null,\n " +
+                "    email          varchar(100) not null\n " +
+                "        unique,\n " +
+                "    telephone      varchar(15),\n " +
+                "    rue            varchar(55) not null,\n " +
+                "    code_postal    varchar(10) not null,\n " +
+                "    ville          varchar(30) not null,\n " +
+                "    mot_de_passe   varchar(30) not null,\n " +
+                "    credit         int         not null,\n " +
+                "    administrateur bit         not null,\n " +
+                "    actif          bit         not null\n " +
+                ")");
         jdbcTemplate.execute("create table ROLES\n " +
                 "(\n" +
                 "    pseudo varchar(30) not null\n " +
@@ -68,44 +68,44 @@ class EnchereApplicationTests {
                 "    role   varchar(50)  not null,\n " +
                 "    primary key (pseudo, role)\n " +
                 ")");
-            jdbcTemplate.execute("create table Articles\n " +
-                    "(\n " +
-                    "    id_article          bigint identity\n " +
-                    "        constraint articles_pk\n " +
-                    "            primary key,\n " +
-                    "    nom_article         varchar(30)  not null,\n " +
-                    "    description         varchar(300) not null,\n " +
-                    "    date_debut_encheres datetime     not null,\n " +
-                    "    date_fin_encheres   datetime     not null,\n " +
-                    "    prix_initial        int,\n " +
-                    "    prix_vente          int,\n " +
-                    "    etat_vente          varchar(30)  not null,\n " +
-                    "    id_vendeur          bigint       not null\n " +
-                    "        constraint ventes_utilisateur_fk\n " +
-                    "            references Utilisateurs,\n " +
-                    "    id_categorie        bigint       not null\n " +
-                    "        constraint ARTICLES_categories_fk\n " +
-                    "            references Categories,\n " +
-                    "    id_retrait          bigint       not null\n " +
-                    "        constraint ARTICLES_retraits_fk\n " +
-                    "            references Retraits,\n " +
-                    "    id_acheteur         bigint       not null\n " +
-                    ")");
-            jdbcTemplate.execute("create table Encheres\n " +
-                    "(\n " +
-                    "    id_enchere      bigint identity\n " +
-                    "        constraint enchere_pk\n " +
-                    "            primary key,\n " +
-                    "    id_encherisseur bigint   not null\n " +
-                    "        constraint encheres_UTILISATEURS_fk\n " +
-                    "            references Utilisateurs,\n " +
-                    "    id_article      bigint   not null\n " +
-                    "        constraint encheres_ARTICLES_fk\n " +
-                    "            references Articles,\n " +
-                    "    date_enchere    datetime not null,\n " +
-                    "    montant_enchere int      not null\n " +
-                    ")");
-}
+        jdbcTemplate.execute("create table Articles\n " +
+                "(\n " +
+                "    id_article          bigint identity\n " +
+                "        constraint articles_pk\n " +
+                "            primary key,\n " +
+                "    nom_article         varchar(30)  not null,\n " +
+                "    description         varchar(300) not null,\n " +
+                "    date_debut_encheres datetime     not null,\n " +
+                "    date_fin_encheres   datetime     not null,\n " +
+                "    prix_initial        int,\n " +
+                "    prix_vente          int,\n " +
+                "    etat_vente          varchar(30)  not null,\n " +
+                "    id_vendeur          bigint       not null\n " +
+                "        constraint ventes_utilisateur_fk\n " +
+                "            references Utilisateurs,\n " +
+                "    id_categorie        bigint       not null\n " +
+                "        constraint ARTICLES_categories_fk\n " +
+                "            references Categories,\n " +
+                "    id_retrait          bigint       not null\n " +
+                "        constraint ARTICLES_retraits_fk\n " +
+                "            references Retraits,\n " +
+                "    id_acheteur         bigint\n " +
+                ")");
+        jdbcTemplate.execute("create table Encheres\n " +
+                "(\n " +
+                "    id_enchere      bigint identity\n " +
+                "        constraint enchere_pk\n " +
+                "            primary key,\n " +
+                "    id_encherisseur bigint   not null\n " +
+                "        constraint encheres_UTILISATEURS_fk\n " +
+                "            references Utilisateurs,\n " +
+                "    id_article      bigint   not null\n " +
+                "        constraint encheres_ARTICLES_fk\n " +
+                "            references Articles,\n " +
+                "    date_enchere    datetime not null,\n " +
+                "    montant_enchere int      not null\n " +
+                ")");
+    }
     // TEST DE UTILISATEUR ----------------------------------------------------------------------------------------------------------------------------------------------------
     @Test
     void testCreateUtilisateur() {
@@ -168,25 +168,6 @@ class EnchereApplicationTests {
         categorieRepository.update(new Categorie(1, "jouets"));
     }
 
-
-    // TEST DE ARTICLE -------------------------------------------------------------------------------------------------------------------------------------------------------
-
-@Test
-void createArticle(){
-        articleRepository.create(new Article("bureau", "magnifique bureau en bois", LocalDate.of(2026, 1, 24), LocalDate.of(2026, 1, 31), 200, 200, "créé", retraitRepository.readRetraitById(3), categorieRepository.readById(1), utilisateurDAO.readById(2), null));
-
-}
-
-
-// TEST DE ENCHERE-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-    @Test
-    void testReadAllEnchere() {
-        enchereDAO.readAll().forEach(System.out::println);
-    }
-
-
     //-------------------------- TEST DE RETRAIT -------------------------------------------------------------------------------------------------------------------------------------------------------
 
     @Test
@@ -215,6 +196,36 @@ void createArticle(){
     void testDeleteRetrait() {
         retraitRepository.deleteRetrait(3);
     }
+
+
+    // TEST DE ARTICLE -------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    @Test
+    void createArticle(){
+        articleRepository.create(new Article("bureau", "magnifique bureau en bois", LocalDate.of(2026, 1, 24), LocalDate.of(2026, 1, 31), 200, 200, "créé", retraitRepository.readRetraitById(2), categorieRepository.readById(1), utilisateurDAO.readById(2), null));
+        articleRepository.create(new Article("cafetière", "n'accepte pas les dosettes", LocalDate.of(2026, 1, 3), LocalDate.of(2026, 1, 30), 50, 60, "vendu", retraitRepository.readRetraitById(1), categorieRepository.readById(3), utilisateurDAO.readById(1), utilisateurDAO.readById(3)));
+    }
+
+    @Test
+    void updateArticle(){
+        articleRepository.update(new Article(2,"cafetière", "n'accepte ni les dosettes ni le café en grains", LocalDate.of(2026, 1, 3), LocalDate.of(2026, 1, 30), 50, 60, "vendu", retraitRepository.readRetraitById(1), categorieRepository.readById(3), utilisateurDAO.readById(1), utilisateurDAO.readById(3)));
+    }
+
+    @Test
+    void deleteArticle(){
+        articleRepository.delete(1);
+        articleRepository.readAll().forEach(System.out::println);
+    }
+
+// TEST DE ENCHERE-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+    @Test
+    void testReadAllEnchere() {
+        enchereDAO.readAll().forEach(System.out::println);
+    }
+
+
 
 
 
