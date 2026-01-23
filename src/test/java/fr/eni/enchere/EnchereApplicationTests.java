@@ -1,9 +1,10 @@
 package fr.eni.enchere;
 
+import fr.eni.enchere.bo.Article;
+import fr.eni.enchere.bo.Retrait;
 import fr.eni.enchere.bo.Utilisateur;
-import fr.eni.enchere.repository.UtilisateurRepositorySql;
+import fr.eni.enchere.repository.*;
 import fr.eni.enchere.bo.Categorie;
-import fr.eni.enchere.repository.CategorieRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -165,25 +166,6 @@ class EnchereApplicationTests {
         categorieRepository.update(new Categorie(1, "jouets"));
     }
 
-
-    // TEST DE ARTICLE -------------------------------------------------------------------------------------------------------------------------------------------------------
-
-@Test
-void createArticle(){
-        articleRepository.create(new Article("bureau", "magnifique bureau en bois", LocalDate.of(2026, 1, 24), LocalDate.of(2026, 1, 31), 200, 200, "créé", categorieRepository.readById(1), utilisateurDAO.readById(1), null));
-        //ajouter retrait après "créé"
-}
-
-
-// TEST DE ENCHERE-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-    @Test
-    void testReadAllEnchere() {
-        enchereDAO.readAll().forEach(System.out::println);
-    }
-
-
     //-------------------------- TEST DE RETRAIT -------------------------------------------------------------------------------------------------------------------------------------------------------
 
     @Test
@@ -212,6 +194,27 @@ void createArticle(){
     void testDeleteRetrait() {
         retraitRepository.deleteRetrait(3);
     }
+
+
+
+    // TEST DE ARTICLE -------------------------------------------------------------------------------------------------------------------------------------------------------
+
+@Test
+void createArticle(){
+        articleRepository.create(new Article("bureau", "magnifique bureau en bois", LocalDate.of(2026, 1, 24), LocalDate.of(2026, 1, 31), 200, 200, "créé", categorieRepository.readById(1), utilisateurDAO.readById(1), null));
+        //ajouter retrait après "créé"
+}
+
+
+// TEST DE ENCHERE-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+    @Test
+    void testReadAllEnchere() {
+        enchereDAO.readAll().forEach(System.out::println);
+    }
+
+
 
 
 

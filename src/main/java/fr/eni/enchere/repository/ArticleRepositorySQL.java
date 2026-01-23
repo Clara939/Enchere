@@ -19,18 +19,23 @@ JdbcTemplate jdbcTemplate;
 @Autowired
     NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
+//    @Override
+//    public List<Article> readAll() {
+//        String sql = "select articles.id_article as id_article, articles.nom_article as nom_article, articles.description as description, articles.date_debut_encheres as date_debut_encheres, articles.date_fin_encheres as date_fin_encheres, articles.prix_initial as prix_initial, articles.prix_vente as prix_vente, articles.etat_vente as etat_vente, id_vendeur, utilisateurs.nom as nom_vendeur, utilisateurs.prenom as prenom_vendeur, articles.id_categorie, categories.libelle as libelle_categorie, articles.id_retrait, retraits.rue as rue_retrait, retraits.code_postal as code_postal_retrait, retraits.ville as ville_retrait, articles.id_acheteur, utilisateurs.nom as nom_acheteur, utilisateurs.prenom as prenom_acheteur from Articles\n " +
+//                "    left join utilisateurs on utilisateurs.id_utilisateur = articles.id_vendeur\n " +
+//                " left join categories on categories.id_categorie = articles.id_categorie\n " +
+//                "left join retraits on retraits.id_retrait = articles.id_retrait\n " +
+//                "left join utilisateurs on utilisateurs.id_utilisateur = articles.id_acheteur";
+//
+//        //ici, on crée un ArticleRowMapper pour que la requête récupère et transforme correctement les articles à partir du resultset de la requête
+//        //lancement de la requète récupération de la liste d'articles qui est passée en retour
+//        return jdbcTemplate.query(sql, new ArticleRowMapper());
+//        ;
+//    }
+
     @Override
     public List<Article> readAll() {
-        String sql = "select articles.id_article as id_article, articles.nom_article as nom_article, articles.description as description, articles.date_debut_encheres as date_debut_encheres, articles.date_fin_encheres as date_fin_encheres, articles.prix_initial as prix_initial, articles.prix_vente as prix_vente, articles.etat_vente as etat_vente, id_vendeur, utilisateurs.nom as nom_vendeur, utilisateurs.prenom as prenom_vendeur, articles.id_categorie, categories.libelle as libelle_categorie, articles.id_retrait, retraits.rue as rue_retrait, retraits.code_postal as code_postal_retrait, retraits.ville as ville_retrait, articles.id_acheteur, utilisateurs.nom as nom_acheteur, utilisateurs.prenom as prenom_acheteur from Articles\n " +
-                "    left join utilisateurs on utilisateurs.id_utilisateur = articles.id_vendeur\n " +
-                " left join categories on categories.id_categorie = articles.id_categorie\n " +
-                "left join retraits on retraits.id_retrait = articles.id_retrait\n " +
-                "left join utilisateurs on utilisateurs.id_utilisateur = articles.id_acheteur";
-
-        //ici, on crée un ArticleRowMapper pour que la requête récupère et transforme correctement les articles à partir du resultset de la requête
-        //lancement de la requète récupération de la liste d'articles qui est passée en retour
-        return jdbcTemplate.query(sql, new ArticleRowMapper());
-        ;
+        return List.of();
     }
 
     @Override
@@ -77,7 +82,7 @@ JdbcTemplate jdbcTemplate;
 
     @Override
     public void delete(long id) {
-        String sql = "delete from article where id_article=:id_article";
+        String sql = "delete from articles where id_article=:id_article";
         //impossible d'utiliser BeanPropertySqlParameterSource il n'y a pas d'objet
         MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue("id_categorie", id);
@@ -88,7 +93,7 @@ JdbcTemplate jdbcTemplate;
 
     @Override
     public void update(Article article) {
-        String sql = "update article set id_article=:id_article, nom_article=:nom_article, description=:description, date_debut_encheres=:date_debut_encheres, date_fin_encheres=:date_fin_encheres, prix_initial=:prix_initial, prix_vente=:prix_vente, etat_vente=:etat_vente, id_vendeur=:vendeur, id_categorie:categorieArticle, id_retrait=:lieuxRetrait, id_acheteur=:acheteur where id_article=:id_article";
+        String sql = "update Articles set id_article=:id_article, nom_article=:nom_article, description=:description, date_debut_encheres=:date_debut_encheres, date_fin_encheres=:date_fin_encheres, prix_initial=:prix_initial, prix_vente=:prix_vente, etat_vente=:etat_vente, id_vendeur=:vendeur, id_categorie:categorieArticle, id_retrait=:lieuxRetrait, id_acheteur=:acheteur where id_article=:id_article";
         MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue("id_article", article.getId_article());
         map.addValue("nom_article", article.getNom_article());
