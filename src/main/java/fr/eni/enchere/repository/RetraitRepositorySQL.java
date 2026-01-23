@@ -69,7 +69,7 @@ public class RetraitRepositorySQL implements RetraitRepository {
     // Delete a Retrait by ID
     @Override
     public void deleteRetrait(long id) { // DELETE a Retrait by id
-        String sql = "DELETE FROM Retaits WHERE id_retrait = :id_retrait";
+        String sql = "DELETE FROM Retraits WHERE id_retrait = :id_retrait";
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
         // Add the id parameter
         parameterSource.addValue("id_retrait", id);
