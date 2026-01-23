@@ -4,12 +4,14 @@ package fr.eni.enchere.repository;
 import fr.eni.enchere.bo.Utilisateur;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @Repository
@@ -59,16 +61,29 @@ public class UtilisateurRepositorySql implements UtilisateurRepository{
 
     @Override
     public Utilisateur readById(long id) {
-        return null;
+        String sql = "select * from dbo.Utilisateurs where id_utilisateur= :id";
+        MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue("id", id);
+        return namedParameterJdbcTemplate.queryForObject(sql, map, new BeanPropertyRowMapper<>(Utilisateur.class));
     }
 
     @Override
     public void updateUtilisateur(Utilisateur utilisateur) {
+        String sql = "update Utilisateurs set pseudo=:pseudo, nom=:nom, prenom=:prenom, email=:email, telephone=:telephone, rue=:rue, code_postal=:code_postal, ville=:ville, mot_de_passe=:mot_de_passe, credit=:credit, administrateur=:administrateur " +
+                    "where id_utilisateur= :id_utilisateur";
 
+        BeanPropertySqlParameterSource map = new BeanPropertySqlParameterSource(utilisateur);
+
+        namedParameterJdbcTemplate.update(sql, map);
     }
 
     @Override
     public void deleteUtilisateur(long id) {
+        String sql = "delete from Utilisateurs where id_utilisateur= :id";
 
+        MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue("id", id);
+
+        namedParameterJdbcTemplate.update(sql, map);
     }
 }
