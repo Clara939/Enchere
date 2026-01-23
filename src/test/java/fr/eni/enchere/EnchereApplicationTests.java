@@ -1,8 +1,6 @@
 package fr.eni.enchere;
 
-import fr.eni.enchere.bo.Article;
 import fr.eni.enchere.bo.Utilisateur;
-import fr.eni.enchere.repository.ArticleRepository;
 import fr.eni.enchere.repository.UtilisateurRepositorySql;
 import fr.eni.enchere.bo.Categorie;
 import fr.eni.enchere.repository.CategorieRepository;
@@ -17,14 +15,18 @@ import java.time.LocalDate;
 class EnchereApplicationTests {
 
     @Autowired
+    UtilisateurRepository utilisateurDAO;
+
+    @Autowired
     JdbcTemplate jdbcTemplate;
     @Autowired
-    UtilisateurRepositorySql utilisateurDAO;
-    @Autowired
+    ArticleRepository articleRepository;
     CategorieRepository categorieRepository;
     @Autowired
-    ArticleRepository articleRepository;
+    RetraitRepository retraitRepository;
 
+    @Autowired
+    EnchereRepository enchereDAO;
 
     @Test
     void dropTables() {
@@ -104,11 +106,11 @@ class EnchereApplicationTests {
     // TEST DE UTILISATEUR ----------------------------------------------------------------------------------------------------------------------------------------------------
     @Test
     void testCreateUtilisateur() {
-        utilisateurDAO.createUtilisateur(new Utilisateur("user1", "Dupont", "Jean", "0612345678","jean.dupont@example.com",  "12 rue des Lilas", "75001", "Paris", "motdepasse123", 0, true, true));
+        utilisateurDAO.createUtilisateur(new Utilisateur("user1", "Dupont", "Jean", "0612345678", "jean.dupont@example.com", "12 rue des Lilas", "75001", "Paris", "motdepasse123", 0, true, true));
 
-        utilisateurDAO.createUtilisateur(new Utilisateur("user2", "Martin", "Claire","0623456789", "claire.martin@example.com",  "45 avenue Victor Hugo", "69002", "Lyon", "password456", 0, false, true));
+        utilisateurDAO.createUtilisateur(new Utilisateur("user2", "Martin", "Claire", "0623456789", "claire.martin@example.com", "45 avenue Victor Hugo", "69002", "Lyon", "password456", 0, false, true));
 
-        utilisateurDAO.createUtilisateur(new Utilisateur("user3", "Bernard", "Luc",  "0634567890","luc.bernard@example.com", "8 boulevard Voltaire", "13001", "Marseille", "secret789", 0, false, false));
+        utilisateurDAO.createUtilisateur(new Utilisateur("user3", "Bernard", "Luc", "0634567890", "luc.bernard@example.com", "8 boulevard Voltaire", "13001", "Marseille", "secret789", 0, false, false));
     }
 
     @Test
@@ -117,28 +119,22 @@ class EnchereApplicationTests {
     }
 
     @Test
-    void testReadByIdUtilisateur(){
+    void testReadByIdUtilisateur() {
         System.out.println(utilisateurDAO.readById(2));
     }
 
     @Test
-    void testUpdateUtilisateur(){
-        utilisateurDAO.updateUtilisateur(new Utilisateur(2, "user2", "Marie", "Claire", "0623456789","claire.marie@example.com",  "45 avenue Victor Hugo", "69002", "Lyon", "password456", 0, false, true));
+    void testUpdateUtilisateur() {
+        utilisateurDAO.updateUtilisateur(new Utilisateur(2, "user2", "Marie", "Claire", "0623456789", "claire.marie@example.com", "45 avenue Victor Hugo", "69002", "Lyon", "password456", 0, false, true));
     }
 
     @Test
-    void testDeleteUtilisateur(){
+    void testDeleteUtilisateur() {
         utilisateurDAO.deleteUtilisateur(3);
     }
 
 
-
-
-
     // TEST DE CATEGORIE -------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-
 
 
     @Test
@@ -177,5 +173,85 @@ void createArticle(){
         articleRepository.create(new Article("bureau", "magnifique bureau en bois", LocalDate.of(2026, 1, 24), LocalDate.of(2026, 1, 31), 200, 200, "créé", categorieRepository.readById(1), utilisateurDAO.readById(1), null));
         //ajouter retrait après "créé"
 }
+
+
+// TEST DE ENCHERE-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+    @Test
+    void testReadAllEnchere() {
+        enchereDAO.readAll().forEach(System.out::println);
+    }
+
+
+    //-------------------------- TEST DE RETRAIT -------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    @Test
+    void testCreateRetrait() {
+        retraitRepository.createRetrait(new Retrait("10 rue de la Paix", "75000", "Paris"));
+        retraitRepository.createRetrait(new Retrait("20 avenue des Champs", "35000", "Rennes"));
+        retraitRepository.createRetrait(new Retrait("5 boulevard Saint-Michel", "38000", "Rennes"));
+    }
+
+    @Test
+    void testReadAllRetrait() {
+        retraitRepository.readAll().forEach(System.out::println);
+    }
+
+    @Test
+    void testReadByIdRetrait() {
+        System.out.println(retraitRepository.readRetraitById(1));
+    }
+
+    @Test
+    void testUpdateRetrait() {
+        retraitRepository.updateRetrait(new Retrait("35000", "25 avenue des Champs", "Rennes", 2));
+    }
+
+    @Test
+    void testDeleteRetrait() {
+        retraitRepository.deleteRetrait(3);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
