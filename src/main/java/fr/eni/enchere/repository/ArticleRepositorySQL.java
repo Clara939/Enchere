@@ -65,7 +65,7 @@ JdbcTemplate jdbcTemplate;
 
     @Override
     public void delete(long id) {
-        String sql = "delete from article where id_article=:id_article";
+        String sql = "delete from dbo.Articles where id_article=:id_article";
         //impossible d'utiliser BeanPropertySqlParameterSource il n'y a pas d'objet
         MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue("id_categorie", id);

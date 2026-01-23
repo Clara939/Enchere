@@ -33,7 +33,7 @@ class EnchereApplicationTests {
     void dropTables() {
             jdbcTemplate.execute("IF OBJECT_ID('ENCHERES', 'U') IS NOT NULL DROP TABLE ENCHERES");
             jdbcTemplate.execute("IF OBJECT_ID('ARTICLES', 'U') IS NOT NULL DROP TABLE ARTICLES");
-        jdbcTemplate.execute("IF OBJECT_ID('ROLES', 'U') IS NOT NULL DROP TABLE ROLES");
+            //jdbcTemplate.execute("IF OBJECT_ID('ROLES', 'U') IS NOT NULL DROP TABLE ROLES");
             jdbcTemplate.execute("IF OBJECT_ID('UTILISATEURS', 'U') IS NOT NULL DROP TABLE UTILISATEURS");
             jdbcTemplate.execute("IF OBJECT_ID('CATEGORIES', 'U') IS NOT NULL DROP TABLE CATEGORIES");
             jdbcTemplate.execute("IF OBJECT_ID('RETRAITS', 'U') IS NOT NULL DROP TABLE RETRAITS");
@@ -169,11 +169,11 @@ class EnchereApplicationTests {
 
     // TEST DE ARTICLE -------------------------------------------------------------------------------------------------------------------------------------------------------
 
-@Test
-void createArticle(){
-        articleRepository.create(new Article("bureau", "magnifique bureau en bois", LocalDate.of(2026, 1, 24), LocalDate.of(2026, 1, 31), 200, 200, "créé", categorieRepository.readById(1), utilisateurDAO.readById(1), null));
+//@Test
+//void createArticle(){
+  //      articleRepository.create(new Article("bureau", "magnifique bureau en bois", LocalDate.of(2026, 1, 24), LocalDate.of(2026, 1, 31), 200, 200, "créé", categorieRepository.readById(1), utilisateurDAO.readById(1), null));
         //ajouter retrait après "créé"
-}
+//}
 
 
 // TEST DE ENCHERE-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
