@@ -3,6 +3,7 @@ package fr.eni.enchere.repository;
 import fr.eni.enchere.bo.Enchere;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -51,16 +52,29 @@ public class EnchereRepositorySql implements EnchereRepository{
 
     @Override
     public Enchere readById(long id) {
-        return null;
+        String sql = "select * from Encheres where id_enchere = :id";
+        MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue("id", id);
+        return namedParameterJdbcTemplate.queryForObject(sql, map ,new BeanPropertyRowMapper<>(Enchere.class));
     }
 
     @Override
     public void updateEnchere(Enchere enchere) {
+        String sql = "update Encheres set date_enchere=:date_enchere, montant_enchere=:montant_enchere, id_encherisseur=:encherisseur, id_article=:article " +
+                "where id_enchere= :id_enchere";
 
+        BeanPropertySqlParameterSource map = new BeanPropertySqlParameterSource(enchere);
+
+        namedParameterJdbcTemplate.update(sql, map);
     }
 
     @Override
     public void deleteEnchere(long id) {
+        String sql = "delete from Encheres where id_enchere= :id";
 
+        MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue("id", id);
+
+        namedParameterJdbcTemplate.update(sql, map);
     }
 }
