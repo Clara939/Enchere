@@ -58,7 +58,7 @@ public class UtilisateurController {
 //    page afficher Son profil avec boutton modiffier
     @GetMapping("/MonProfil")
     public String monProfil(Model model){
-        //aller chercher l'utiliosateur connecté
+        //aller chercher l'utilisateur connecté
 
 
 //        model.addAttribute("utilisateur", utilisateur);

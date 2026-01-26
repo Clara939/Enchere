@@ -86,4 +86,13 @@ public class UtilisateurRepositorySql implements UtilisateurRepository{
 
         namedParameterJdbcTemplate.update(sql, map);
     }
+
+    //fonction permettant de retrouver un utilisateur par son pseudo
+    public Utilisateur readByPseudo(String pseudo){
+        String sql = "SELECT * FROM Utilisateurs WHERE pseudo=:pseudo";
+        MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue("pseudo", pseudo);
+        return namedParameterJdbcTemplate.queryForObject(sql, map, new BeanPropertyRowMapper<>(Utilisateur.class));
+    }
+
 }

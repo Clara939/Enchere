@@ -2,6 +2,8 @@ package fr.eni.enchere.service;
 
 import fr.eni.enchere.bo.Utilisateur;
 import fr.eni.enchere.repository.UtilisateurRepository;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,4 +30,11 @@ public class UtilisateurServiceImpl implements UtilisateurService{
 
     @Override
     public void deleteUtilisateur(long id) { this.utilisateurRepository.deleteUtilisateur(id); }
+
+//    //Cette fonction permet de récupérer l'utilisateur connecté afin d'afficher plus tard les informations le concernant
+//    public Utilisateur recuperationIdUtilisateurActif(){
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        String pseudo = auth.getName();
+//        Utilisateur utilisateurConnecte = utilisateurRepository.readByPseudo(pseudo);
+//    }
 }
