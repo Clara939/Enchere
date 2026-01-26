@@ -2,43 +2,31 @@
 <html lang="fr" th:replace="~{layout/layout :: frag_layout(content=~{::main})}">
 <main>
     <h2>Profil</h2>
-    <form   th:action="@{/profil}"
-            th:object="${utilisateur}">
-        <ul class="flex-outer">
-            <input type="text" th:field="*{id_utilisateur}" hidden />
-            <li>
-                <label for="idPseudo">Pseudo</label>
-                <input id="idPseudo" type="text" th:field="*{pseudo}" />
-            </li>
-            <li>
-                <label for="idNom">Nom</label>
-                <input id="idNom" type="text" th:field="*{nom}" />
-            </li>
-            <li>
-                <label for="idPrenom">Prénom</label>
-                <input id="idPrenom" type="text" th:field="*{prenom}" />
-            </li>
-            <li>
-                <label for="idEmail">Pseudo</label>
-                <input id="idEmail" type="text" th:field="*{email}" />
-            </li>
-            <li>
-                <label for="idTelephone">Téléphone</label>
-                <input id="idTelephone" type="text" th:field="*{telephone}" />
-            </li>
-            <li>
-                <label for="idRue">Rue</label>
-                <input id="idRue" type="text" th:field="*{rue}" />
-            </li>
-            <li>
-                <label for="idCode_postal">Code postal</label>
-                <input id="idCode_postal" type="text" th:field="*{code_postal}" />
-            </li>
-            <li>
-                <label for="idVille">Ville</label>
-                <input id="idVille" type="text" th:field="*{ville}" />
-            </li>
-        </ul>
-    </form>
+    <table>
+        <thead>
+        <tr>
+            <th>Pseudo</th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Email</th>
+            <th>Téléphone</th>
+            <th>Rue</th>
+            <th>Code postal</th>
+            <th>Ville</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="${utilisateur.pseudo}"></td>
+            <td th:text="${utilisateur.nom}"></td>
+            <td th:text="${utilisateur.prenom}"></td>
+            <td th:text="${utilisateur.email}"></td>
+            <td th:text="${utilisateur.telephone}"></td>
+            <td th:text="${utilisateur.rue}"></td>
+            <td th:text="${utilisateur.code_postal}"></td>
+            <td th:text="${utilisateur.ville}"></td>
+        </tr>
+        </tbody>
+    </table>
 </main>
 </html>

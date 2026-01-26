@@ -1,6 +1,35 @@
 <!DOCTYPE html>
 <html lang="fr" th:replace="~{layout/layout :: frag_layout(content=~{::main})}">
 <main>
-    <h2>Mon profil</h2>
+    <h2>Mon Profil</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Pseudo</th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Email</th>
+            <th>Téléphone</th>
+            <th>Rue</th>
+            <th>Code postal</th>
+            <th>Ville</th>
+            <th>Crédit</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="${utilisateur.pseudo}"></td>
+            <td th:text="${utilisateur.nom}"></td>
+            <td th:text="${utilisateur.prenom}"></td>
+            <td th:text="${utilisateur.email}"></td>
+            <td th:text="${utilisateur.telephone}"></td>
+            <td th:text="${utilisateur.rue}"></td>
+            <td th:text="${utilisateur.code_postal}"></td>
+            <td th:text="${utilisateur.ville}"></td>
+            <td th:text="${utilisateur.credit}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <button type="button"><a th:href="@{/MonProfil/update}">Modifier</a></button>
 </main>
 </html>

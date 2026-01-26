@@ -14,10 +14,16 @@
     <nav>
         <ul>
             <li><a href="/" class="nav-link">Accueil</a></li>
+
             <li ><a href="/encheres" class="nav-link">Enchères</a></li>
-            <li th:if="${#authorization.expression('hasRole(''UTILISATEUR'')')}"><a href="/encheres/add" class="nav-link">Ajout Produit</a></li>
-            <li th:if="${!#authorization.expression('isAuthenticated()')}"
-            ><a href="/inscription" class="nav-link">Inscription</a> </li>
+
+            <li th:if="${#authorization.expression('hasRole(''UTILISATEUR'')')}"><a href="/encheres/add" class="nav-link">Vendre un article</a></li>
+
+            <li th:if="${!#authorization.expression('isAuthenticated()')}"><a href="/inscription" class="nav-link">Inscription</a> </li>
+
+            <li th:if="${#authorization.expression('hasRole(''UTILISATEUR'')')}"><a href="/MonProfil" class="nav-link">Mon Profil</a> </li>
+
+
 
             <!-- le lien s'affiche uniquement si on est déconnecté -->
             <li th:if="${!#authorization.expression('isAuthenticated()')}"

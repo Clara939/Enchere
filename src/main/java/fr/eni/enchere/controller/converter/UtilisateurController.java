@@ -55,7 +55,7 @@ public class UtilisateurController {
     }
 
 
-//    page afficher Son profil
+//    page afficher Son profil avec option de le modiffier
     @GetMapping("/MonProfil")
     public String MonProfil(@RequestParam(name = "id")long id, Model model){
         Utilisateur utilisateur = utilisateurService.readById(id);
@@ -64,4 +64,5 @@ public class UtilisateurController {
 
         return "mon_profil";
     }
+
 }
