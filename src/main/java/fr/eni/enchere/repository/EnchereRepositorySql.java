@@ -28,17 +28,18 @@ public class EnchereRepositorySql implements EnchereRepository{
 
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
 
-        String sql = "insert into Encheres (date_enchere, montant_enchere, id_encherisseur, article " +
-                    "values (:date_enchere, :montant_enchere, :encherisseur, :article)";
+        String sql = "insert into Encheres (date_enchere, montant_enchere, id_encherisseur, id_article)\n " +
+                    "values (:date_enchere, :montant_enchere, :id_encherisseur, :id_article)";
         MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue("date_enchere", enchere.getDate_enchere());
         map.addValue("montant_enchere", enchere.getMontant_enchere());
-        map.addValue("encherisseur", enchere.getEncherisseur());
-        map.addValue("article", enchere.getArticles());
+        map.addValue("id_encherisseur", enchere.getEncherisseur().getId_utilisateur());
+        map.addValue("id_article", enchere.getArticles().getId_article());
 
         namedParameterJdbcTemplate.update(sql, map, keyHolder);
 
-        long id = Objects.requireNonNull(keyHolder.getKey()).longValue();
+//        long id = Objects.requireNonNull(keyHolder.getKey()).longValue();
+        long id = keyHolder.getKey().longValue();
 
         enchere.setId_enchere(id);
     }
@@ -60,10 +61,15 @@ public class EnchereRepositorySql implements EnchereRepository{
 
     @Override
     public void updateEnchere(Enchere enchere) {
-        String sql = "update Encheres set date_enchere=:date_enchere, montant_enchere=:montant_enchere, id_encherisseur=:encherisseur, id_article=:article " +
+        String sql = "update Encheres set date_enchere=:date_enchere, montant_enchere=:montant_enchere, id_encherisseur=:id_encherisseur, id_article=:id_article " +
                 "where id_enchere= :id_enchere";
 
-        BeanPropertySqlParameterSource map = new BeanPropertySqlParameterSource(enchere);
+        MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue("id_enchere", enchere.getId_enchere());
+        map.addValue("date_enchere", enchere.getDate_enchere());
+        map.addValue("montant_enchere", enchere.getMontant_enchere());
+        map.addValue("id_encherisseur", enchere.getEncherisseur().getId_utilisateur());
+        map.addValue("id_article", enchere.getArticles().getId_article());
 
         namedParameterJdbcTemplate.update(sql, map);
     }
