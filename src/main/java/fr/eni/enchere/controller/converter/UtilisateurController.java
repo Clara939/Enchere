@@ -67,13 +67,24 @@ public class UtilisateurController {
     }
 
 
-
-
-
 //  page profil a modiffier avec boutton update ou supprimer le compte
     @GetMapping("/MonProfil/update")
     public String updateProfil(){
 
         return "mon_profil_update";
+    }
+
+//    boutton de mise a jour du profil
+    @PostMapping("/MonProfil/update")
+    public String profilUpdate(@ModelAttribute(name="utilisateur") Utilisateur utilisateur){
+        utilisateurService.updateUtilisateur(utilisateur);
+        return "redirect:/MonProfil";
+    }
+
+//    boutton suppression de compte
+    @GetMapping("/MonProfil/delete")
+    public String deleteUtilisateur (@RequestParam(name = "id_utilisateur")long id){
+        utilisateurService.deleteUtilisateur(id);
+        return "redirect:/";
     }
 }
