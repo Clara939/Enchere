@@ -14,9 +14,9 @@ public class Utilisateur {
     private String code_postal;
     private String ville;
     private String mot_de_passe;
-    private int credit;
-    private boolean administrateur;
-    private boolean actif;
+    private int credit = 0;
+    private boolean administrateur =false;
+    private boolean actif =true;
 
 
     public Utilisateur() { }

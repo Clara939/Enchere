@@ -8,15 +8,15 @@
         <ul class="flex-outer">
             <li>
                 <label for="idPseudo">Pseudo</label>
-                <input id="idPseudo" type="text"  th:field="${utilisateur.pseudo}" pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])" autofocus required title="Seulement les lettres et les chiffre sont autoriser">
+                <input id="idPseudo" type="text"  th:field="${utilisateur.pseudo}" pattern="[A-Za-z0-9]+" autofocus required title="Seulement les lettres et les chiffre sont autoriser">
             </li>
             <li>
                 <label for="idNom">Nom</label>
-                <input id="idNom" type="text" th:field="${utilisateur.nom}" pattern="(?=.*?[A-Z])(?=.*?[a-z])" required>
+                <input id="idNom" type="text" th:field="${utilisateur.nom}" pattern="[A-Za-z]+" required>
             </li>
             <li>
                 <label for="idPrenom">Prenom</label>
-                <input id="idPrenom" type="text" th:field="${utilisateur.prenom}" pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[-])" required>
+                <input id="idPrenom" type="text" th:field="${utilisateur.prenom}" pattern="[A-Za-z]+" title="Pas de caractère spéciaux autoriser comme -éàè^ùï" required>
             </li>
             <li>
                 <label for="idEmail">Email</label>
@@ -44,7 +44,7 @@
             </li>
             <li>
                 <label for="idConfirmationMotDePasse">Confirmation du mot de passe</label>
-                <input id="idConfirmationMotDePasse" type="password" th:field="${utilisateur.mot_de_passe}"pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}" required>
+                <input id="idConfirmationMotDePasse" type="password" required >
             </li>
             <li>
                 <button type="submit">Créer</button>

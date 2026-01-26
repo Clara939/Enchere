@@ -32,7 +32,7 @@ public class UtilisateurController {
     public String inscrireUtilisateur(@ModelAttribute(name = "utilisateur") Utilisateur utilisateur){
         utilisateurService.createUtilisateur(utilisateur);
 
-        return "redirect: /";
+        return "redirect:/";
     }
 
 
