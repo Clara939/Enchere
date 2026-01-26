@@ -221,6 +221,10 @@ class EnchereApplicationTests {
             articleRepository.readAll().forEach(System.out::println);
         }
 
+        @Test
+        void readArticleById() {
+            System.out.println(articleRepository.readById(2));
+        }
 
 // TEST DE ENCHERE-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
