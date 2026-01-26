@@ -20,10 +20,10 @@ public class SecurityConfiguration {
 
         //détermine quelles informations utiliser pour la connexion
         //requete utilisée pour l'utilisateur
-        jdbc.setUsersByUsernameQuery("select pseudo, mot_de_passe, actif from utilisateur where pseudo = ?");
+        jdbc.setUsersByUsernameQuery("select pseudo, mot_de_passe, actif from Utilisateurs where pseudo = ?");
 
         //requete utilisée pour le role
-        jdbc.setAuthoritiesByUsernameQuery("select pseudo, role from roles where pseudo = ?");
+        jdbc.setAuthoritiesByUsernameQuery("select pseudo, role from Roles where pseudo = ?");
 
         return jdbc;
     }
@@ -40,9 +40,11 @@ public class SecurityConfiguration {
                      *********************************************    */
 
                             requestMatchers(HttpMethod.GET, "/encheres").hasRole("UTILISATEUR")
-                    /*accès au chemin /icecream/add en Get pour les admins */
+                    /*accès au chemin /encheres/add en Get pour les utilisateurs */
                     .requestMatchers(HttpMethod.GET, "/encheres/add").hasRole("UTILISATEUR")
                     .requestMatchers(HttpMethod.GET, "/profil").hasRole("UTILISATEUR")
+                    .requestMatchers(HttpMethod.GET, "/login").permitAll()
+
                     /* *********************************************
                      jusqu'à là */
                     //donne à tous la permission de s'inscrire
