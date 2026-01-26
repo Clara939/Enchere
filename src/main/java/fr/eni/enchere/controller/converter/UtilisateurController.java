@@ -55,14 +55,25 @@ public class UtilisateurController {
     }
 
 
-//    page afficher Son profil avec option de le modiffier
+//    page afficher Son profil avec boutton modiffier
     @GetMapping("/MonProfil")
-    public String MonProfil(@RequestParam(name = "id")long id, Model model){
-        Utilisateur utilisateur = utilisateurService.readById(id);
+    public String monProfil(Model model){
+        //aller chercher l'utiliosateur connecté
 
-        model.addAttribute("utilisateur", utilisateur);
+
+//        model.addAttribute("utilisateur", utilisateur);
 
         return "mon_profil";
     }
 
+
+
+
+
+//  page profil a modiffier avec boutton update ou supprimer le compte
+    @GetMapping("/MonProfil/update")
+    public String updateProfil(){
+
+        return "mon_profil_update";
+    }
 }
