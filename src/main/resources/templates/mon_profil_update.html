@@ -47,7 +47,7 @@
                 <button type="submit">Enregistrer</button>
             </li>
             <li>
-                <button type="button">Supprimer mon compte</button>
+                <button type="button"><a th:href="@{/MonProfil/delete(id=*{id_utilisateur})}">Supprimer mon compte</a></button>
             </li>
         </ul>
     </form>
