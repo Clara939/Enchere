@@ -5,6 +5,8 @@ import fr.eni.enchere.service.UtilisateurService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -16,6 +18,7 @@ public class UtilisateurController {
         this.utilisateurService = utilisateurService;
     }
 
+//    page d'inscription le get et le post, le post renvoie sur la page d'accueil si inscription reussi et si annulation de l'inscription renvoie sur page accueil aussi.
     @GetMapping("/inscription")
     public String inscrire(Model model){
         List<Utilisateur>utilisateurList = utilisateurService.readAll();
@@ -24,4 +27,14 @@ public class UtilisateurController {
 
         return "inscription";
     }
+
+    @PostMapping("/inscription")
+    public String inscrireUtilisateur(@ModelAttribute(name = "utilisateur") Utilisateur utilisateur){
+        utilisateurService.createUtilisateur(utilisateur);
+
+        return "redirect: /";
+    }
+
+
+//
 }
