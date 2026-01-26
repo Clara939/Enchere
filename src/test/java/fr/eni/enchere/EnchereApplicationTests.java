@@ -22,6 +22,7 @@ class EnchereApplicationTests {
     JdbcTemplate jdbcTemplate;
     @Autowired
     ArticleRepository articleRepository;
+    @Autowired
     CategorieRepository categorieRepository;
     @Autowired
     RetraitRepository retraitRepository;
@@ -201,12 +202,12 @@ class EnchereApplicationTests {
     @Test
     void createArticle(){
         articleRepository.create(new Article("bureau", "magnifique bureau en bois", LocalDate.of(2026, 1, 24), LocalDate.of(2026, 1, 31), 200, 200, "créé", retraitRepository.readRetraitById(2), categorieRepository.readById(1), utilisateurDAO.readById(2), null));
-        articleRepository.create(new Article("cafetière", "n'accepte pas les dosettes", LocalDate.of(2026, 1, 3), LocalDate.of(2026, 1, 30), 50, 60, "vendu", retraitRepository.readRetraitById(1), categorieRepository.readById(3), utilisateurDAO.readById(1), utilisateurDAO.readById(3)));
+        articleRepository.create(new Article("cafetière", "n'accepte pas les dosettes", LocalDate.of(2026, 1, 3), LocalDate.of(2026, 1, 30), 50, 60, "vendu", retraitRepository.readRetraitById(1), categorieRepository.readById(3), utilisateurDAO.readById(1), utilisateurDAO.readById(2)));
     }
 
     @Test
     void updateArticle(){
-        articleRepository.update(new Article(2,"cafetière", "n'accepte ni les dosettes ni le café en grains", LocalDate.of(2026, 1, 3), LocalDate.of(2026, 1, 30), 50, 60, "vendu", retraitRepository.readRetraitById(1), categorieRepository.readById(3), utilisateurDAO.readById(1), utilisateurDAO.readById(3)));
+        articleRepository.update(new Article(2,"cafetière", "n'accepte ni les dosettes ni le café en grains", LocalDate.of(2026, 1, 3), LocalDate.of(2026, 1, 30), 50, 60, "vendu", retraitRepository.readRetraitById(1), categorieRepository.readById(3), utilisateurDAO.readById(1), utilisateurDAO.readById(2)));
     }
 
     @Test
