@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr" th:replace="~{layout/layout :: frag_layout(content=~{::main})}">
+<main>
+    <h2>Profil</h2>
+    <form   th:action="@{/profil}"
+            th:object="${utilisateur}">
+        <ul class="flex-outer">
+            <input type="text" th:field="*{id_utilisateur}" hidden />
+            <li>
+                <label for="idPseudo">Pseudo</label>
+                <input id="idPseudo" type="text" th:field="*{pseudo}" />
+            </li>
+            <li>
+                <label for="idNom">Nom</label>
+                <input id="idNom" type="text" th:field="*{nom}" />
+            </li>
+            <li>
+                <label for="idPrenom">Prénom</label>
+                <input id="idPrenom" type="text" th:field="*{prenom}" />
+            </li>
+            <li>
+                <label for="idEmail">Pseudo</label>
+                <input id="idEmail" type="text" th:field="*{email}" />
+            </li>
+            <li>
+                <label for="idTelephone">Téléphone</label>
+                <input id="idTelephone" type="text" th:field="*{telephone}" />
+            </li>
+            <li>
+                <label for="idRue">Rue</label>
+                <input id="idRue" type="text" th:field="*{rue}" />
+            </li>
+            <li>
+                <label for="idCode_postal">Code postal</label>
+                <input id="idCode_postal" type="text" th:field="*{code_postal}" />
+            </li>
+            <li>
+                <label for="idVille">Ville</label>
+                <input id="idVille" type="text" th:field="*{ville}" />
+            </li>
+        </ul>
+    </form>
+</main>
+</html>
