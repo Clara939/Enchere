@@ -108,12 +108,14 @@ class EnchereApplicationTests {
     // TEST DE UTILISATEUR ----------------------------------------------------------------------------------------------------------------------------------------------------
     @Test
     void testCreateUtilisateur() {
-        utilisateurDAO.createUtilisateur(new Utilisateur("user1", "Dupont", "Jean", "0612345678", "jean.dupont@example.com", "12 rue des Lilas", "75001", "Paris", "motdepasse123", 0, true, true));
+        utilisateurDAO.createUtilisateur(new Utilisateur("user1", "Dupont", "Jean", "0612345678", "jean.dupont@example.com", "12 rue des Lilas", "75001", "Paris", "{noop}123", 0, true, true));
 
-        utilisateurDAO.createUtilisateur(new Utilisateur("user2", "Martin", "Claire", "0623456789", "claire.martin@example.com", "45 avenue Victor Hugo", "69002", "Lyon", "password456", 0, false, true));
+        utilisateurDAO.createUtilisateur(new Utilisateur("user2", "Martin", "Claire", "0623456789", "claire.martin@example.com", "45 avenue Victor Hugo", "69002", "Lyon", "{noop}456", 0, false, true));
 
-        utilisateurDAO.createUtilisateur(new Utilisateur("user3", "Bernard", "Luc", "0634567890", "luc.bernard@example.com", "8 boulevard Voltaire", "13001", "Marseille", "secret789", 0, false, false));
+        utilisateurDAO.createUtilisateur(new Utilisateur("user3", "Bernard", "Luc", "0634567890", "luc.bernard@example.com", "8 boulevard Voltaire", "13001", "Marseille", "{noop}789", 0, false, true));
     }
+
+
 
     @Test
     void testReadAllUtilisateur() {
