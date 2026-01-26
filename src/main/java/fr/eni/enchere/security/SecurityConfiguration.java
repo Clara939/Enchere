@@ -42,7 +42,7 @@ public class SecurityConfiguration {
                             requestMatchers(HttpMethod.GET, "/encheres").hasRole("UTILISATEUR")
                     /*accès au chemin /icecream/add en Get pour les admins */
                     .requestMatchers(HttpMethod.GET, "/encheres/add").hasRole("UTILISATEUR")
-
+                    .requestMatchers(HttpMethod.GET, "/profil").hasRole("UTILISATEUR")
                     /* *********************************************
                      jusqu'à là */
                     //donne à tous la permission de s'inscrire

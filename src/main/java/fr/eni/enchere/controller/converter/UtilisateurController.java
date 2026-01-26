@@ -46,11 +46,22 @@ public class UtilisateurController {
 
 // page afficher profil d'une personne
     @GetMapping("/profil")
-    public String profile(@RequestParam(name = "id") long id, Model model){
+    public String profil(@RequestParam(name = "id") long id, Model model){
         Utilisateur utilisateur = utilisateurService.readById(id);
 
         model.addAttribute("utilisateur", utilisateur);
 
         return "afficher_un_profil";
+    }
+
+
+//    page afficher Son profil
+    @GetMapping("/MonProfil")
+    public String MonProfil(@RequestParam(name = "id")long id, Model model){
+        Utilisateur utilisateur = utilisateurService.readById(id);
+
+        model.addAttribute("utilisateur", utilisateur);
+
+        return "mon_profil";
     }
 }
