@@ -198,6 +198,16 @@ class EnchereApplicationTests {
         retraitRepository.deleteRetrait(3);
     }
 
+// AJOUTS DANS ROLES--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    @Test
+    void createRoles(){
+        jdbcTemplate.execute("INSERT INTO [ROLES] ([pseudo],[role]) VALUES ('user1','ROLE_UTILISATEUR')");
+        jdbcTemplate.execute("INSERT INTO [ROLES] ([pseudo],[role]) VALUES ('user2','ROLE_UTILISATEUR')");
+        jdbcTemplate.execute("INSERT INTO [ROLES] ([pseudo],[role]) VALUES ('user2','ROLE_ADMIN')");
+        jdbcTemplate.execute("INSERT INTO [ROLES] ([pseudo],[role]) VALUES ('user3','ROLE_UTILISATEUR')");
+}
+
 
     // TEST DE ARTICLE -------------------------------------------------------------------------------------------------------------------------------------------------------
 
