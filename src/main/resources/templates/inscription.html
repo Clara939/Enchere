@@ -8,43 +8,43 @@
         <ul class="flex-outer">
             <li>
                 <label for="idPseudo">Pseudo</label>
-                <input id="idPseudo" type="text" th:field="${utilisateur.pseudo}">
+                <input id="idPseudo" type="text"  th:field="${utilisateur.pseudo}" pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])" autofocus required title="Seulement les lettres et les chiffre sont autoriser">
             </li>
             <li>
                 <label for="idNom">Nom</label>
-                <input id="idNom" type="text" th:field="${utilisateur.nom}">
+                <input id="idNom" type="text" th:field="${utilisateur.nom}" pattern="(?=.*?[A-Z])(?=.*?[a-z])" required>
             </li>
             <li>
                 <label for="idPrenom">Prenom</label>
-                <input id="idPrenom" type="text" th:field="${utilisateur.prenom}">
+                <input id="idPrenom" type="text" th:field="${utilisateur.prenom}" pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[-])" required>
             </li>
             <li>
                 <label for="idEmail">Email</label>
-                <input id="idEmail" type="email" th:field="${utilisateur.email}">
+                <input id="idEmail" type="email" th:field="${utilisateur.email}" required>
             </li>
             <li>
                 <label for="idTelephone">Téléphone</label>
-                <input id="idTelephone" type="tel" th:field="${utilisateur.telephone}">
+                <input id="idTelephone" type="tel" th:field="${utilisateur.telephone}" required>
             </li>
             <li>
                 <label for="idRue">Rue</label>
-                <input id="idRue" type="text" th:field="${utilisateur.rue}">
+                <input id="idRue" type="text" th:field="${utilisateur.rue}" required>
             </li>
             <li>
                 <label for="idCode_postal">Code Postal</label>
-                <input id="idCode_postal" type="text" th:field="${utilisateur.code_postal}">
+                <input id="idCode_postal" type="text" th:field="${utilisateur.code_postal}" required>
             </li>
             <li>
                 <label for="idVille">Ville</label>
-                <input id="idVille" type="text" th:field="${utilisateur.ville}">
+                <input id="idVille" type="text" th:field="${utilisateur.ville}" required>
             </li>
             <li>
                 <label for="idMotDePasse">Mot de Passe</label>
-                <input id="idMotDePasse" type="password" th:field="${utilisateur.mot_de_passe}">
+                <input id="idMotDePasse" type="password" th:field="${utilisateur.mot_de_passe}" pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}" required>
             </li>
             <li>
                 <label for="idConfirmationMotDePasse">Confirmation du mot de passe</label>
-                <input id="idConfirmationMotDePasse" type="password" th:field="${utilisateur.mot_de_passe}">
+                <input id="idConfirmationMotDePasse" type="password" th:field="${utilisateur.mot_de_passe}"pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}" required>
             </li>
             <li>
                 <button type="submit">Créer</button>
