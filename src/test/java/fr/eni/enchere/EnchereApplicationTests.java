@@ -1,10 +1,7 @@
 package fr.eni.enchere;
 
-import fr.eni.enchere.bo.Article;
-import fr.eni.enchere.bo.Retrait;
-import fr.eni.enchere.bo.Utilisateur;
+import fr.eni.enchere.bo.*;
 import fr.eni.enchere.repository.*;
-import fr.eni.enchere.bo.Categorie;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -240,14 +237,30 @@ class EnchereApplicationTests {
 
 // TEST DE ENCHERE-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+    @Test
+    void testCreateEnchere(){
+        enchereDAO.createEnchere(new Enchere(LocalDate.of(2026, 01, 25), 200, utilisateurDAO.readById(1), articleRepository.readById(1)));
+    enchereDAO.createEnchere(new Enchere(LocalDate.of(2026, 1, 4), 55, utilisateurDAO.readById(2), articleRepository.readById(2)));
+    }
 
     @Test
     void testReadAllEnchere() {
         enchereDAO.readAll().forEach(System.out::println);
     }
 
+    @Test
+    void testreadByIdEnchere(){
+        System.out.println(enchereDAO.readById(2));
+    }
 
+    @Test
+    void testupdateEnchere(){
+        enchereDAO.updateEnchere(new Enchere(1, LocalDate.of(2026, 01, 25), 210, utilisateurDAO.readById(1), articleRepository.readById(1)));
+    }
 
-
-
+    @Test
+    void deleteEnchere(){
+        enchereDAO.deleteEnchere(2);
+        enchereDAO.readAll().forEach(System.out::println);
+    }
 }
