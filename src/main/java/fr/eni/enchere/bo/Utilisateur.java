@@ -1,18 +1,27 @@
 package fr.eni.enchere.bo;
 
+import jakarta.validation.constraints.Size;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Utilisateur {
     private long id_utilisateur;
+    @Size(min = 3, max = 255)
     private String pseudo;
+    @Size(min = 2, max = 255)
     private String nom;
+    @Size(min = 2, max = 255)
     private String prenom;
     private String email;
     private String telephone;
+    @Size(min = 2, max = 255)
     private String rue;
+    @Size(min = 2, max = 10)
     private String code_postal;
+    @Size(min = 2, max = 30)
     private String ville;
+    @Size(min = 2, max = 255)
     private String mot_de_passe;
     private int credit = 0;
     private boolean administrateur =false;
