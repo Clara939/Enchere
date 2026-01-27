@@ -1,11 +1,14 @@
 package fr.eni.enchere.controller.converter;
 
 
+import fr.eni.enchere.bo.Article;
 import fr.eni.enchere.bo.Categorie;
 import fr.eni.enchere.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -24,11 +27,18 @@ public class EnchereController {
         this.enchereService = enchereService;
         this.categorieService = categorieService;
     }
-
-//    @GetMapping("/encheres/add")
-//    public String nouvelleVente(Model model){
-//        List<Categorie>categorieList = CategorieService.g
-//
-//    }
-
+// page nouvelle vente ( création de l'article a mettre en ventes)
+    @GetMapping("/encheres/add")
+    public String nouvelleVente(Model model){
+        //nouvel article
+        model.addAttribute("article", new Article());
+        //liste catégories
+        model.addAttribute("categorieList", categorieService.readAll());
+        return "add_enchere";
+    }
+    @PostMapping("/enchere/create")
+    public String createEnchere(@ModelAttribute Article article, Model model){
+        articleService.create(article);
+        return "redirect:/encheres";
+    }
 }
