@@ -16,4 +16,10 @@ public interface UtilisateurRepository {
     void deleteUtilisateur(long id);
 
     Utilisateur readByPseudo(String pseudo);
+
+    //fonction permettant de récupérer tous les pseudos des utilisateurs de la base
+    List<String> readAllPseudo();
+
+    //fonction permettant de récupérer tous les mails des utilisateurs de la base
+    List<String> readAllEmail();
 }

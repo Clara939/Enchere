@@ -39,10 +39,17 @@ public class UtilisateurRepositorySql implements UtilisateurRepository{
         map.addValue("rue", utilisateur.getRue());
         map.addValue("code_postal", utilisateur.getCode_postal());
         map.addValue("ville", utilisateur.getVille());
-        map.addValue("mot_de_passe", utilisateur.getMot_de_passe());
+        //map.addValue("mot_de_passe", utilisateur.getMot_de_passe());
         map.addValue("credit", utilisateur.getCredit());
         map.addValue("administrateur", utilisateur.isAdministrateur());
         map.addValue("actif", utilisateur.isActif());
+
+        //lors de l'inscription d'un nouvel utilisateur, il faut ajouter le protocole de cryptage au début du mot de passe créé par l'utilisateur
+        String mdpFinal = utilisateur.getMot_de_passe();
+        if (!mdpFinal.startsWith("{noop}")) {
+            mdpFinal = "{noop}" + mdpFinal;
+        }
+        map.addValue("mot_de_passe", mdpFinal);
 
         namedParameterJdbcTemplate.update(sql, map, keyHolder);
 
@@ -68,7 +75,7 @@ public class UtilisateurRepositorySql implements UtilisateurRepository{
 
     @Override
     public void updateUtilisateur(Utilisateur utilisateur) {
-        String sql = "update Utilisateurs set pseudo=:pseudo, nom=:nom, prenom=:prenom, email=:email, telephone=:telephone, rue=:rue, code_postal=:code_postal, ville=:ville, mot_de_passe=:mot_de_passe, credit=:credit, administrateur=:administrateur " +
+        String sql = "update Utilisateurs set pseudo=:pseudo, nom=:nom, prenom=:prenom, email=:email, telephone=:telephone, rue=:rue, code_postal=:code_postal, ville=:ville, credit=:credit, administrateur=:administrateur, actif=:actif " +
                     "where id_utilisateur= :id_utilisateur";
 
         BeanPropertySqlParameterSource map = new BeanPropertySqlParameterSource(utilisateur);
@@ -94,6 +101,20 @@ public class UtilisateurRepositorySql implements UtilisateurRepository{
         MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue("pseudo", pseudo);
         return namedParameterJdbcTemplate.queryForObject(sql, map, new BeanPropertyRowMapper<>(Utilisateur.class));
+    }
+
+    //fonction permettant de récupérer tous les pseudos des utilisateurs de la base
+    @Override
+    public List<String> readAllPseudo(){
+        String sql = "SELECT pseudo FROM UTILISATEURS";
+        return jdbcTemplate.queryForList(sql, String.class);
+    }
+
+    //fonction permettant de récupérer tous les mails des utilisateurs de la base
+    @Override
+    public List<String> readAllEmail(){
+        String sql = "SELECT email FROM UTILISATEURS";
+        return jdbcTemplate.queryForList(sql, String.class);
     }
 
 }
