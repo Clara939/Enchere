@@ -1,6 +1,8 @@
 package fr.eni.enchere.controller.converter;
 
+import fr.eni.enchere.bo.Role;
 import fr.eni.enchere.bo.Utilisateur;
+import fr.eni.enchere.repository.RoleRepository;
 import fr.eni.enchere.service.UtilisateurService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -11,17 +13,20 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+//import javax.management.relation.Role;
 import java.util.List;
 
 @Controller
 public class UtilisateurController {
     private UtilisateurService utilisateurService;
+    private RoleRepository roleRepository;
 
-    public UtilisateurController(UtilisateurService utilisateurService) {
+    public UtilisateurController(UtilisateurService utilisateurService, RoleRepository roleRepository) {
         this.utilisateurService = utilisateurService;
+        this.roleRepository = roleRepository;
     }
 
-//    page d'inscription le get et le post, le post renvoie sur la page d'accueil si inscription reussi et si annulation de l'inscription renvoie sur page accueil aussi.
+    //    page d'inscription le get et le post, le post renvoie sur la page d'accueil si inscription reussi et si annulation de l'inscription renvoie sur page accueil aussi.
     @GetMapping("/inscription")
     public String inscrire(Model model){
         List<Utilisateur>utilisateurList = utilisateurService.readAll();
@@ -32,11 +37,17 @@ public class UtilisateurController {
     }
 
     @PostMapping("/inscription")
-    public String inscrireUtilisateur(@Valid @ModelAttribute(name = "utilisateur") Utilisateur utilisateur, BindingResult bindingResult){
-       if (bindingResult.hasErrors()){
-           return "redirect:/";
+    public String inscrireUtilisateur(@Valid @ModelAttribute(name = "utilisateur") Utilisateur utilisateur, BindingResult bindingResult, @RequestParam("confirmationMDP") String confirmationMDP){
+        //vérification des erreurs simples de format sur le formulaire
+        if (bindingResult.hasErrors()){
+           return "inscription";
        }
 
+        //vérification que le pseudo n'est pas déjà existant
+        utilisateurService.verificationDoublons(utilisateur, bindingResult, confirmationMDP);
+        if (bindingResult.hasErrors()) {
+            return "inscription";
+        }
 
         utilisateurService.createUtilisateur(utilisateur);
 

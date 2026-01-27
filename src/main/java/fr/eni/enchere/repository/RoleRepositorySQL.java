@@ -1,26 +1,18 @@
 package fr.eni.enchere.repository;
 
-import fr.eni.enchere.bo.Retrait;
+import fr.eni.enchere.bo.Role;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Repository;
 
-import javax.management.relation.Role;
 import java.util.List;
 
+@Repository
 public class RoleRepositorySQL implements RoleRepository {
 
-//    @Autowired
-//    NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-//    @Autowired
-//    JdbcTemplate jdbcTemplate;
-//
-//    @Override
-//    public List<Role> readAll() {
-//        String sql = "SELECT * FROM Roles";
-//        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Role.class));
-//    }
+    @Autowired
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Override
     public List<Role> readAll() {
@@ -34,16 +26,16 @@ public class RoleRepositorySQL implements RoleRepository {
 
     @Override
     public void createRole(Role role) {
-
+        String sql = "INSERT INTO [ROLES] ([pseudo],[role]) VALUES (:pseudo, :role)";
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        parameterSource.addValue("pseudo", role.getPseudo());
+        parameterSource.addValue("role", role.getRole());
+        namedParameterJdbcTemplate.update(sql, parameterSource);
     }
 
     @Override
-    public void updateRole(Role role) {
-
-    }
+    public void updateRole(Role role) {}
 
     @Override
-    public void deleteRole(long id) {
-
-    }
+    public void deleteRole(long id) {}
 }
