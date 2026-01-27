@@ -263,4 +263,7 @@ class EnchereApplicationTests {
         enchereDAO.deleteEnchere(2);
         enchereDAO.readAll().forEach(System.out::println);
     }
+
+// Test pour EnchereRowMapper
+
 }
