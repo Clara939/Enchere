@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="fr" th:replace="~{layout/layout :: frag_layout(content=~{::main})}">
+<main>
+    <h2>Lien de réinitialisation généré</h2>
+
+    <div>
+        <p><strong>Compte :</strong> <span th:text="${pseudo}">Pseudo</span></p>
+        <p><strong>Email :</strong> <span th:text="${email}">email@exemple.com</span></p>
+    </div>
+
+    <div style="margin: 20px 0;">
+        <label><strong>URL à copier-coller dans votre navigateur :</strong></label>
+        <input type="text" th:value="${resetUrl}" readonly
+               style="width: 100%; padding: 10px; font-size: 14px;" />
+    </div>
+
+    <p><em>Ce lien est valide 24h (simulation d'envoi par mail)</em></p>
+
+    <a th:href="@{/login}" style="display: inline-block; padding: 10px 20px; background: #007bff; color: white; text-decoration: none;">Retour à la connexion</a>
+</main>
+</html>
