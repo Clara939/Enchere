@@ -11,7 +11,6 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 @Repository
@@ -88,6 +87,8 @@ public class UtilisateurRepositorySql implements UtilisateurRepository{
     }
 
     //fonction permettant de retrouver un utilisateur par son pseudo
+
+    @Override
     public Utilisateur readByPseudo(String pseudo){
         String sql = "SELECT * FROM Utilisateurs WHERE pseudo=:pseudo";
         MapSqlParameterSource map = new MapSqlParameterSource();

@@ -14,4 +14,6 @@ public interface UtilisateurRepository {
     void updateUtilisateur(Utilisateur utilisateur);
 
     void deleteUtilisateur(long id);
+
+    Utilisateur readByPseudo(String pseudo);
 }
