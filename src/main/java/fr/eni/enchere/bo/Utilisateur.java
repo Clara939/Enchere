@@ -1,5 +1,6 @@
 package fr.eni.enchere.bo;
 
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 import java.util.ArrayList;
@@ -7,21 +8,31 @@ import java.util.List;
 
 public class Utilisateur {
     private long id_utilisateur;
-    @Size(min = 3, max = 255)
+    @Pattern(regexp = "^[a-zA-Z0-9]+$",
+            message = "Le nom ne peut contenir que des lettres ou des chiffres")
+    @Size(min = 3, max = 255, message = "Le pseudo doit avoir 3 caractères minimum")
     private String pseudo;
-    @Size(min = 2, max = 255)
+    @Pattern(regexp = "^[a-zA-ZÀ-ÿ\\-]+$",
+            message = "Le nom ne peut contenir que des lettres ou le tiret (-)")
+    @Size(min = 2, max = 255, message = "Le nom doit avoir 2 caractères minimum")
     private String nom;
-    @Size(min = 2, max = 255)
+    @Pattern(regexp = "^[a-zA-ZÀ-ÿ\\-]+$",
+            message = "Le nom ne peut contenir que des lettres ou le tiret (-)")
+    @Size(min = 2, max = 255, message = "Le prénom doit avoir 2 caractères minimum")
     private String prenom;
     private String email;
+    @Pattern(regexp = "^[0-9]+$", message = "Le téléphone n'est composé que de chiffres")
     private String telephone;
     @Size(min = 2, max = 255)
     private String rue;
+    @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "le code postal n'est composé que de chiffres et de lettres")
     @Size(min = 2, max = 10)
     private String code_postal;
     @Size(min = 2, max = 30)
     private String ville;
-    @Size(min = 2, max = 255)
+    @Pattern(regexp = "(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}",
+            message = "Le mot de passe doit contenir au moins 8 caractères, avec au moins 1 majuscule, 1 minuscule, 1 chiffre et 1 caractère spécial parmi #?!@$%^&*-")
+    @Size(min = 8, max = 255)
     private String mot_de_passe;
     private int credit = 0;
     private boolean administrateur =false;

@@ -135,6 +135,11 @@ class EnchereApplicationTests {
     }
 
 
+    @Test
+    void testrecupListePseudo(){
+        utilisateurDAO.readAllPseudo().forEach(System.out::println);
+    }
+
     // TEST DE CATEGORIE -------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
