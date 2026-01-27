@@ -43,6 +43,10 @@ public class SecurityConfiguration {
                     /*accès au chemin /encheres/add en Get pour les utilisateurs */
                     .requestMatchers(HttpMethod.GET, "/encheres/add").hasRole("UTILISATEUR")
                     .requestMatchers(HttpMethod.GET, "/profil").hasRole("UTILISATEUR")
+                    .requestMatchers(HttpMethod.GET, "/MonProfil").hasRole("UTILISATEUR")
+                    .requestMatchers(HttpMethod.GET, "/MonProfil/update").hasRole("UTILISATEUR")
+                    .requestMatchers(HttpMethod.POST, "/MonProfil/update").hasRole("UTILISATEUR")
+                    .requestMatchers(HttpMethod.GET, "/MonProfil/delete").hasRole("UTILISATEUR")
                     .requestMatchers(HttpMethod.GET, "/login").permitAll()
 
                     /* *********************************************

@@ -68,7 +68,7 @@ public class UtilisateurRepositorySql implements UtilisateurRepository{
 
     @Override
     public void updateUtilisateur(Utilisateur utilisateur) {
-        String sql = "update Utilisateurs set pseudo=:pseudo, nom=:nom, prenom=:prenom, email=:email, telephone=:telephone, rue=:rue, code_postal=:code_postal, ville=:ville, mot_de_passe=:mot_de_passe, credit=:credit, administrateur=:administrateur " +
+        String sql = "update Utilisateurs set pseudo=:pseudo, nom=:nom, prenom=:prenom, email=:email, telephone=:telephone, rue=:rue, code_postal=:code_postal, ville=:ville, credit=:credit, administrateur=:administrateur, actif=:actif " +
                     "where id_utilisateur= :id_utilisateur";
 
         BeanPropertySqlParameterSource map = new BeanPropertySqlParameterSource(utilisateur);

@@ -40,14 +40,10 @@
                 <input id="idVille" type="text" th:field="*{ville}" />
             </li>
             <li>
-                <label for="idCrédit">Crédit</label>
-                <input id="idCrédit" type="text" th:field="*{credit}"/>
-            </li>
-            <li>
                 <button type="submit">Enregistrer</button>
             </li>
             <li>
-                <button type="button"><a th:href="@{/MonProfil/delete(id=*{id_utilisateur})}">Supprimer mon compte</a></button>
+                <button type="button"><a th:href="@{/MonProfil/delete}">Supprimer mon compte</a></button>
             </li>
         </ul>
     </form>

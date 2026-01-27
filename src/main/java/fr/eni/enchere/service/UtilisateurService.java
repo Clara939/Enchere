@@ -19,4 +19,7 @@ public interface UtilisateurService {
 
     //Cette fonction permet de récupérer l'utilisateur connecté afin d'afficher plus tard les informations le concernant
     Utilisateur recuperationIdUtilisateurActif();
+
+//    cette fonction permet de rendre un compte inactif
+    void desactiverCompte(long id);
 }
