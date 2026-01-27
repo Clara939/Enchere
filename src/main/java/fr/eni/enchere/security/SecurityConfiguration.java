@@ -36,7 +36,7 @@ public class SecurityConfiguration {
             //authoriser l'accès à la liste des glaces aux employés
             //accès au chemin /icecream en Get pour les employé
             auth.
-                    /* les changments c'est ici le reste ne change pas il n'y a pas de raison
+                    /* les changements c'est ici le reste ne change pas il n'y a pas de raison
                      *********************************************    */
 
                             requestMatchers(HttpMethod.GET, "/encheres").hasRole("UTILISATEUR")
@@ -44,6 +44,8 @@ public class SecurityConfiguration {
                     .requestMatchers(HttpMethod.GET, "/encheres/add").hasRole("UTILISATEUR")
                     .requestMatchers(HttpMethod.GET, "/profil").hasRole("UTILISATEUR")
                     .requestMatchers(HttpMethod.GET, "/login").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/inscription").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/inscription").permitAll()
 
                     /* *********************************************
                      jusqu'à là */
