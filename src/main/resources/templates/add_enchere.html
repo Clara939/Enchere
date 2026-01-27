@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr" th:replace="~{layout/layout :: frag_layout(content=~{::main})}">
+<main>
+    <h2>Nouvelle vente</h2>
+    <form   th:action="@{/enchere/create}"
+            method="post"
+            th:object="${article}">
+        <ul class="flex-outer">
+            <li>
+                <label for="nomArticle">Article</label>
+                <input id="nomArticle" type="text" th:field="*{nom_article}" />
+            </li>
+            <li>
+                <label for="idDescription">Nom du type de la barbie</label>
+                <input id="idDescription" type="text" th:field="*{description}" />
+            </li>
+            <li>
+                <label for="idCategorie">Catégorie</label>
+                <select id="idCategorie" th:field="*{categorieArticle}">
+                    <option value="">Choisir une catégorie</option>
+                    <option th:each="item : ${categorieList}"
+                            th:text="${item.libelle}"
+                            th:value="${item.id_categorie}">
+                    </option>
+                </select>
+            </li>
+            <li>
+                <label for="MiseAPrix">Mise à prix</label>
+                <input id="MiseAPrix" type="number">
+                // ajouter une regex pour eviter d'etre en dessous de zero
+            </li>
+
+            <li>
+                <button type="submit">Enregistrer</button>
+            </li>
+        </ul>
+    </form>
+</main>
+</html>
