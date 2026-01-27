@@ -255,7 +255,7 @@ class EnchereApplicationTests {
 
     @Test
     void testreadByIdEnchere(){
-        System.out.println(enchereDAO.readById(2));
+        System.out.println(enchereDAO.readById(3));
     }
 
     @Test

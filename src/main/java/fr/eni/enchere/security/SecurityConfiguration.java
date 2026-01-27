@@ -47,20 +47,20 @@ public class SecurityConfiguration {
                     .requestMatchers(HttpMethod.GET, "/MonProfil/update").hasRole("UTILISATEUR")
                     .requestMatchers(HttpMethod.POST, "/MonProfil/update").hasRole("UTILISATEUR")
                     .requestMatchers(HttpMethod.GET, "/MonProfil/delete").hasRole("UTILISATEUR")
-
-                                        .requestMatchers(HttpMethod.GET, "/inscription").permitAll()
+                    //donne à tous la permission de s'inscrire
+                    .requestMatchers(HttpMethod.GET, "/inscription").permitAll()
                     .requestMatchers(HttpMethod.POST, "/inscription").permitAll()
-
-                    /* *********************************************
-                     jusqu'à là */
                     //donne à tous la permissions de se connecter
                     .requestMatchers(HttpMethod.GET, "/login").permitAll()
                     // donne à tous la permission d'aller sur mot de passe oubliée et d'envoyer une requette de reinitialisation de mot de passe
                     .requestMatchers(HttpMethod.GET, "/MonProfil/MotDePasseOublie").permitAll()
                     .requestMatchers(HttpMethod.POST, "/MonProfil/MotDePasseOublie").permitAll()
-                    //donne à tous la permission de s'inscrire
-                    .requestMatchers("/inscription").permitAll()
-                    //donne à tous la permission sur la page d'accueil
+
+                    /* *********************************************
+                     jusqu'à là */
+
+
+                                  //donne à tous la permission sur la page d'accueil
                     .requestMatchers("/*").permitAll()
                     //donner acces au css
                     .requestMatchers("/css/*").permitAll()

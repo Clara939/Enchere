@@ -1,6 +1,7 @@
 package fr.eni.enchere.repository;
 
 import fr.eni.enchere.bo.Enchere;
+import fr.eni.enchere.repository.rowMapper.EnchereRowMapper;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
@@ -46,9 +47,11 @@ public class EnchereRepositorySql implements EnchereRepository{
 
     @Override
     public List<Enchere> readAll() {
-        String sql = "select * from Encheres";
+        String sql = "select Encheres.id_enchere as id_enchere, encheres.id_encherisseur, utilisateurs.nom as nom_encherisseur, utilisateurs.prenom, utilisateurs.email, encheres.id_article, encheres.date_enchere as date_enchere, encheres.montant_enchere, articles.nom_article, articles.description from Encheres\n " +
+                " left join Utilisateurs on encheres.id_encherisseur = utilisateurs.id_utilisateur\n " +
+                " left join Articles on encheres.id_article = articles.id_article";
 
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Enchere.class));
+        return jdbcTemplate.query(sql, new EnchereRowMapper());
     }
 
     @Override
