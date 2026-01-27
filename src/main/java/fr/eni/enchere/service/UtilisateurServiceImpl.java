@@ -31,10 +31,12 @@ public class UtilisateurServiceImpl implements UtilisateurService{
     @Override
     public void deleteUtilisateur(long id) { this.utilisateurRepository.deleteUtilisateur(id); }
 
-//    //Cette fonction permet de récupérer l'utilisateur connecté afin d'afficher plus tard les informations le concernant
-//    public Utilisateur recuperationIdUtilisateurActif(){
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        String pseudo = auth.getName();
-//        Utilisateur utilisateurConnecte = utilisateurRepository.readByPseudo(pseudo);
-//    }
+    //Cette fonction permet de récupérer l'utilisateur connecté afin d'afficher plus tard les informations le concernant
+    @Override
+    public Utilisateur recuperationIdUtilisateurActif(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String pseudo = auth.getName();
+            Utilisateur utilisateurConnecte = utilisateurRepository.readByPseudo(pseudo);
+            return utilisateurConnecte;
+    }
 }

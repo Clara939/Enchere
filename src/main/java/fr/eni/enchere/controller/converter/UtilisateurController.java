@@ -59,10 +59,8 @@ public class UtilisateurController {
     @GetMapping("/MonProfil")
     public String monProfil(Model model){
         //aller chercher l'utilisateur connecté
-
-
-//        model.addAttribute("utilisateur", utilisateur);
-
+Utilisateur utilisateurConnecte = utilisateurService.recuperationIdUtilisateurActif();
+        model.addAttribute("utilisateur", utilisateurConnecte);
         return "mon_profil";
     }
 

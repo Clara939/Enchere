@@ -12,4 +12,5 @@ public interface RoleRepository {
     void createRole(Role role);
     void updateRole(Role role);
     void deleteRole(long id);
+
 }
