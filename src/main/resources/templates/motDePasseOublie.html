@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="fr" th:replace="~{layout/layout :: frag_layout(content=~{::main})}">
+<main>
+  <h2>Mot de passe oublié ?</h2>
+  <form th:action="@{/MonProfil/MotDePasseOublie}" method="post">
+    <!-- Affichage erreur si pseudo/email inconnu -->
+    <div th:if="${error}" style="color: red;" th:text="${error}">Erreur</div>
+
+    <label for="identifiant">Pseudo ou email :</label>
+    <input id="identifiant" type="text" name="identifiant"
+           placeholder="votre.pseudo ou email@exemple.com" required />
+
+    <button type="submit">Envoyer lien réinitialisation</button>
+  </form>
+
+  <p><em>Un lien sera envoyé par mail (simulation)</em></p>
+  <a th:href="@{/login}">Retour connexion</a>
+</main>
+</html>

@@ -46,9 +46,21 @@ public class UtilisateurServiceImpl implements UtilisateurService{
     public Utilisateur recuperationIdUtilisateurActif(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String pseudo = auth.getName();
-            Utilisateur utilisateurConnecte = utilisateurRepository.readByPseudo(pseudo);
-            return utilisateurConnecte;
+        Utilisateur utilisateurConnecte = utilisateurRepository.readByPseudo(pseudo);
+        return utilisateurConnecte;
     }
+
+    @Override
+    public void desactiverCompte(long id) {
+        Utilisateur utilisateur = utilisateurRepository.readById(id);
+        if (utilisateur != null){
+            utilisateur.setActif(false);
+            utilisateurRepository.updateUtilisateur(utilisateur);
+        }
+
+
+    }
+
 
     //Cette fonction permet de vérifier qu'un pseudo n'est pas déjà dans la table Utilisateurs
     //elle retourne false si le pseudo est déjà présent, true sinon
