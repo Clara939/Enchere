@@ -42,9 +42,14 @@ public class EnchereController {
         model.addAttribute("categorieList", categorieService.readAll());
         return "add_enchere";
     }
-    @PostMapping("/enchere/create")
+    @PostMapping("/encheres/create")
     public String createEnchere(@ModelAttribute Article article, Model model){
         articleService.create(article);
         return "redirect:/encheres";
+    }
+
+    @PostMapping("/encheres/filtres")
+    public String filtrerArticles(@ModelAttribute Article article, Model model){
+return "/encheres";
     }
 }

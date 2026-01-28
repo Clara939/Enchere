@@ -14,4 +14,6 @@ public interface ArticleRepository {
     void delete(long id);
 
     void update(Article article);
+
+    List<Article> readAllArticlesEnVente();
 }

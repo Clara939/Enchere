@@ -2,5 +2,24 @@
 <html lang="fr" th:replace="~{layout/layout :: frag_layout(content=~{::main})}">
 <main>
     <h2>Liste des enchères 💰</h2>
+    <div id="encheres_corps_principal">
+    <section id="encheres_section_filtres">
+        <form th:action="@{/encheres/filtres}" method="post" th:object="${article}">
+        <label for="encheres_input_recherche">Filtres :</label>
+        <input id="encheres_input_recherche" type="search" name="search" placeholder="🔍︎ le nom de l'article contient">
+        <label for="encheres_select_categories">Catégories :</label>
+            <select id="encheres_select_categories" th:field="*{categorie}">
+                <option th:each="cat : ${categorieList}"
+                        th:text="${cat.name}"
+                        th:value="${cat.id}">
+                </option>
+            </select>
+<button type="submit">RECHERCHER</button>
+        </form>
+    </section>
+    <section id="encheres_section_liste_encheres">
+<div>encheres</div>
+    </section>
+    </div>
 </main>
 </html>

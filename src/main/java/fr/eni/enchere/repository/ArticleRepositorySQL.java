@@ -1,7 +1,6 @@
 package fr.eni.enchere.repository;
 
 import fr.eni.enchere.bo.Article;
-import fr.eni.enchere.bo.Categorie;
 import fr.eni.enchere.repository.rowMapper.ArticleRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -10,6 +9,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -118,4 +118,33 @@ JdbcTemplate jdbcTemplate;
         //lancement de la requête
         namedParameterJdbcTemplate.update(sql, map);
     }
+
+//    @Override
+//    public List<Article> readAllContainsString() {
+//        String sql = "select articles.id_article as id_article, articles.nom_article as nom_article, articles.description as description, articles.date_debut_encheres as date_debut_encheres, articles.date_fin_encheres as date_fin_encheres, articles.prix_initial as prix_initial, articles.prix_vente as prix_vente, articles.etat_vente as etat_vente, id_vendeur, vendeurs.nom as nom_vendeur, vendeurs.prenom as prenom_vendeur, articles.id_categorie, categories.libelle as libelle_categorie, articles.id_retrait, retraits.rue as rue_retrait, retraits.code_postal as code_postal_retrait, retraits.ville as ville_retrait, articles.id_acheteur, acheteurs.nom as nom_acheteur, acheteurs.prenom as prenom_acheteur from Articles\n " +
+//                "    left join utilisateurs as vendeurs on vendeurs.id_utilisateur = articles.id_vendeur\n " +
+//                " left join categories on categories.id_categorie = articles.id_categorie\n " +
+//                "left join retraits on retraits.id_retrait = articles.id_retrait\n " +
+//                "left join utilisateurs as acheteurs on acheteurs.id_utilisateur = articles.id_acheteur";
+//
+//        //ici, on crée un ArticleRowMapper pour que la requête récupère et transforme correctement les articles à partir du resultset de la requête
+//        //lancement de la requète récupération de la liste d'articles qui est passée en retour
+//        return jdbcTemplate.query(sql, new ArticleRowMapper());
+//
+//    }
+
+    @Override
+    public List<Article> readAllArticlesEnVente() {
+        String sql = "select articles.id_article as id_article, articles.nom_article as nom_article, articles.description as description, articles.date_debut_encheres as date_debut_encheres, articles.date_fin_encheres as date_fin_encheres, articles.prix_initial as prix_initial, articles.prix_vente as prix_vente, articles.etat_vente as etat_vente, id_vendeur, vendeurs.nom as nom_vendeur, vendeurs.prenom as prenom_vendeur, articles.id_categorie, categories.libelle as libelle_categorie, articles.id_retrait, retraits.rue as rue_retrait, retraits.code_postal as code_postal_retrait, retraits.ville as ville_retrait, articles.id_acheteur, acheteurs.nom as nom_acheteur, acheteurs.prenom as prenom_acheteur from Articles\n " +
+                "    left join utilisateurs as vendeurs on vendeurs.id_utilisateur = articles.id_vendeur\n " +
+                " left join categories on categories.id_categorie = articles.id_categorie\n " +
+                "left join retraits on retraits.id_retrait = articles.id_retrait\n " +
+                "left join utilisateurs as acheteurs on acheteurs.id_utilisateur = articles.id_acheteur\n " +
+                "WHERE date_debut_encheres < current_date AND date_fin_encheres > current_date";
+
+        //ici, on crée un ArticleRowMapper pour que la requête récupère et transforme correctement les articles à partir du resultset de la requête
+        //lancement de la requète récupération de la liste d'articles qui est passée en retour
+        return jdbcTemplate.query(sql, new ArticleRowMapper());
+    }
+
 }
