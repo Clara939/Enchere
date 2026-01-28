@@ -31,6 +31,7 @@ public class ArticleRowMapper implements RowMapper<Article> {
             //j'ai un vendeur associé à l'article : je le crée puis je remplis ses champs :
             Utilisateur vendeur = new Utilisateur();
             vendeur.setId_utilisateur(rs.getInt("id_vendeur"));
+            vendeur.setPseudo(rs.getString("pseudo_vendeur"));
             vendeur.setNom(rs.getString("nom_vendeur"));
             vendeur.setPrenom(rs.getString("prenom_vendeur"));
 
