@@ -1,10 +1,12 @@
 package fr.eni.enchere.security;
 
+import org.springframework.boot.servlet.filter.OrderedHiddenHttpMethodFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
@@ -30,7 +32,7 @@ public class SecurityConfiguration {
 
     //mise en place de la gestion des droits en fonction des pages affichées
     @Bean
-    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain filterChain(HttpSecurity http, OrderedHiddenHttpMethodFilter orderedHiddenHttpMethodFilter) throws Exception {
         //c'est ici que l'on va authoriser les chemins en fonction des utilisateurs
         http.authorizeHttpRequests(auth -> {
             //authoriser l'accès à la liste des glaces aux employés
@@ -69,6 +71,38 @@ public class SecurityConfiguration {
                     //tous ce qui n'est pas spécifié n'est pas accessible
                     .anyRequest().denyAll();
         });
+//CONFIGURATION DE LA GESTION DE SESSIONS (Raman)---------------------------------------------------
+        http.sessionManagement(session -> session
+                .sessionFixation().migrateSession() // Protection contre la fixation de session
+                                                   // Chaque authentification crée une nouvelle session et les anciennes données sont copiées.
+                .maximumSessions(1)                 // Limite à une seule session par utilisateur
+                                                   // Si l'utilisateur se connecte depuis un autre appareil, la session précédente est interrompue.
+                .maxSessionsPreventsLogin(false)   // false = une nouvelle session remplace l'ancienne
+                                                  // true = bloque les nouvelles connexions s'il existe déjà une session active
+                .expiredUrl("/login?expired")       // Où rediriger l'utilisateur en cas d'expiration de la session
+                                                   // L'utilisateur verra un message indiquant que sa session a expiré
+        );
+
+        // DÉFINITION DU DÉLAI D'EXPIRATION DE LA SESSION (5 MINUTES)
+        http.sessionManagement(session -> session
+            .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED) // Crée une session uniquement si nécessaire
+            .invalidSessionUrl("/login?invalid")                     // Redirection si la session est invalid
+                                                                    // Si la session est corrompue ou n'existe pas
+            .sessionConcurrency(concurrency -> concurrency
+                .maximumSessions(1)                               // Une seule session  parutilisateur
+                .expiredUrl("/login?expired")                   // Page à l'expiration de la session
+            )
+        );
+
+        // Définir un délai d'inactivité (5 minutes = 300 secondes)
+        http.sessionManagement(session -> session
+            .sessionFixation().migrateSession()
+            .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+            .maximumSessions(1)
+            .maxSessionsPreventsLogin(false)
+            .expiredUrl("/login?expired")
+        );
+
 
 //gestion du login
         http.formLogin( form -> {
