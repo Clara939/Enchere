@@ -1,7 +1,6 @@
 package fr.eni.enchere.service;
 
 import fr.eni.enchere.bo.Article;
-import fr.eni.enchere.bo.Categorie;
 import fr.eni.enchere.repository.ArticleRepository;
 import org.springframework.stereotype.Service;
 
@@ -29,4 +28,7 @@ public class ArticleServiceImpl implements ArticleService{
 
     @Override
     public void update(Article article) { this.articleRepository.update(article); }
+
+    @Override
+    public List<Article> readAllArticlesEnVente() { return this.articleRepository.readAllArticlesEnVente(); }
 }

@@ -140,10 +140,8 @@ JdbcTemplate jdbcTemplate;
                 " left join categories on categories.id_categorie = articles.id_categorie\n " +
                 "left join retraits on retraits.id_retrait = articles.id_retrait\n " +
                 "left join utilisateurs as acheteurs on acheteurs.id_utilisateur = articles.id_acheteur\n " +
-                "WHERE date_debut_encheres < current_date AND date_fin_encheres > current_date";
+                "WHERE date_debut_encheres <= GETDATE() AND date_fin_encheres >= GETDATE()";
 
-        //ici, on crée un ArticleRowMapper pour que la requête récupère et transforme correctement les articles à partir du resultset de la requête
-        //lancement de la requète récupération de la liste d'articles qui est passée en retour
         return jdbcTemplate.query(sql, new ArticleRowMapper());
     }
 

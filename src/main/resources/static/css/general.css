@@ -18,6 +18,8 @@ header{
     display : flex;
     flex-direction: row;
     justify-content: space-between;
+    height: fit-content;
+    align-items: center;
 }
 
 #logo_titre{
@@ -39,6 +41,7 @@ nav ul{
     background-color: var(--couleur-orange);
     border-radius :30px;
     padding: 10px;
+    height: fit-content;
     text-decoration: none;
     font-weight: bold;
     color: var(--couleur-blanc-secondaire);
@@ -53,14 +56,44 @@ nav ul{
     color: var(--couleur-orange);
 }
 
+h2{
+    text-align: center;
+}
+
 #encheres_corps_principal{
     display: grid;
     grid-template-areas: "encheres_section_filtres encheres_section_filtres"
 "encheres_section_liste_encheres encheres_section_liste_encheres";
-    grid-template-columns: 1fr 3fr;
+    grid-template-columns: 1fr 4fr;
+    gap: 15px;
 }
 
-#encheres_section_filtres{
+#encheres_section_filtres, .encheres_article_vente{
     padding: 20px;
     border-radius :50px;
+    background-color: var(--couleur-blanc-secondaire);
+}
+
+#encheres_section_liste_encheres{
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+    gap: 15px;
+}
+
+.encheres_article_vente h3{
+    text-align: center;
+}
+
+.encheres_article_infos{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 15px;
+}
+
+.encheres_article_infos button{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-top : auto;
 }

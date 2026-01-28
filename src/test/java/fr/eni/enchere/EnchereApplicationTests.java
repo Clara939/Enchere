@@ -215,8 +215,9 @@ class EnchereApplicationTests {
 
     @Test
     void createArticle(){
-        articleRepository.create(new Article("bureau", "magnifique bureau en bois", LocalDate.of(2026, 1, 24), LocalDate.of(2026, 1, 31), 200, 200, "créé", retraitRepository.readRetraitById(2), categorieRepository.readById(1), utilisateurDAO.readById(2), null));
-        articleRepository.create(new Article("cafetière", "n'accepte pas les dosettes", LocalDate.of(2026, 1, 3), LocalDate.of(2026, 1, 30), 50, 60, "vendu", retraitRepository.readRetraitById(1), categorieRepository.readById(3), utilisateurDAO.readById(1), utilisateurDAO.readById(2)));
+       // articleRepository.create(new Article("bureau", "magnifique bureau en bois", LocalDate.of(2026, 1, 24), LocalDate.of(2026, 1, 31), 200, 200, "créé", retraitRepository.readRetraitById(2), categorieRepository.readById(1), utilisateurDAO.readById(2), null));
+        //articleRepository.create(new Article("cafetière", "n'accepte pas les dosettes", LocalDate.of(2026, 1, 3), LocalDate.of(2026, 1, 30), 50, 60, "vendu", retraitRepository.readRetraitById(1), categorieRepository.readById(3), utilisateurDAO.readById(1), utilisateurDAO.readById(2)));
+   articleRepository.create((new Article("ballon", "pour jouer au foot, au basket ou abimer les fleurs de Mamie", LocalDate.of(2026, 3, 25), LocalDate.of(2026, 3, 30), 85, null, "créé", retraitRepository.readRetraitById(2), categorieRepository.readById(3), utilisateurDAO.readById(2), null)));
     }
 
     @Test

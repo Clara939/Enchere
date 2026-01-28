@@ -29,7 +29,9 @@ public class EnchereController {
     }
 
     @GetMapping("/encheres")
-    public String afficherEncheres(){
+    public String afficherEncheres(Model model){
+        List<Article> articleList = articleService.readAllArticlesEnVente();
+model.addAttribute("articleList", articleList);
         return "encheres";
     }
 
@@ -48,8 +50,8 @@ public class EnchereController {
         return "redirect:/encheres";
     }
 
-    @PostMapping("/encheres/filtres")
-    public String filtrerArticles(@ModelAttribute Article article, Model model){
-return "/encheres";
-    }
+//    @PostMapping("/encheres/filtres")
+//    public String filtrerArticles(@ModelAttribute Article article, Model model){
+//return "/encheres";
+//    }
 }

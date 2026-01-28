@@ -8,8 +8,8 @@ public class Article {
     private String description;
     private LocalDate date_debut_encheres;
     private LocalDate date_fin_encheres;
-    private int prix_initial;
-    private int prix_vente;
+    private Integer prix_initial;
+    private Integer prix_vente;
     private String etat_vente;
 
     private Retrait lieuxRetrait;
@@ -19,7 +19,7 @@ public class Article {
 
     public Article() {}
 
-    public Article(long id_article, String nom_article, String description, LocalDate date_debut_encheres, LocalDate date_fin_encheres, int prix_initial, int prix_vente, String etat_vente, Retrait lieuxRetrait, Categorie categorieArticle, Utilisateur vendeur, Utilisateur acheteur) {
+    public Article(long id_article, String nom_article, String description, LocalDate date_debut_encheres, LocalDate date_fin_encheres, int prix_initial, Integer prix_vente, String etat_vente, Retrait lieuxRetrait, Categorie categorieArticle, Utilisateur vendeur, Utilisateur acheteur) {
         this.id_article = id_article;
         this.nom_article = nom_article;
         this.description = description;
@@ -34,7 +34,7 @@ public class Article {
         this.acheteur = acheteur;
     }
 
-    public Article(String nom_article, String description, LocalDate date_debut_encheres, LocalDate date_fin_encheres, int prix_initial, int prix_vente, String etat_vente, Retrait lieuxRetrait, Categorie categorieArticle, Utilisateur vendeur, Utilisateur acheteur) {
+    public Article(String nom_article, String description, LocalDate date_debut_encheres, LocalDate date_fin_encheres, int prix_initial, Integer prix_vente, String etat_vente, Retrait lieuxRetrait, Categorie categorieArticle, Utilisateur vendeur, Utilisateur acheteur) {
         this.nom_article = nom_article;
         this.description = description;
         this.date_debut_encheres = date_debut_encheres;
@@ -96,11 +96,11 @@ public class Article {
         this.prix_initial = prix_initial;
     }
 
-    public int getPrix_vente() {
+    public Integer getPrix_vente() {
         return prix_vente;
     }
 
-    public void setPrix_vente(int prix_vente) {
+    public void setPrix_vente(Integer prix_vente) {
         this.prix_vente = prix_vente;
     }
 
