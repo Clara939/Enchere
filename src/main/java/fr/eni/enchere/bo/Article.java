@@ -83,7 +83,7 @@ public class Article {
         this.acheteur = acheteur;
     }
 
-    public Article(long id_article, String nom_article, String description, LocalDate date_debut_encheres, LocalDate date_fin_encheres, int prix_initial, int prix_vente, String etat_vente, Retrait lieuxRetrait, Categorie categorieArticle, Utilisateur vendeur, Utilisateur acheteur) {
+    public Article(long id_article, String nom_article, String description, LocalDate date_debut_encheres, LocalDate date_fin_encheres, Integer prix_initial, Integer prix_vente, String etat_vente, Retrait lieuxRetrait, Categorie categorieArticle, Utilisateur vendeur, Utilisateur acheteur) {
         this.id_article = id_article;
         this.nom_article = nom_article;
         this.description = description;
@@ -138,11 +138,11 @@ public class Article {
         this.etat_vente = etat_vente;
     }
 
-    public int getPrix_initial() {
+    public Integer getPrix_initial() {
         return prix_initial;
     }
 
-    public void setPrix_initial(int prix_initial) {
+    public void setPrix_initial(Integer prix_initial) {
         this.prix_initial = prix_initial;
     }
 
