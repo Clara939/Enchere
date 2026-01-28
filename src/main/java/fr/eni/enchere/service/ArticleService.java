@@ -16,4 +16,6 @@ public interface ArticleService {
     void delete(long id);
 
     void update(Article article);
+
+    List<Article> readAllArticlesEnVente();
 }

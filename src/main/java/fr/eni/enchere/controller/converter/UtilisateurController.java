@@ -33,7 +33,7 @@ public class UtilisateurController {
         this.roleRepository = roleRepository;
     }
 
-    //    page d'inscription le get et le post, le post renvoie sur la page d'accueil si inscription reussi et si annulation de l'inscription renvoie sur page accueil aussi.
+    //    page d'inscription le get et le post, le post renvoie sur la page d'accueil si inscription reussie et si annulation de l'inscription renvoie sur page accueil aussi.
     @GetMapping("/inscription")
     public String inscrire(Model model){
         List<Utilisateur>utilisateurList = utilisateurService.readAll();

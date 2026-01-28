@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <!--  la balise sera remplacée par le contenu de title -->
-    <title>Enchères</title>
+    <title>ENI - Enchères</title>
 
-    <!--<link rel="stylesheet" href="/css/general.css">-->
+    <link rel="stylesheet" href="/css/general.css">
 </head>
 <body class="master">
 <header>
+    <div id="logo_titre">
     <a th:href="@{/encheres}"><img th:src="@{/image/logo_eni.png}" alt="Logo"/></a>
-    <h1 id="nav-title">ENI-Enchères</h1>
+    <h1 id="nav-title">ENI - Enchères</h1>
+    </div>
 
     <nav>
         <ul>
@@ -20,7 +22,7 @@
 
             <li th:if="${#authorization.expression('hasRole(''UTILISATEUR'')')}"><a href="/encheres/add" class="nav-link">Vendre un article</a></li>
 
-            <li th:if="${!#authorization.expression('isAuthenticated()')}"><a href="/inscription" class="nav-link">Inscription</a> </li>
+            <li th:if="${!#authorization.expression('isAuthenticated()')}"><a href="/inscription" class="nav-link boutonBlanc">Inscription</a> </li>
 
             <li th:if="${#authorization.expression('hasRole(''UTILISATEUR'')')}"><a href="/MonProfil" class="nav-link">Mon Profil</a> </li>
 
@@ -28,7 +30,7 @@
 
             <!-- le lien s'affiche uniquement si on est déconnecté -->
             <li th:if="${!#authorization.expression('isAuthenticated()')}"
-            ><a href="/login" class="nav-link">Connexion</a></li>
+            ><a href="/login" class="nav-link boutonOrange">Connexion</a></li>
             <li th:if="${#authorization.expression('isAuthenticated()')}">
                 <form th:action="@{/logout}" method="post">
                     <input type="hidden" name="_csrf" value="${_csrf.token}">

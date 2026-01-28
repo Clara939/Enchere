@@ -17,9 +17,9 @@ public class Article {
     private LocalDate date_debut_encheres;
     @NotNull(message = "Fin obligatoire")
     private LocalDate date_fin_encheres;
-    @NotNull
-    private int prix_initial;
-    private int prix_vente;
+    private Integer prix_initial;
+    private Integer prix_vente;
+        @NotNull
     private String etat_vente = "CREE";
     private String photoArticle;
     private Retrait lieuxRetrait;
@@ -37,8 +37,8 @@ public class Article {
     }
     public Article() {}
 
-    public Article(long id_article, String nom_article, String description, LocalDate date_debut_encheres, LocalDate date_fin_encheres, int prix_initial, int prix_vente, String etat_vente, String photoArticle, Retrait lieuxRetrait, Categorie categorieArticle, Utilisateur vendeur, Utilisateur acheteur) {
-        this.id_article = id_article;
+    public Article(long id_article, String nom_article, String description, LocalDate date_debut_encheres, LocalDate date_fin_encheres, Integer prix_initial, Integer prix_vente, String etat_vente, String photoArticle, Retrait lieuxRetrait, Categorie categorieArticle, Utilisateur vendeur, Utilisateur acheteur) {
+           this.id_article = id_article;
         this.nom_article = nom_article;
         this.description = description;
         this.date_debut_encheres = date_debut_encheres;
@@ -53,7 +53,7 @@ public class Article {
         this.acheteur = acheteur;
     }
 
-    public Article(String nom_article, String description, LocalDate date_debut_encheres, LocalDate date_fin_encheres, int prix_initial, int prix_vente, String etat_vente, String photoArticle, Retrait lieuxRetrait, Categorie categorieArticle, Utilisateur vendeur, Utilisateur acheteur) {
+    public Article(String nom_article, String description, LocalDate date_debut_encheres, LocalDate date_fin_encheres, Integer prix_initial, Integer prix_vente, String etat_vente, String photoArticle, Retrait lieuxRetrait, Categorie categorieArticle, Utilisateur vendeur, Utilisateur acheteur) {
         this.nom_article = nom_article;
         this.description = description;
         this.date_debut_encheres = date_debut_encheres;
@@ -69,7 +69,7 @@ public class Article {
     }
 
     //constructeur temporaire pour les test sans la photo
-    public Article(String nom_article, String description, LocalDate date_debut_encheres, LocalDate date_fin_encheres, int prix_initial, int prix_vente, String etat_vente, Retrait lieuxRetrait, Categorie categorieArticle, Utilisateur vendeur, Utilisateur acheteur) {
+    public Article(String nom_article, String description, LocalDate date_debut_encheres, LocalDate date_fin_encheres, Integer prix_initial, Integer prix_vente, String etat_vente, Retrait lieuxRetrait, Categorie categorieArticle, Utilisateur vendeur, Utilisateur acheteur) {
         this.nom_article = nom_article;
         this.description = description;
         this.date_debut_encheres = date_debut_encheres;
@@ -83,7 +83,7 @@ public class Article {
         this.acheteur = acheteur;
     }
 
-    public Article(long id_article, String nom_article, String description, LocalDate date_debut_encheres, LocalDate date_fin_encheres, int prix_initial, int prix_vente, String etat_vente, Retrait lieuxRetrait, Categorie categorieArticle, Utilisateur vendeur, Utilisateur acheteur) {
+    public Article(long id_article, String nom_article, String description, LocalDate date_debut_encheres, LocalDate date_fin_encheres, Integer prix_initial, Integer prix_vente, String etat_vente, Retrait lieuxRetrait, Categorie categorieArticle, Utilisateur vendeur, Utilisateur acheteur) {
         this.id_article = id_article;
         this.nom_article = nom_article;
         this.description = description;
@@ -138,19 +138,19 @@ public class Article {
         this.etat_vente = etat_vente;
     }
 
-    public int getPrix_initial() {
+    public Integer getPrix_initial() {
         return prix_initial;
     }
 
-    public void setPrix_initial(int prix_initial) {
+    public void setPrix_initial(Integer prix_initial) {
         this.prix_initial = prix_initial;
     }
 
-    public int getPrix_vente() {
+    public Integer getPrix_vente() {
         return prix_vente;
     }
 
-    public void setPrix_vente(int prix_vente) {
+    public void setPrix_vente(Integer prix_vente) {
         this.prix_vente = prix_vente;
     }
 
