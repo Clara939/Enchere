@@ -1,6 +1,7 @@
 package fr.eni.enchere.repository;
 
 import fr.eni.enchere.bo.Enchere;
+import fr.eni.enchere.repository.rowMapper.ArticleRowMapper;
 import fr.eni.enchere.repository.rowMapper.EnchereRowMapper;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -47,7 +48,7 @@ public class EnchereRepositorySql implements EnchereRepository{
 
     @Override
     public List<Enchere> readAll() {
-        String sql = "select Encheres.id_enchere as id_enchere, encheres.id_encherisseur, utilisateurs.nom as nom_encherisseur, utilisateurs.prenom, utilisateurs.email, encheres.id_article, encheres.date_enchere as date_enchere, encheres.montant_enchere, articles.nom_article, articles.description from Encheres\n " +
+        String sql = "select Encheres.id_enchere as id_enchere, encheres.id_encherisseur as id_encherisseur, utilisateurs.nom as nom_encherisseur, utilisateurs.prenom as prenom_encherisseur, utilisateurs.email as email_encherisseur, encheres.id_article as id_article, encheres.date_enchere as date_enchere, encheres.montant_enchere as montant_enchere, articles.nom_article as nom_article, articles.description as description, articles.prix_vente as prix_vente, articles.etat_vente as etat_vente, articles.date_debut_encheres as date_debut_encheres, articles.date_fin_encheres as date_fin_encheres from Encheres\n " +
                 " left join Utilisateurs on encheres.id_encherisseur = utilisateurs.id_utilisateur\n " +
                 " left join Articles on encheres.id_article = articles.id_article";
 
@@ -56,10 +57,13 @@ public class EnchereRepositorySql implements EnchereRepository{
 
     @Override
     public Enchere readById(long id) {
-        String sql = "select * from Encheres where id_enchere = :id";
-        MapSqlParameterSource map = new MapSqlParameterSource();
-        map.addValue("id", id);
-        return namedParameterJdbcTemplate.queryForObject(sql, map ,new BeanPropertyRowMapper<>(Enchere.class));
+        String sql = "select Encheres.id_enchere as id_enchere, encheres.id_encherisseur as id_encherisseur, utilisateurs.nom as nom_encherisseur, utilisateurs.prenom as prenom_encherisseur, utilisateurs.email as email_encherisseur, encheres.id_article as id_article, encheres.date_enchere as date_enchere, encheres.montant_enchere as montant_enchere, articles.nom_article as nom_article, articles.description as description, articles.prix_vente as prix_vente, articles.etat_vente as etat_vente, articles.date_debut_encheres as date_debut_encheres, articles.date_fin_encheres as date_fin_encheres from Encheres\n " +
+                " left join Utilisateurs on encheres.id_encherisseur = utilisateurs.id_utilisateur\n " +
+                " left join Articles on encheres.id_article = articles.id_article\n " +
+                "WHERE id_enchere = :id";
+
+        return namedParameterJdbcTemplate.queryForObject(sql,
+                new MapSqlParameterSource("id", id), new EnchereRowMapper());
     }
 
     @Override
