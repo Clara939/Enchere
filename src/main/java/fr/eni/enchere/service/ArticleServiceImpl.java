@@ -18,7 +18,8 @@ public class ArticleServiceImpl implements ArticleService{
     public List<Article> readAll() { return this.articleRepository.readAll(); }
 
     @Override
-    public void create(Article article) { this.articleRepository.create(article); }
+    public void create(Article article) {
+        this.articleRepository.create(article); }
 
     @Override
     public Article readById(long id) { return this.articleRepository.readById(id); }

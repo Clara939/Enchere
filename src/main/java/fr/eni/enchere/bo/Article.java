@@ -1,26 +1,75 @@
 package fr.eni.enchere.bo;
 
+import jakarta.validation.constraints.AssertTrue;
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
+
+
 
 public class Article {
     private long id_article;
+    @NotNull
     private String nom_article;
     private String description;
+    @NotNull(message = "Début obligatoire")
+    @FutureOrPresent(message = "Début ne peut pas être dans le passé")
     private LocalDate date_debut_encheres;
+    @NotNull(message = "Fin obligatoire")
     private LocalDate date_fin_encheres;
     private Integer prix_initial;
     private Integer prix_vente;
-    private String etat_vente;
-
+        @NotNull
+    private String etat_vente = "CREE";
+    private String photoArticle;
     private Retrait lieuxRetrait;
     private Categorie categorieArticle;
     private Utilisateur vendeur;
     private Utilisateur acheteur;
 
+    // fonction pour gerer les date d'enchere
+    // pour la validation 1 jour minimum
+    @AssertTrue(message = "Fin doit être au moins 1 jour après début")
+    public boolean isFinAfterDebutPlusUnJour() {
+        return date_debut_encheres != null &&
+                date_fin_encheres != null &&
+                !date_fin_encheres.isBefore(date_debut_encheres);
+    }
     public Article() {}
 
-    public Article(long id_article, String nom_article, String description, LocalDate date_debut_encheres, LocalDate date_fin_encheres, int prix_initial, Integer prix_vente, String etat_vente, Retrait lieuxRetrait, Categorie categorieArticle, Utilisateur vendeur, Utilisateur acheteur) {
-        this.id_article = id_article;
+    public Article(long id_article, String nom_article, String description, LocalDate date_debut_encheres, LocalDate date_fin_encheres, Integer prix_initial, Integer prix_vente, String etat_vente, String photoArticle, Retrait lieuxRetrait, Categorie categorieArticle, Utilisateur vendeur, Utilisateur acheteur) {
+           this.id_article = id_article;
+        this.nom_article = nom_article;
+        this.description = description;
+        this.date_debut_encheres = date_debut_encheres;
+        this.date_fin_encheres = date_fin_encheres;
+        this.prix_initial = prix_initial;
+        this.prix_vente = prix_vente;
+        this.etat_vente = etat_vente;
+        this.photoArticle = photoArticle;
+        this.lieuxRetrait = lieuxRetrait;
+        this.categorieArticle = categorieArticle;
+        this.vendeur = vendeur;
+        this.acheteur = acheteur;
+    }
+
+    public Article(String nom_article, String description, LocalDate date_debut_encheres, LocalDate date_fin_encheres, Integer prix_initial, Integer prix_vente, String etat_vente, String photoArticle, Retrait lieuxRetrait, Categorie categorieArticle, Utilisateur vendeur, Utilisateur acheteur) {
+        this.nom_article = nom_article;
+        this.description = description;
+        this.date_debut_encheres = date_debut_encheres;
+        this.date_fin_encheres = date_fin_encheres;
+        this.prix_initial = prix_initial;
+        this.prix_vente = prix_vente;
+        this.etat_vente = etat_vente;
+        this.photoArticle = photoArticle;
+        this.lieuxRetrait = lieuxRetrait;
+        this.categorieArticle = categorieArticle;
+        this.vendeur = vendeur;
+        this.acheteur = acheteur;
+    }
+
+    //constructeur temporaire pour les test sans la photo
+    public Article(String nom_article, String description, LocalDate date_debut_encheres, LocalDate date_fin_encheres, Integer prix_initial, Integer prix_vente, String etat_vente, Retrait lieuxRetrait, Categorie categorieArticle, Utilisateur vendeur, Utilisateur acheteur) {
         this.nom_article = nom_article;
         this.description = description;
         this.date_debut_encheres = date_debut_encheres;
@@ -34,7 +83,8 @@ public class Article {
         this.acheteur = acheteur;
     }
 
-    public Article(String nom_article, String description, LocalDate date_debut_encheres, LocalDate date_fin_encheres, int prix_initial, Integer prix_vente, String etat_vente, Retrait lieuxRetrait, Categorie categorieArticle, Utilisateur vendeur, Utilisateur acheteur) {
+    public Article(long id_article, String nom_article, String description, LocalDate date_debut_encheres, LocalDate date_fin_encheres, int prix_initial, int prix_vente, String etat_vente, Retrait lieuxRetrait, Categorie categorieArticle, Utilisateur vendeur, Utilisateur acheteur) {
+        this.id_article = id_article;
         this.nom_article = nom_article;
         this.description = description;
         this.date_debut_encheres = date_debut_encheres;
@@ -142,6 +192,13 @@ public class Article {
 
     public void setId_article(long id_article) {
         this.id_article = id_article;
+    }
+    public String getPhotoArticle() {
+        return photoArticle;
+    }
+
+    public void setPhotoArticle(String photoArticle) {
+        this.photoArticle = photoArticle;
     }
 
     @Override
