@@ -1,11 +1,12 @@
 package fr.eni.enchere.security;
 
-import org.springframework.boot.servlet.filter.OrderedHiddenHttpMethodFilter;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
@@ -14,6 +15,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import javax.sql.DataSource;
 
 @Configuration
+@EnableWebSecurity
 public class SecurityConfiguration {
 
     @Bean
@@ -32,7 +34,7 @@ public class SecurityConfiguration {
 
     //mise en place de la gestion des droits en fonction des pages affichées
     @Bean
-    SecurityFilterChain filterChain(HttpSecurity http, OrderedHiddenHttpMethodFilter orderedHiddenHttpMethodFilter) throws Exception {
+    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         //c'est ici que l'on va authoriser les chemins en fonction des utilisateurs
         http.authorizeHttpRequests(auth -> {
             //authoriser l'accès à la liste des glaces aux employés
