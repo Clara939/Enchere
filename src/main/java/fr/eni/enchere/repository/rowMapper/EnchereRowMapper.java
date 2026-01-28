@@ -24,7 +24,7 @@ public class EnchereRowMapper implements RowMapper<Enchere> {
             //j'ai un encherisseur associé à l'enchere : je le crée puis je remplis ses champs :
             Utilisateur encherisseur = new Utilisateur();
             encherisseur.setId_utilisateur(rs.getLong("id_encherisseur"));
-            encherisseur.setNom(rs.getNString("nom_encherisseur"));
+            encherisseur.setNom(rs.getString("nom_encherisseur"));
             encherisseur.setPrenom(rs.getString("prenom_encherisseur"));
             encherisseur.setEmail(rs.getString("email_encherisseur"));
             //... Je compléter les autres champs si nécessaire apres
