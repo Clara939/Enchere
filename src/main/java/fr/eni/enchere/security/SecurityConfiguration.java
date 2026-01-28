@@ -42,6 +42,7 @@ public class SecurityConfiguration {
                             requestMatchers(HttpMethod.GET, "/encheres").hasRole("UTILISATEUR")
                     /*accès au chemin /encheres/add en Get pour les utilisateurs */
                     .requestMatchers(HttpMethod.GET, "/encheres/add").hasRole("UTILISATEUR")
+                    .requestMatchers(HttpMethod.POST, "/encheres/create").hasRole("UTILISATEUR")
                     .requestMatchers(HttpMethod.GET, "/profil").hasRole("UTILISATEUR")
                     .requestMatchers(HttpMethod.GET, "/MonProfil").hasRole("UTILISATEUR")
                     .requestMatchers(HttpMethod.GET, "/MonProfil/update").hasRole("UTILISATEUR")
@@ -67,6 +68,9 @@ public class SecurityConfiguration {
                     //tous ce qui n'est pas spécifié n'est pas accessible
                     .anyRequest().denyAll();
         });
+
+        // Ignore CSRF pour upload
+        http.csrf(csrf -> csrf.disable());
 
 //gestion du login
         http.formLogin( form -> {

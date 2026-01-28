@@ -50,7 +50,7 @@ JdbcTemplate jdbcTemplate;
         map.addValue("etat_vente", article.getEtat_vente());
         map.addValue("id_vendeur", article.getVendeur().getId_utilisateur());
         map.addValue("id_categorie", article.getCategorieArticle().getId_categorie());
-        map.addValue("id_retrait", article.getLieuxRetrait().getId_retrait());
+        map.addValue("id_retrait", article.getLieuxRetrait() != null ? article.getLieuxRetrait().getId_retrait() : null);
 
         //si il n'y a pas d'acheteur associé on met null ; l'acheteur est un nombre ici
         if (article.getAcheteur() != null) {
@@ -106,7 +106,7 @@ JdbcTemplate jdbcTemplate;
         map.addValue("etat_vente", article.getEtat_vente());
         map.addValue("id_vendeur", article.getVendeur().getId_utilisateur());
         map.addValue("id_categorie", article.getCategorieArticle().getId_categorie());
-        map.addValue("id_retrait", article.getLieuxRetrait().getId_retrait());
+        map.addValue("id_retrait", article.getLieuxRetrait() != null ? article.getLieuxRetrait().getId_retrait() : null);
 
         //si il n'y a pas d'acheteur associé on met null ; l'acheteur est un nombre ici
         if (article.getAcheteur() != null) {
