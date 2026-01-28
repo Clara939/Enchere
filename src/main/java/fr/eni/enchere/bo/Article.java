@@ -1,13 +1,28 @@
 package fr.eni.enchere.bo;
 
+import jakarta.validation.constraints.AssertTrue;
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.web.multipart.MultipartFile;
+
+
 import java.time.LocalDate;
+
+
 
 public class Article {
     private long id_article;
+    @NotNull
     private String nom_article;
     private String description;
+    private MultipartFile photoArticle;
+    @NotNull(message = "Début obligatoire")
+    @FutureOrPresent(message = "Début ne peut pas être dans le passé")
     private LocalDate date_debut_encheres;
+
+    @NotNull(message = "Fin obligatoire")
     private LocalDate date_fin_encheres;
+    @NotNull
     private int prix_initial;
     private int prix_vente;
     private String etat_vente;
@@ -17,10 +32,48 @@ public class Article {
     private Utilisateur vendeur;
     private Utilisateur acheteur;
 
+    // fonction pour gerer les date d'enchere
+    // pour la validation 1 jour minimum
+    @AssertTrue(message = "Fin doit être au moins 1 jour après début")
+    public boolean isFinAfterDebutPlusUnJour() {
+        return date_debut_encheres != null &&
+                date_fin_encheres != null &&
+                date_fin_encheres.isAfter(date_debut_encheres.plusDays(1));
+    }
     public Article() {}
 
-    public Article(long id_article, String nom_article, String description, LocalDate date_debut_encheres, LocalDate date_fin_encheres, int prix_initial, int prix_vente, String etat_vente, Retrait lieuxRetrait, Categorie categorieArticle, Utilisateur vendeur, Utilisateur acheteur) {
+    public Article(long id_article, String nom_article, String description, MultipartFile photoArticle, LocalDate date_debut_encheres, LocalDate date_fin_encheres, int prix_initial, int prix_vente, String etat_vente, Retrait lieuxRetrait, Categorie categorieArticle, Utilisateur vendeur, Utilisateur acheteur) {
         this.id_article = id_article;
+        this.nom_article = nom_article;
+        this.description = description;
+        this.photoArticle = photoArticle;
+        this.date_debut_encheres = date_debut_encheres;
+        this.date_fin_encheres = date_fin_encheres;
+        this.prix_initial = prix_initial;
+        this.prix_vente = prix_vente;
+        this.etat_vente = etat_vente;
+        this.lieuxRetrait = lieuxRetrait;
+        this.categorieArticle = categorieArticle;
+        this.vendeur = vendeur;
+        this.acheteur = acheteur;
+    }
+
+    public Article(String nom_article, String description, MultipartFile photoArticle, LocalDate date_debut_encheres, LocalDate date_fin_encheres, int prix_initial, int prix_vente, String etat_vente, Retrait lieuxRetrait, Categorie categorieArticle, Utilisateur vendeur, Utilisateur acheteur) {
+        this.nom_article = nom_article;
+        this.description = description;
+        this.photoArticle = photoArticle;
+        this.date_debut_encheres = date_debut_encheres;
+        this.date_fin_encheres = date_fin_encheres;
+        this.prix_initial = prix_initial;
+        this.prix_vente = prix_vente;
+        this.etat_vente = etat_vente;
+        this.lieuxRetrait = lieuxRetrait;
+        this.categorieArticle = categorieArticle;
+        this.vendeur = vendeur;
+        this.acheteur = acheteur;
+    }
+//constructeur temporaire pour les test sans la photo
+    public Article(String nom_article, String description, LocalDate date_debut_encheres, LocalDate date_fin_encheres, int prix_initial, int prix_vente, String etat_vente, Retrait lieuxRetrait, Categorie categorieArticle, Utilisateur vendeur, Utilisateur acheteur) {
         this.nom_article = nom_article;
         this.description = description;
         this.date_debut_encheres = date_debut_encheres;
@@ -34,7 +87,8 @@ public class Article {
         this.acheteur = acheteur;
     }
 
-    public Article(String nom_article, String description, LocalDate date_debut_encheres, LocalDate date_fin_encheres, int prix_initial, int prix_vente, String etat_vente, Retrait lieuxRetrait, Categorie categorieArticle, Utilisateur vendeur, Utilisateur acheteur) {
+    public Article(long id_article, String nom_article, String description, LocalDate date_debut_encheres, LocalDate date_fin_encheres, int prix_initial, int prix_vente, String etat_vente, Retrait lieuxRetrait, Categorie categorieArticle, Utilisateur vendeur, Utilisateur acheteur) {
+        this.id_article = id_article;
         this.nom_article = nom_article;
         this.description = description;
         this.date_debut_encheres = date_debut_encheres;
@@ -142,6 +196,14 @@ public class Article {
 
     public void setId_article(long id_article) {
         this.id_article = id_article;
+    }
+
+    public MultipartFile getPhotoArticle() {
+        return photoArticle;
+    }
+
+    public void setPhotoArticle(MultipartFile photoArticle) {
+        this.photoArticle = photoArticle;
     }
 
     @Override
