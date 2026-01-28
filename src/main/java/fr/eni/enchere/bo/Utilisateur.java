@@ -1,5 +1,7 @@
 package fr.eni.enchere.bo;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
@@ -10,29 +12,40 @@ public class Utilisateur {
     private long id_utilisateur;
     @Pattern(regexp = "^[a-zA-Z0-9]+$",
             message = "Le nom ne peut contenir que des lettres ou des chiffres")
-    @Size(min = 3, max = 255, message = "Le pseudo doit avoir 3 caractères minimum")
+    @Size(min = 3, max = 30, message = "Le pseudo doit avoir entre 2 et 30 caractères")
+    @NotBlank(message = "champ obligatoire")
     private String pseudo;
     @Pattern(regexp = "^[a-zA-ZÀ-ÿ\\-]+$",
             message = "Le nom ne peut contenir que des lettres ou le tiret (-)")
-    @Size(min = 2, max = 255, message = "Le nom doit avoir 2 caractères minimum")
+    @Size(min = 2, max = 30, message = "Le nom doit avoir entre 2 et 30 caractères")
+    @NotBlank(message = "champ obligatoire")
     private String nom;
     @Pattern(regexp = "^[a-zA-ZÀ-ÿ\\-]+$",
             message = "Le nom ne peut contenir que des lettres ou le tiret (-)")
-    @Size(min = 2, max = 255, message = "Le prénom doit avoir 2 caractères minimum")
+    @Size(min = 2, max = 30, message = "Le prénom doit avoir entre 2 et 30 caractères")
+    @NotBlank(message = "champ obligatoire")
     private String prenom;
+
+    @Email(message = "merci d'indiquer une adresse mail valide")
+    @Size(max=100, message = "l'adresse mail doit contenir moinsde 100 caractères")
     private String email;
     @Pattern(regexp = "^[0-9]+$", message = "Le téléphone n'est composé que de chiffres")
+    @Size(min = 2, max = 15, message="15 chiffres maximum")
     private String telephone;
-    @Size(min = 2, max = 255)
+    @Size(min = 2, max = 55)
+    @NotBlank(message = "champ obligatoire")
     private String rue;
     @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "le code postal n'est composé que de chiffres et de lettres")
     @Size(min = 2, max = 10)
+    @NotBlank(message = "champ obligatoire")
     private String code_postal;
     @Size(min = 2, max = 30)
+    @NotBlank(message = "champ obligatoire")
     private String ville;
     @Pattern(regexp = "(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}",
             message = "Le mot de passe doit contenir au moins 8 caractères, avec au moins 1 majuscule, 1 minuscule, 1 chiffre et 1 caractère spécial parmi #?!@$%^&*-")
     @Size(min = 8, max = 255)
+    @NotBlank(message = "champ obligatoire")
     private String mot_de_passe;
     private int credit = 0;
     private boolean administrateur =false;

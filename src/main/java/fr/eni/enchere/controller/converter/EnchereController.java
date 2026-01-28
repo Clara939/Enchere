@@ -27,6 +27,12 @@ public class EnchereController {
         this.enchereService = enchereService;
         this.categorieService = categorieService;
     }
+
+    @GetMapping("/encheres")
+    public String afficherEncheres(){
+        return "encheres";
+    }
+
 // page nouvelle vente ( création de l'article a mettre en ventes)
     @GetMapping("/encheres/add")
     public String nouvelleVente(Model model){
