@@ -9,7 +9,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -143,6 +142,19 @@ JdbcTemplate jdbcTemplate;
                 "WHERE date_debut_encheres <= GETDATE() AND date_fin_encheres >= GETDATE()";
 
         return jdbcTemplate.query(sql, new ArticleRowMapper());
+    }
+
+    @Override
+    public List<Article> readAllArticlesEnVenteFiltreSearch(String search) {
+        String mot= "%" + search + "%";
+        String sql = "select articles.id_article as id_article, articles.nom_article as nom_article, articles.description as description, articles.date_debut_encheres as date_debut_encheres, articles.date_fin_encheres as date_fin_encheres, articles.prix_initial as prix_initial, articles.prix_vente as prix_vente, articles.etat_vente as etat_vente, id_vendeur, vendeurs.pseudo as pseudo_vendeur, vendeurs.nom as nom_vendeur, vendeurs.prenom as prenom_vendeur, articles.id_categorie, categories.libelle as libelle_categorie, articles.id_retrait, retraits.rue as rue_retrait, retraits.code_postal as code_postal_retrait, retraits.ville as ville_retrait, articles.id_acheteur, acheteurs.nom as nom_acheteur, acheteurs.prenom as prenom_acheteur from Articles\n " +
+                "    left join utilisateurs as vendeurs on vendeurs.id_utilisateur = articles.id_vendeur\n " +
+                " left join categories on categories.id_categorie = articles.id_categorie\n " +
+                "left join retraits on retraits.id_retrait = articles.id_retrait\n " +
+                "left join utilisateurs as acheteurs on acheteurs.id_utilisateur = articles.id_acheteur\n " +
+                "WHERE date_debut_encheres <= GETDATE() AND date_fin_encheres >= GETDATE() AND (nom_article LIKE ?)";
+
+        return jdbcTemplate.query(sql, new ArticleRowMapper(), mot);
     }
 
 }

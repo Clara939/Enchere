@@ -114,8 +114,16 @@ model.addAttribute("articleList", articleList);
         }
     }
 
-//    @PostMapping("/encheres/filtres")
-//    public String filtrerArticles(@ModelAttribute Article article, Model model){
-//return "/encheres";
-//    }
+
+//    @GetMapping("/encheres/filtres")
+//    public String
+
+    @PostMapping("/encheres/filtres")
+    public String filtrerArticles(Model model, @RequestParam("search") String search, @RequestParam(value = "categorie", required = false, defaultValue = "0") long id){
+            List<Article> articleList = articleService.readAllArticlesEnVenteFiltre(search, id);
+            List<Categorie> categorieList = categorieService.readAll();
+            model.addAttribute("articleList", articleList);
+        model.addAttribute("categorieList", categorieList);
+            return "encheres";
+    }
 }

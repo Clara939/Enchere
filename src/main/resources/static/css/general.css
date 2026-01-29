@@ -2,6 +2,8 @@
     --couleur-fond-sombre: #262626;
     --couleur-blanc-secondaire: rgba(255, 255, 255, 0.85);
     --couleur-orange: rgba(255, 99, 26, 0.95);
+    --couleur-orange-dark: rgba(235, 59, 26, 0.95);
+    --couleur-gris-clair : #cdcdcd;
 }
 
 *{
@@ -40,24 +42,40 @@ nav ul{
 .boutonOrange{
     background-color: var(--couleur-orange);
     border-radius :30px;
-    padding: 10px;
+    padding: 20px;
     height: fit-content;
     text-decoration: none;
     font-weight: bold;
     color: var(--couleur-blanc-secondaire);
+    outline: none;
+    border: none;
+}
+
+.boutonOrange:hover{
+    background-color: var(--couleur-orange-dark);
 }
 
 .boutonBlanc{
     background-color: var(--couleur-blanc-secondaire);
     border-radius :30px;
-    padding: 10px;
+    padding: 20px;
     text-decoration: none;
     font-weight: bold;
     color: var(--couleur-orange);
+    outline: none;
+    border: none;
+}
+
+.boutonBlanc:hover{
+    background-color: var(--couleur-gris-clair);
 }
 
 h2{
     text-align: center;
+}
+
+h3{
+    font-size: 20px;
 }
 
 #encheres_corps_principal{
@@ -65,7 +83,9 @@ h2{
     grid-template-areas: "encheres_section_filtres encheres_section_filtres"
 "encheres_section_liste_encheres encheres_section_liste_encheres";
     grid-template-columns: 1fr 4fr;
-    gap: 15px;
+    gap: 25px;
+    color: var(--couleur-fond-sombre);
+    margin: 25px;
 }
 
 #encheres_section_filtres, .encheres_article_vente{
@@ -77,7 +97,7 @@ h2{
 #encheres_section_liste_encheres{
     display: grid;
     grid-template-columns: 2fr 2fr;
-    gap: 15px;
+    gap: 25px;
 }
 
 .encheres_article_vente h3{
@@ -94,6 +114,10 @@ h2{
 .encheres_article_infos button{
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
-    margin-top : auto;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    font-weight: bold;
+    font-size: 20px;
+    color: var(--couleur-fond-sombre);
 }

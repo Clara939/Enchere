@@ -4,18 +4,19 @@
     <h2>Liste des enchères 💰</h2>
     <div id="encheres_corps_principal">
         <section id="encheres_section_filtres">
-            <!--        <form th:action="@{/encheres/filtres}" method="post" th:object="${article}">-->
-            <!--        <label for="encheres_input_recherche">Filtres :</label>-->
-            <!--        <input id="encheres_input_recherche" type="search" name="search" placeholder="🔍︎ le nom de l'article contient">-->
-            <!--        <label for="encheres_select_categories">Catégories :</label>-->
-            <!--            <select id="encheres_select_categories" th:field="*{categorie}">-->
-            <!--                <option th:each="cat : ${categorieList}"-->
-            <!--                        th:text="${cat.name}"-->
-            <!--                        th:value="${cat.id}">-->
-            <!--                </option>-->
-            <!--            </select>-->
-            <!--<button type="submit">RECHERCHER</button>-->
-            <!--        </form>-->
+                    <form th:action="@{/encheres/filtres}" method="post">
+                    <label for="encheres_input_recherche">Filtres :</label>
+                    <input id="encheres_input_recherche" type="search" name="search" placeholder="🔍︎ le nom de l'article contient">
+                    <label for="encheres_select_categories">Catégories :</label>
+                        <select id="encheres_select_categories" name="categorie">
+                            <option value="0">Toutes catégories</option>
+                            <option th:each="cat : ${categorieList}"
+                                    th:text="${cat.name}"
+                                    th:value="${cat.id}">
+                            </option>
+                        </select>
+            <button type="submit" class="boutonOrange">RECHERCHER</button>
+                    </form>
         </section>
         <section id="encheres_section_liste_encheres">
             <div th:each="article : ${articleList}" class="encheres_article_vente">
@@ -24,11 +25,11 @@
                 <div class="encheres_article_infos">
                     <div>
                         <p>Prix initial :
-                            <span th:text="${article.getPrix_initial()}"></span><span> points</span></p>
+                            <strong><span th:text="${article.getPrix_initial()}"></span><span> points</span></p></strong>
                         <p>Fin de l'enchère :
-                            <span th:text="${article.getDate_fin_encheres()}"></span></p>
+                            <strong><span th:text="${article.getDate_fin_encheres()}"></span></p></strong>
                         <p>Vendeur :
-                            <span th:text="${article.getVendeur().getPseudo()}"></span></p>
+                            <strong><span th:text="${article.getVendeur().getPseudo()}"></span></p></strong>
                     </div>
                     <button type="button" class="boutonOrange">Enchérir</button>
                 </div>
