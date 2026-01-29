@@ -42,7 +42,11 @@ public class EnchereController {
     @GetMapping("/encheres")
     public String afficherEncheres(Model model){
         List<Article> articleList = articleService.readAllArticlesEnVente();
+        List<Categorie> categorieList = categorieService.readAll();
 model.addAttribute("articleList", articleList);
+model.addAttribute("categorieList", categorieList);
+        model.addAttribute("id_categorie_selectionnee", 0); //affichage avec toutes catégories lors de la 1e arrivée sur la page
+        model.addAttribute("search", ""); //affichage avec une recherche "vide" lors de la 1e arrivée sur la page
         return "encheres";
     }
 
@@ -119,15 +123,14 @@ model.addAttribute("articleList", articleList);
     }
 
 
-//    @GetMapping("/encheres/filtres")
-//    public String
-
     @PostMapping("/encheres/filtres")
     public String filtrerArticles(Model model, @RequestParam("search") String search, @RequestParam(value = "categorie", required = false, defaultValue = "0") long id){
             List<Article> articleList = articleService.readAllArticlesEnVenteFiltre(search, id);
             List<Categorie> categorieList = categorieService.readAll();
             model.addAttribute("articleList", articleList);
         model.addAttribute("categorieList", categorieList);
+        model.addAttribute("id_categorie_selectionnee", id); //affichage avec la catégorie sélectionnée pour une meilleure UX
+        model.addAttribute("search", search); //affichage du mot précédemment recherché pour une meilleure UX
             return "encheres";
     }
 }
