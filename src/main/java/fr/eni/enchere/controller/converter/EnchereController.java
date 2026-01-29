@@ -39,6 +39,8 @@ public class EnchereController {
         List<Categorie> categorieList = categorieService.readAll();
 model.addAttribute("articleList", articleList);
 model.addAttribute("categorieList", categorieList);
+        model.addAttribute("id_categorie_selectionnee", 0);
+        model.addAttribute("search", "");
         return "encheres";
     }
 
@@ -136,11 +138,14 @@ public String saveArticle(@Valid @ModelAttribute Article article,
 //    public String
 
     @PostMapping("/encheres/filtres")
-    public String filtrerArticles(Model model, @RequestParam("search") String search, @RequestParam(value = "categorie", required = false, defaultValue = "0") long id){
-            List<Article> articleList = articleService.readAllArticlesEnVenteFiltre(search, id);
+    public String filtrerArticles(Model model, @RequestParam("search") String search, @RequestParam(value = "categorie", required = false, defaultValue = "0") long id, @RequestParam(value = "encheres_ouvertes", required = false, defaultValue = "false") boolean encheres_ouvertes){
+            List<Article> articleList = articleService.readAllArticlesEnVenteFiltre(search, id, encheres_ouvertes);
             List<Categorie> categorieList = categorieService.readAll();
             model.addAttribute("articleList", articleList);
         model.addAttribute("categorieList", categorieList);
+        model.addAttribute("id_categorie_selectionnee", id);
+        model.addAttribute("search", search);
+        model.addAttribute("encheres_ouvertes", encheres_ouvertes);
             return "encheres";
     }
 

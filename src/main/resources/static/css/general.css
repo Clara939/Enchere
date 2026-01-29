@@ -117,6 +117,7 @@ h2{
 
 h3{
     font-size: 20px;
+    text-align: center;
 }
 
 #encheres_corps_principal{
@@ -140,7 +141,7 @@ h3{
     aspect-ratio: 1/1;
     /*permet d'adapter la taille des images à celle de l'écran en gardant ici une hauteur égale à la largeur*/
     object-fit: cover;
-    max-height: 350px;
+    max-height: 400px;
 }
 
 .encheres_article_vente{
@@ -191,13 +192,26 @@ h3{
     margin: auto;
 }
 
-.encheres_checkbox{
-    margin-left: 25px;
+/*#encheres_radio_achats:checked, #encheres_radio_ventes:checked{*/
+/*    appearance: none;*/
+/*    outline: none;*/
+/*    border-radius: 50%;*/
+/*    border : solid 5px var(--couleur-orange);*/
+/*    width: 3px;*/
+/*    transform: scale(0.3)*/
+/*}*/
 
+.encheres_checkbox{
+    margin: 15px 0 0 25px;
 }
 
 .encheres_checkbox label{
     font-size: 15px;
+}
+
+.bloc_filtre:not(:has(input[type="radio"]:checked)) .encheres_checkbox {
+    opacity: 0.4; /* les blocs apparaissent grisés */
+    pointer-events: none;  /* les clics sur les checkbox ne passent plus */
 }
 
 .encheres_article_vente h3, #encheres_form_filtre label{

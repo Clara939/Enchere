@@ -1,8 +1,8 @@
 package fr.eni.enchere.service;
 
 import fr.eni.enchere.bo.Article;
-import fr.eni.enchere.bo.Enchere;
 import fr.eni.enchere.repository.ArticleRepository;
+import fr.eni.enchere.repository.EnchereRepository;
 import fr.eni.enchere.repository.EnchereRepositorySql;
 import org.springframework.stereotype.Service;
 
@@ -11,12 +11,14 @@ import java.util.stream.Collectors;
 
 @Service
 public class ArticleServiceImpl implements ArticleService{
-    private final EnchereRepositorySql enchereRepositorySql;
+   EnchereRepository enchereRepository;
+    private final UtilisateurService utilisateurService;
     ArticleRepository articleRepository;
 
-    public ArticleServiceImpl(ArticleRepository articleRepository, EnchereRepositorySql enchereRepositorySql) {
+    public ArticleServiceImpl(UtilisateurService utilisateurService, EnchereRepository enchereRepository, ArticleRepository articleRepository) {
+        this.utilisateurService = utilisateurService;
+        this.enchereRepository = enchereRepository;
         this.articleRepository = articleRepository;
-        this.enchereRepositorySql = enchereRepositorySql;
     }
 
     @Override
@@ -47,14 +49,19 @@ public class ArticleServiceImpl implements ArticleService{
     }
 
     @Override
-    public List<Article> readAllArticlesEnVenteFiltre(String search, long id_categorie) {
+    public List<Article> readAllArticlesEnVenteFiltre(String search, long id_categorie, boolean encheres_ouvertes) {
         List<Article> articleListeFiltre = articleRepository.readAllArticlesEnVenteFiltreSearch(search);
-        if (id_categorie == 0){ //si aucune categorie n'est choisie, id_categorie = 0
-            return articleListeFiltre;
+        if (!(id_categorie == 0)){ //si une categorie est choisie, on filtre la première liste
+            articleListeFiltre = articleListeFiltre.stream()
+                    .filter(a -> a.getCategorieArticle().getId_categorie() == id_categorie)
+                    .collect(Collectors.toList());
         }
-        return articleListeFiltre.stream()
-                .filter(a -> a.getCategorieArticle().getId_categorie() == id_categorie)
-                .collect(Collectors.toList());
+        if (encheres_ouvertes){
+            articleListeFiltre = articleListeFiltre.stream()
+                    .filter((a -> a.getVendeur().getId_utilisateur() != utilisateurService.recuperationIdUtilisateurActif().getId_utilisateur()))
+                    .collect(Collectors.toList());
+        }
+        return articleListeFiltre;
     }
 
 }
