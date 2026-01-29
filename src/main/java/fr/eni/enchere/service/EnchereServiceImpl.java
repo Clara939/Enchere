@@ -39,7 +39,7 @@ public class EnchereServiceImpl implements EnchereService{
     @Override
     public void deleteEnchere(long id) { this.enchereRepository.deleteEnchere(id); }
 
-// Logique de base d'un enchere (Raman)
+///////////// Logique d'un enchere (Raman)
     @Override
     public void placeEnchere(long idArticle, long idUtilisateur, int montantPropose) throws Exception {
         Article article = articleService.readById(idArticle);
@@ -49,7 +49,7 @@ public class EnchereServiceImpl implements EnchereService{
             throw new Exception("Article introvable.");
         }
 
-        // Récupération d'un utilisateur à partir de la base de données
+        //// Récupération d'un utilisateur à partir de la base de données
         Utilisateur encherisseur = utilisateurService.readById(idUtilisateur);
 
         // Vérifier si l'utilisateur existe
@@ -57,7 +57,54 @@ public class EnchereServiceImpl implements EnchereService{
             throw new Exception("Utilisateur introuvable.");
         }
 
+        //// Nous déterminons le prix actuel
+        int prixActuel = article.getPrix_vente();
 
+        // Si aucune enchère, le prix actuel est le prix initial
+        if (prixActuel == 0) {
+            prixActuel = article.getPrix_initial();
+        }
+
+        //// Vérifier si le montant proposé est supérieur au prix actuel
+        if (montantPropose <= prixActuel) {
+            throw new Exception("Le montrant propose doit etre superieur au prix actuel.");
+        }
+
+        //// VÉRIFICATION - L'utilisateur dispose-t-il de suffisamment de points
+        if (encherisseur.getCredit() < montantPropose) {
+            throw new Exception("Crédit insuffisant pour effectuer cette enchère.");
+        }
+
+        //// Trouvez la meilleure offre précédente
+        Enchere ancienneEnchere = enchereRepository.findTopEnchereByArticle(idArticle);
+
+        //// Nous rendons les points au vainqueur précédent
+        if (ancienneEnchere != null) {
+            Utilisateur ancienEncherisseur = ancienneEnchere.getEncherisseur();
+
+            // Le montant a son enchere
+            int montantRembourser = ancienneEnchere.getMontant_enchere();
+
+            // REMBOURS les points: ancien prêt + montant
+            ancienEncherisseur.setCredit(ancienEncherisseur.getCredit() + montantRembourser);
+
+            // Met à jour la base de données
+            utilisateurService.updateUtilisateur(ancienEncherisseur);
+        }
+
+        //// Annulons les points d'un nouveau participant
+        encherisseur.setCredit(encherisseur.getCredit() - montantPropose);
+        // Met à jour la base de données
+        utilisateurService.updateUtilisateur(encherisseur);
+
+
+        //// Mise à jour du prix de vente de article
+        article.setPrix_vente(montantPropose); // Nouveau prix de vente = montant proposé
+        article.setAcheteur(encherisseur); // Nous avons defini acheteur comme participant actuel
+        articleService.update(article); // Met a jour la base de données
+
+
+        //// Création d'une nouvelle enchère
 
     }
 

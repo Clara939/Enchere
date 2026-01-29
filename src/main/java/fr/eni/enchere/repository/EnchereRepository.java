@@ -14,4 +14,8 @@ public interface EnchereRepository {
     void updateEnchere(Enchere enchere);
 
     void deleteEnchere(long id);
+
+    // dernière enchère (la plus élevée) Renvoie la dernière enchère
+    Enchere findTopEnchereByArticle(long idArticle);
+
 }
