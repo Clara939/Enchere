@@ -3,41 +3,41 @@
 <main>
     <h2>Liste des enchères 💰</h2>
     <div id="encheres_corps_principal">
-<!--        <section id="encheres_section_filtres">-->
-                    <form id="encheres_form_filtre" th:action="@{/encheres/filtres}" method="post">
-                    <label for="encheres_input_recherche">Filtres :</label>
-                    <input id="encheres_input_recherche" type="search" name="search" placeholder="🔍︎ le nom de l'article contient" th:value="${search}">
-<!--                        th:value permet d'afficher le mot recherché sur la page des résultats-->
-                    <label for="encheres_select_categories">Catégories :</label>
-                        <select id="encheres_select_categories" name="categorie">
-                            <option value="0" th:selected="${id_categorie_selectionnee == 0}">Toutes les catégories</option>
-<!--                            th:selected="condition" : l'option est sélectionnée si la condition est vérifiée-->
-                            <option th:each="cat : ${categorieList}"
-                                    th:text="${cat.getLibelle()}"
-                                    th:value="${cat.getId_categorie()}"
-                            th:selected="${cat.getId_categorie() == id_categorie_selectionnee}">
-                            </option>
-                        </select>
+        <!--        <section id="encheres_section_filtres">-->
+        <form id="encheres_form_filtre" th:action="@{/encheres/filtres}" method="post">
+            <label for="encheres_input_recherche">Filtres :</label>
+            <input id="encheres_input_recherche" type="search" name="search" placeholder="🔍︎ le nom de l'article contient" th:value="${search}">
+            <!--                        th:value permet d'afficher le mot recherché sur la page des résultats-->
+            <label for="encheres_select_categories">Catégories :</label>
+            <select id="encheres_select_categories" name="categorie">
+                <option value="0" th:selected="${id_categorie_selectionnee == 0}">Toutes les catégories</option>
+                <!--                            th:selected="condition" : l'option est sélectionnée si la condition est vérifiée-->
+                <option th:each="cat : ${categorieList}"
+                        th:text="${cat.getLibelle()}"
+                        th:value="${cat.getId_categorie()}"
+                        th:selected="${cat.getId_categorie() == id_categorie_selectionnee}">
+                </option>
+            </select>
             <button type="submit" class="boutonOrange">RECHERCHER</button>
-                    </form>
-<!--        </section>-->
-<!--        <section id="encheres_section_liste_encheres">-->
-            <div th:each="article : ${articleList}" class="encheres_article_vente">
-                <!--<img th:src="${article.}">-->
-                <h3 th:text="${article.getNom_article()}"></h3>
-                <div class="encheres_article_infos">
-                    <div>
-                        <p>Prix initial :
-                            <strong><span th:text="${article.getPrix_initial()}"></span><span> points</span></p></strong>
-                        <p>Fin de l'enchère :
-                            <strong><span th:text="${article.getDate_fin_encheres()}"></span></p></strong>
-                        <p>Vendeur :
-                            <strong><span th:text="${article.getVendeur().getPseudo()}"></span></p></strong>
-                    </div>
-                    <button type="button" class="boutonOrange">Enchérir</button>
+        </form>
+        <!--        </section>-->
+        <!--        <section id="encheres_section_liste_encheres">-->
+        <div th:each="article : ${articleList}" class="encheres_article_vente">
+            <!--<img th:src="${article.}">-->
+            <h3 th:text="${article.getNom_article()}"></h3>
+            <div class="encheres_article_infos">
+                <div>
+                    <p>Prix actuel :
+                        <strong><span th:text="${article.getPrix_vente()}"></span><span> points</span></p></strong>
+                    <p>Fin de l'enchère :
+                        <strong><span th:text="${article.getDate_fin_encheres()}"></span></p></strong>
+                    <p>Vendeur :
+                        <strong><span th:text="${article.getVendeur().getPseudo()}"></span></p></strong>
                 </div>
+                <button type="button" class="boutonOrange">Enchérir</button>
             </div>
-<!--        </section>-->
+        </div>
+        <!--        </section>-->
     </div>
 </main>
 </html>

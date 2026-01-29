@@ -3,12 +3,13 @@
     --couleur-blanc-secondaire: rgba(255, 255, 255, 0.85);
     --couleur-orange: rgba(255, 99, 26, 0.95);
     --couleur-orange-dark: rgba(235, 59, 26, 0.95);
-    --couleur-gris-clair : #cdcdcd;
+    --couleur-gris-clair : #999999;
     --couleur-vert-vif : #98CE00;
 }
 
 *{
-overflow: hidden;
+padding :0;
+    margin:0;
 }
 
 body{
@@ -50,6 +51,7 @@ nav ul{
     color: var(--couleur-blanc-secondaire);
     outline: none;
     border: none;
+    width: fit-content;
 }
 
 .boutonOrange:hover{
@@ -65,6 +67,7 @@ nav ul{
     color: var(--couleur-orange);
     outline: none;
     border: none;
+    width: fit-content;
 }
 
 .boutonBlanc:hover{
@@ -80,13 +83,9 @@ h3{
 }
 
 #encheres_corps_principal{
-/*    display: grid;*/
-/*    grid-template-areas: "encheres_section_filtres encheres_section_filtres"*/
-/*"encheres_section_liste_encheres encheres_section_liste_encheres";*/
-/*    grid-template-columns: 1fr 4fr;*/
-/*    gap: 25px;*/
-/*    color: var(--couleur-fond-sombre);*/
-/*    margin: 25px;*/
+    gap: 25px;
+    color: var(--couleur-fond-sombre);
+    margin: 25px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -97,7 +96,17 @@ h3{
     overflow: hidden;
 }
 
-#encheres_form_filtre, .encheres_article_vente{
+#encheres_form_filtre{
+    padding: 20px;
+    border-radius :50px;
+    background-color: var(--couleur-gris-clair);
+    aspect-ratio: 1/1;
+    /*permet d'adapter la taille des images à celle de l'écran en gardant ici une hauteur égale à la largeur*/
+    object-fit: cover;
+    max-height: 350px;
+}
+
+.encheres_article_vente{
     padding: 20px;
     border-radius :50px;
     background-color: var(--couleur-blanc-secondaire);
@@ -113,7 +122,24 @@ h3{
 /*    gap: 25px;*/
 /*}*/
 
-.encheres_article_vente h3{
+#encheres_form_filtre{
+    display: flex;
+    flex-direction: column;
+}
+
+#encheres_form_filtre label, #encheres_form_filtre input, #encheres_form_filtre select{
+    padding:15px;
+}
+
+#encheres_form_filtre label{
+    font-size: 20px;
+}
+
+#encheres_form_filtre button{
+    margin: 15px auto;
+}
+
+.encheres_article_vente h3, #encheres_form_filtre label{
     text-align: center;
 }
 
