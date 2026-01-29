@@ -1,6 +1,7 @@
 package fr.eni.enchere.controller.converter;
 
 import fr.eni.enchere.bo.Article;
+import fr.eni.enchere.bo.Utilisateur;
 import fr.eni.enchere.service.*;
 
 import org.springframework.stereotype.Controller;
@@ -37,19 +38,6 @@ public class VenteController {
     @PostMapping("/encheres/encherir")
     public String faireUneEnchere(){
     // code de raman
-        return "redirect:encheres";
-    }
-
-    //page modification de l'article
-    @GetMapping("/encheres/update")
-    public String modifierArticle(){
-
-        return "update_enchere";
-    }
-    //permet de modifier l'article avant le debut de l'enchere
-    @PostMapping("encheres/update")
-    public String ajoutDesModification(){
-
         return "redirect:encheres";
     }
 }

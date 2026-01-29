@@ -1,11 +1,8 @@
 <!DOCTYPE html>
 <html lang="fr" th:replace="~{layout/layout :: frag_layout(content=~{::main})}">
 <main>
-    <h2>Nouvelle vente</h2>
-    <form   th:action="@{/encheres/create}"
-            method="post"
-            enctype="multipart/form-data"
-            th:object="${article}">
+    <h2 th:text="${article.id_article == null ? 'Nouvelle vente' : 'Modifier vente'}">Nouvelle vente</h2>
+    <form th:action="@{/encheres/save}" method="post" enctype="multipart/form-data" th:object="${article}">
         <ul class="flex-outer">
             <li>
                 <label for="nomArticle">Article</label>
@@ -24,7 +21,7 @@
                     <option th:each="item : ${categorieList}"
                             th:value="${item.id_categorie}"
                             th:text="${item.libelle}"
-                            th:selected="${item.id_categorie == 2}" >
+                            th:selected="${article.categorieArticle != null ? article.categorieArticle.id_categorie == item.id_categorie : false}">
                     </option>
                 </select>
                 <span th:if="${#fields.hasErrors('categorieArticle')}" th:errors="*{categorieArticle}" class="error"></span>
@@ -69,10 +66,17 @@
                 </li>
             </ul>
             <li>
-                <button type="submit">Enregistrer</button>
+                <button class="boutonVert" type="submit" th:text="${article.id_article == null ? 'Enregistrer' : 'Modifier'}">Enregistrer</button>
             </li>
             <li>
-                <a  href="/" >Annuler</a>
+                <a class="boutonOrange" href="/" >Annuler</a>
+            </li>
+            <li th:if="${article.id_article != null}">
+                <a th:href="@{/encheres/delete(id=${article.id_article})}"
+                   class="boutonGris"
+                   onclick="return confirm('Supprimer cet article ?')">
+                    Annuler la vente
+                </a>
             </li>
         </ul>
     </form>

@@ -27,10 +27,10 @@ public class ArticleServiceImpl implements ArticleService{
         this.articleRepository.create(article); }
 
     @Override
-    public Article readById(long id) { return this.articleRepository.readById(id); }
+    public Article readById(long id_article) { return this.articleRepository.readById(id_article); }
 
     @Override
-    public void delete(long id) { this.articleRepository.delete(id); }
+    public void delete(long id_article) { this.articleRepository.delete(id_article); }
 
     @Override
     public void update(Article article) { this.articleRepository.update(article); }
