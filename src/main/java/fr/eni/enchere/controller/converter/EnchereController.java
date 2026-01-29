@@ -36,7 +36,9 @@ public class EnchereController {
     @GetMapping("/encheres")
     public String afficherEncheres(Model model){
         List<Article> articleList = articleService.readAllArticlesEnVente();
+        List<Categorie> categorieList = categorieService.readAll();
 model.addAttribute("articleList", articleList);
+model.addAttribute("categorieList", categorieList);
         return "encheres";
     }
 

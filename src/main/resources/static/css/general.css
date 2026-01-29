@@ -150,7 +150,7 @@ h3{
     aspect-ratio: 1/1;
     /*permet d'adapter la taille des images à celle de l'écran en gardant ici une hauteur égale à la largeur*/
     object-fit: cover;
-    max-height: 350px;
+    max-height: 400px;
 }
 
 /*#encheres_form_mes_encheres{*/
@@ -175,6 +175,10 @@ h3{
     flex-direction: column;
 }
 
+.bloc_filtre{
+    margin:15px auto;
+}
+
 #encheres_form_filtre label, #encheres_form_filtre input, #encheres_form_filtre select{
     padding:15px;
 }
@@ -184,16 +188,16 @@ h3{
 }
 
 #encheres_form_filtre button{
-    margin: 15px auto;
+    margin: auto;
 }
 
 .encheres_checkbox{
-    margin-left: 15px;
+    margin-left: 25px;
 
 }
 
 .encheres_checkbox label{
-    font-size: 10px;
+    font-size: 15px;
 }
 
 .encheres_article_vente h3, #encheres_form_filtre label{
