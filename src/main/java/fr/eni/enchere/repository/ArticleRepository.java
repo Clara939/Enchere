@@ -18,4 +18,8 @@ public interface ArticleRepository {
     List<Article> readAllArticlesEnVente();
 
     List<Article> readAllArticlesEnVenteFiltreSearch(String search);
+
+    List<Article> readAllArticlesVenteNonDebutees();
+
+    List<Article> readAllArticlesVenteTerminee();
 }

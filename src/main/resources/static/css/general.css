@@ -70,6 +70,7 @@ nav ul{
     outline: none;
     border: none;
     width: fit-content;
+    box-shadow: 6px 6px 25px rgba(0, 0, 0, 0.5);
 }
 
 .boutonOrange:hover{
@@ -86,6 +87,7 @@ nav ul{
     outline: none;
     border: none;
     width: fit-content;
+    box-shadow: 6px 6px 25px rgba(0, 0, 0, 0.5);
 }
 
 .boutonBlanc:hover{
@@ -103,6 +105,7 @@ nav ul{
     /*outline: none;*/
     border: solid 2px var(--couleur-blanc-secondaire);
     width: fit-content;
+    box-shadow: 6px 6px 25px rgba(0, 0, 0, 0.5);
 }
 
 .boutonNoirEtBlanc:hover{
@@ -142,6 +145,7 @@ h3{
     /*permet d'adapter la taille des images à celle de l'écran en gardant ici une hauteur égale à la largeur*/
     object-fit: cover;
     max-height: 400px;
+    box-shadow: 6px 6px 25px rgba(0, 0, 0, 0.5);
 }
 
 .encheres_article_vente{
@@ -152,6 +156,7 @@ h3{
     /*permet d'adapter la taille des images à celle de l'écran en gardant ici une hauteur égale à la largeur*/
     object-fit: cover;
     max-height: 400px;
+    box-shadow: 6px 6px 25px rgba(0, 0, 0, 0.5);
 }
 
 /*#encheres_form_mes_encheres{*/
