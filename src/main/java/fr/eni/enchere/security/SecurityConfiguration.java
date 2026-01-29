@@ -49,6 +49,8 @@ public class SecurityConfiguration {
                     /*accès au chemin /encheres/add en Get pour les utilisateurs */
                     .requestMatchers(HttpMethod.GET, "/encheres/add").hasRole("UTILISATEUR")
                     .requestMatchers(HttpMethod.POST, "/encheres/create").hasRole("UTILISATEUR")
+                    .requestMatchers(HttpMethod.GET, "/encheres/details").hasRole("UTILISATEUR")
+                    .requestMatchers(HttpMethod.POST, "/encheres/encherir").hasRole("UTILISATEUR")
                     .requestMatchers(HttpMethod.GET, "/profil").hasRole("UTILISATEUR")
                     .requestMatchers(HttpMethod.GET, "/MonProfil").hasRole("UTILISATEUR")
                     .requestMatchers(HttpMethod.GET, "/MonProfil/update").hasRole("UTILISATEUR")
@@ -76,37 +78,37 @@ public class SecurityConfiguration {
                     //tous ce qui n'est pas spécifié n'est pas accessible
                     .anyRequest().denyAll();
         });
-////CONFIGURATION DE LA GESTION DE SESSIONS (Raman)---------------------------------------------------
-//        http.sessionManagement(session -> session
-//                .sessionFixation().migrateSession() // Protection contre la fixation de session
-//                                                   // Chaque authentification crée une nouvelle session et les anciennes données sont copiées.
-//                .maximumSessions(1)                 // Limite à une seule session par utilisateur
-//                                                   // Si l'utilisateur se connecte depuis un autre appareil, la session précédente est interrompue.
-//                .maxSessionsPreventsLogin(false)   // false = une nouvelle session remplace l'ancienne
-//                                                  // true = bloque les nouvelles connexions s'il existe déjà une session active
-//                .expiredUrl("/login?expired")       // Où rediriger l'utilisateur en cas d'expiration de la session
-//                                                   // L'utilisateur verra un message indiquant que sa session a expiré
-//        );
-//
-//        // DÉFINITION DU DÉLAI D'EXPIRATION DE LA SESSION (5 MINUTES)
-//        http.sessionManagement(session -> session
-//            .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED) // Crée une session uniquement si nécessaire
-//            .invalidSessionUrl("/login?invalid")                     // Redirection si la session est invalid
-//                                                                    // Si la session est corrompue ou n'existe pas
-//            .sessionConcurrency(concurrency -> concurrency
-//                .maximumSessions(1)                               // Une seule session  parutilisateur
-//                .expiredUrl("/login?expired")                   // Page à l'expiration de la session
-//            )
-//        );
-//
-//        // Définir un délai d'inactivité (5 minutes = 300 secondes)
-//        http.sessionManagement(session -> session
-//            .sessionFixation().migrateSession()
-//            .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-//            .maximumSessions(1)
-//            .maxSessionsPreventsLogin(false)
-//            .expiredUrl("/login?expired")
-//        );
+//CONFIGURATION DE LA GESTION DE SESSIONS (Raman)---------------------------------------------------
+        http.sessionManagement(session -> session
+                .sessionFixation().migrateSession() // Protection contre la fixation de session
+                                                   // Chaque authentification crée une nouvelle session et les anciennes données sont copiées.
+                .maximumSessions(1)                 // Limite à une seule session par utilisateur
+                                                   // Si l'utilisateur se connecte depuis un autre appareil, la session précédente est interrompue.
+                .maxSessionsPreventsLogin(false)   // false = une nouvelle session remplace l'ancienne
+                                                  // true = bloque les nouvelles connexions s'il existe déjà une session active
+                .expiredUrl("/login?expired")       // Où rediriger l'utilisateur en cas d'expiration de la session
+                                                   // L'utilisateur verra un message indiquant que sa session a expiré
+        );
+
+        // DÉFINITION DU DÉLAI D'EXPIRATION DE LA SESSION (5 MINUTES)
+        http.sessionManagement(session -> session
+            .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED) // Crée une session uniquement si nécessaire
+            .invalidSessionUrl("/login?invalid")                     // Redirection si la session est invalid
+                                                                    // Si la session est corrompue ou n'existe pas
+            .sessionConcurrency(concurrency -> concurrency
+                .maximumSessions(1)                               // Une seule session  parutilisateur
+                .expiredUrl("/login?expired")                   // Page à l'expiration de la session
+            )
+        );
+
+        // Définir un délai d'inactivité (5 minutes = 300 secondes)
+        http.sessionManagement(session -> session
+            .sessionFixation().migrateSession()
+            .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+            .maximumSessions(1)
+            .maxSessionsPreventsLogin(false)
+            .expiredUrl("/login?expired")
+        );
 
 
         // Ignore CSRF pour upload

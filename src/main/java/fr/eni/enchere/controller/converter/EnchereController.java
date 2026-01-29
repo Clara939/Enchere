@@ -15,13 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
-import java.util.UUID;
 
 @Controller
 public class EnchereController {
@@ -74,35 +68,37 @@ model.addAttribute("articleList", articleList);
     }
 
 
-
 // page nouvelle vente validation de l'article creer
     @PostMapping("/encheres/create")
-    public String createEnchere(@Valid @ModelAttribute Article article, BindingResult result,  Model model){
+    public String createEnchere(@Valid @ModelAttribute Article article, BindingResult result, @RequestParam("categorieId") long categorieId, Model model){
 
+        System.out.println("CATÉGORIE reçue: " +
+                (article.getCategorieArticle() != null ? article.getCategorieArticle().getId_categorie() : "NULL"));
 
         if (result.hasErrors()) {
-            System.out.println(" ERREURS VALIDATION :");
-            result.getAllErrors().forEach(error -> System.out.println("  - " + error.getDefaultMessage()));
-
         model.addAttribute("categorieList", categorieService.readAll());
         model.addAttribute("article", article);
         return "add_enchere";
         }
+
+
+        Categorie categorieChoisie = categorieService.readById(categorieId);
+        article.setCategorieArticle(categorieChoisie);
+
+
         //recuperation des info du vendeur
         Utilisateur vendeurConnecte = utilisateurService.recuperationIdUtilisateurActif();
         article.setVendeur(vendeurConnecte);
 
-        //traite erreur categorie
-        if(article.getCategorieArticle() == null || article.getCategorieArticle().getId_categorie() == 0) {
-            article.setCategorieArticle(categorieService.readAll().get(0));
-        }
 
-        // RETRAIT = NULL (ignore colonne id_retrait)
-        article.setLieuxRetrait(null);
-
-        // ACHETEUR = NULL (normal pour nouvelle enchère)
+        //Créer retrait avec adresse vendeur
+        Retrait retrait = new Retrait();
+        retrait.setRue(vendeurConnecte.getRue());
+        retrait.setCode_postal(vendeurConnecte.getCode_postal());
+        retrait.setVille(vendeurConnecte.getVille());
+        retraitService.createRetrait(retrait);
+        article.setLieuxRetrait(retrait);
         article.setAcheteur(null);
-
 
 
         try {

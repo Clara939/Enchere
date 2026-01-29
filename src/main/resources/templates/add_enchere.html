@@ -19,10 +19,12 @@
             </li>
             <li>
                 <label for="idCategorie">Catégorie</label>
-                <select id="idCategorie" th:field="*{categorieArticle}" required>
+                <select id="idCategorie" name="categorieId" required>
+                    <option value="">Choisir une catégorie</option>
                     <option th:each="item : ${categorieList}"
                             th:value="${item.id_categorie}"
-                            th:text="${item.libelle}">
+                            th:text="${item.libelle}"
+                            th:selected="${item.id_categorie == 2}" >
                     </option>
                 </select>
                 <span th:if="${#fields.hasErrors('categorieArticle')}" th:errors="*{categorieArticle}" class="error"></span>
