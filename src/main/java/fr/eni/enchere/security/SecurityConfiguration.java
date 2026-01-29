@@ -51,6 +51,8 @@ public class SecurityConfiguration {
                     .requestMatchers(HttpMethod.POST, "/encheres/create").hasRole("UTILISATEUR")
                     .requestMatchers(HttpMethod.GET, "/encheres/details").hasRole("UTILISATEUR")
                     .requestMatchers(HttpMethod.POST, "/encheres/encherir").hasRole("UTILISATEUR")
+                    .requestMatchers(HttpMethod.GET, "/encheres/update").hasRole("UTILISATEUR")
+                    .requestMatchers(HttpMethod.POST, "/encheres/update").hasRole("UTILISATEUR")
                     .requestMatchers(HttpMethod.GET, "/profil").hasRole("UTILISATEUR")
                     .requestMatchers(HttpMethod.GET, "/MonProfil").hasRole("UTILISATEUR")
                     .requestMatchers(HttpMethod.GET, "/MonProfil/update").hasRole("UTILISATEUR")
