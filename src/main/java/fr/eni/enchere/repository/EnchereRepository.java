@@ -14,4 +14,6 @@ public interface EnchereRepository {
     void updateEnchere(Enchere enchere);
 
     void deleteEnchere(long id);
+
+    List<Enchere> readAllForOneArticle(long id);
 }
