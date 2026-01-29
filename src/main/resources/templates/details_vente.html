@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr" th:replace="~{layout/layout :: frag_layout(content=~{::main})}">
+<main>
+  <h2>Détails ventes</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Article</th>
+        <th>Description</th>
+        <th>Catégorie</th>
+        <th>Meilleure offre</th>
+        <th>Mise à prix</th>
+        <th>Fin de l'enchère</th>
+        <th>Rue</th>
+        <th>Code postal</th>
+        <th>Ville</th>
+        <th>Vendeur</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td th:text="${article.nom_article}"></td>
+        <td th:text="${article.description}"></td>
+        <td th:text="${article.categorieArticle.libelle}"></td>
+        <td th:text="${article.prix_vente}"></td>
+        <td th:text="${article.date_fin_encheres}"></td>
+        <td th:text="${article.lieuxRetrait.rue}"></td>
+        <td th:text="${article.lieuxRetrait.code_postal}"></td>
+        <td th:text="${article.lieuxRetrait.ville}"></td>
+        <td th:text="${article.vendeur}"></td>
+      </tr>
+    </tbody>
+  </table>
+  <form th:action="@{/encheres/encherir}"
+        method="post"
+        th:object="${article}">
+    <ul>
+      <li>
+        <label for="proposition">Ma proposition</label>
+        <input id="proposition" type="number" th:min="*{prix_initial}" th:field="*{prix_vente}" required>
+      </li>
+      <li>
+        <button type="submit">Faire une enchère</button>
+      </li>
+      <li>
+        <a  href="/encheres" >Annuler</a>
+      </li>
+    </ul>
+  </form>
+</main>
+</html>
