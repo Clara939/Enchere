@@ -15,13 +15,6 @@ public interface EnchereService {
 
     void deleteEnchere(long id);
 
-/*///-------------Méthode pour faire une enchère------------------
-    boolean faireEnchere(long idArticle, int montantPropose, long idEncherisseur);
-
-    Enchere getMeilleureEncherePourArticle(long idArticle);
-
-    boolean verifierEncherePossible(long idArticle, int montantPropose, long idEncherisseur);
-
-    int getPrixActuelArtcle(long idArticle);
-*/
+//  Méthode pour faire une enchère
+    void placeEnchere(long idArticle, long idUtilisateur, int montantPropose) throws Exception;
 }
