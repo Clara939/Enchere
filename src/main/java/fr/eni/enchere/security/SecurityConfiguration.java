@@ -44,8 +44,8 @@ public class SecurityConfiguration {
                     /* les changements c'est ici le reste ne change pas il n'y a pas de raison
                      *********************************************    */
 
-                            requestMatchers(HttpMethod.GET, "/encheres").hasRole("UTILISATEUR")
-                    .requestMatchers(HttpMethod.POST, "/encheres/filtres").hasRole("UTILISATEUR")
+//                            requestMatchers(HttpMethod.GET, "/encheres").hasRole("UTILISATEUR")
+                    requestMatchers(HttpMethod.POST, "/encheres/filtres").hasRole("UTILISATEUR")
                     /*accès au chemin /encheres/add en Get pour les utilisateurs */
                     .requestMatchers(HttpMethod.GET, "/encheres/add").hasRole("UTILISATEUR")
                     .requestMatchers(HttpMethod.POST, "/encheres/create").hasRole("UTILISATEUR")
