@@ -37,6 +37,9 @@ public class ArticleServiceImpl implements ArticleService{
     @Override
     public List<Article> readAllArticlesEnVenteFiltre(String search, long id_categorie) {
         List<Article> articleListreFiltre = articleRepository.readAllArticlesEnVenteFiltreSearch(search);
+        if (id_categorie == 0){ //si aucune categorie n'est choisie, id_categorie = 0
+            return articleListreFiltre;
+        }
         return articleListreFiltre.stream()
                 .filter(a -> a.getCategorieArticle().getId_categorie() == id_categorie)
                 .collect(Collectors.toList());

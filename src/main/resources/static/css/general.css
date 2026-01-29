@@ -4,6 +4,7 @@
     --couleur-orange: rgba(255, 99, 26, 0.95);
     --couleur-orange-dark: rgba(235, 59, 26, 0.95);
     --couleur-gris-clair : #cdcdcd;
+    --couleur-vert-vif : #98CE00;
 }
 
 *{
@@ -79,26 +80,38 @@ h3{
 }
 
 #encheres_corps_principal{
-    display: grid;
-    grid-template-areas: "encheres_section_filtres encheres_section_filtres"
-"encheres_section_liste_encheres encheres_section_liste_encheres";
-    grid-template-columns: 1fr 4fr;
-    gap: 25px;
-    color: var(--couleur-fond-sombre);
-    margin: 25px;
+/*    display: grid;*/
+/*    grid-template-areas: "encheres_section_filtres encheres_section_filtres"*/
+/*"encheres_section_liste_encheres encheres_section_liste_encheres";*/
+/*    grid-template-columns: 1fr 4fr;*/
+/*    gap: 25px;*/
+/*    color: var(--couleur-fond-sombre);*/
+/*    margin: 25px;*/
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: min(30px, 5vw);
+    justify-content: center;
+    margin: 30px auto;
+    max-width: 90%;
+    overflow: hidden;
 }
 
-#encheres_section_filtres, .encheres_article_vente{
+#encheres_form_filtre, .encheres_article_vente{
     padding: 20px;
     border-radius :50px;
     background-color: var(--couleur-blanc-secondaire);
+    aspect-ratio: 1/1;
+    /*permet d'adapter la taille des images à celle de l'écran en gardant ici une hauteur égale à la largeur*/
+    object-fit: cover;
+    max-height: 350px;
 }
 
-#encheres_section_liste_encheres{
-    display: grid;
-    grid-template-columns: 2fr 2fr;
-    gap: 25px;
-}
+/*#encheres_section_liste_encheres{*/
+/*    display: grid;*/
+/*    grid-template-columns: 2fr 2fr;*/
+/*    gap: 25px;*/
+/*}*/
 
 .encheres_article_vente h3{
     text-align: center;
