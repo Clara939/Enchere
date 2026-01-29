@@ -1,6 +1,7 @@
 package fr.eni.enchere.controller.converter;
 
 import fr.eni.enchere.bo.Article;
+import fr.eni.enchere.bo.Utilisateur;
 import fr.eni.enchere.service.*;
 
 import org.springframework.stereotype.Controller;
@@ -33,9 +34,61 @@ public class VenteController {
     }
 
     @PostMapping("/encheres/encherir")
-    public String faireUneEnchere(){
-    // code de raman
-        return "redirect:encheres";
+    public String afficherPageEncherir(
+            @RequestParam("id") long idArticle,
+            Model model) {
+
+        // Récupérer l'article par son ID
+        Article article = articleService.readById(idArticle); // Récupérer l'article par son ID
+
+        if (article == null) {
+            // Vérifier si l'article existe, si non, afficher un message d'erreur
+            model.addAttribute("error", "Article introuvable.");
+            return "redirect:/encheres";
+        }
+
+        // Obtenir l'utilisateur autorisé, renvoie l'objet Utilisateur (l'utilisateur actuellement connecté)
+        Utilisateur utilisateurConnecte = utilisateurService.recuperationIdUtilisateurActif();
+
+        // déterminons le prix actuel
+        int prixActuel = article.getPrix_vente(); // prix de vente actuel
+
+        // Si aucune enchère, le prix actuel est le prix initial
+        if (prixActuel == 0) {
+            prixActuel = article.getPrix_initial();
+        }
+
+        // Enchère minimale = prix actuel + 1
+        int enchereMinimale = prixActuel + 1;
+
+        // Transmission des données au modèle HTML
+        model.addAttribute("article", article);
+        model.addAttribute("utilisateurConnecte", utilisateurConnecte);
+        model.addAttribute("enchereMinimale", enchereMinimale);
+        model.addAttribute("prixActuel", prixActuel);
+
+        return "encherir";
+
     }
+
+  /*  @PostMapping("/encheres/placer")
+    public String placerEnchere(
+            @RequestParam("idArticle") long idArticle,
+            @RequestParam("montantPropose") int montantPropose,
+            Model model
+    ) {
+
+        // Obtenir l'utilisateur autorisé, renvoie l'objet Utilisateur (l'utilisateur actuellement connecté)
+        Utilisateur utilisateurConnecte = utilisateurService.recuperationIdUtilisateurActif();
+
+        if (utilisateurConnecte == null) {
+            return "redirect:/login"; // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
+        }
+
+
+
+        return "encherir";
+    }
+  */
 
 }

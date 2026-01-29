@@ -8,6 +8,7 @@ import fr.eni.enchere.repository.ArticleRepositorySQL;
 import fr.eni.enchere.repository.EnchereRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -105,9 +106,14 @@ public class EnchereServiceImpl implements EnchereService{
 
 
         //// Création d'une nouvelle enchère
+        Enchere nouvelleEnchere = new Enchere();
 
+        nouvelleEnchere.setDate_enchere(LocalDate.now()); // Date actuelle
+        nouvelleEnchere.setMontant_enchere(montantPropose); // Montant sum
+        nouvelleEnchere.setEncherisseur(encherisseur); // Contacter l'enchanteur
+        nouvelleEnchere.setArticles(article); // Contacter l'article
+        enchereRepository.createEnchere(nouvelleEnchere); // Enregistrer dans la base de données
     }
-
 
 
 }
