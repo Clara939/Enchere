@@ -14,4 +14,14 @@ public interface EnchereService {
     void updateEnchere(Enchere enchere);
 
     void deleteEnchere(long id);
+
+/*///-------------Méthode pour faire une enchère------------------
+    boolean faireEnchere(long idArticle, int montantPropose, long idEncherisseur);
+
+    Enchere getMeilleureEncherePourArticle(long idArticle);
+
+    boolean verifierEncherePossible(long idArticle, int montantPropose, long idEncherisseur);
+
+    int getPrixActuelArtcle(long idArticle);
+*/
 }
