@@ -36,7 +36,11 @@ public class EnchereController {
     @GetMapping("/encheres")
     public String afficherEncheres(Model model){
         List<Article> articleList = articleService.readAllArticlesEnVente();
+        List<Categorie> categorieList = categorieService.readAll();
 model.addAttribute("articleList", articleList);
+model.addAttribute("categorieList", categorieList);
+        model.addAttribute("id_categorie_selectionnee", 0);
+        model.addAttribute("search", "");
         return "encheres";
     }
 
@@ -67,61 +71,94 @@ model.addAttribute("articleList", articleList);
         return "add_enchere";
     }
 
+    //page modification de l'article
+    @GetMapping("/encheres/update")
+    public String modifierArticle(@RequestParam("id")long id_article, Model model){
+        //recupere l'article existant
+        Article article = articleService.readById(id_article);
+        //verifie l'etat= creer
+        if(!"CREER".equals(article.getEtat_vente())){
+            return "redirect:/encheres";
+        }
+        //pré-remplis le formulaire
+        model.addAttribute("article", article);
+        model.addAttribute("categorieList", categorieService.readAll());
+        model.addAttribute("utilisateurConnecte", utilisateurService.recuperationIdUtilisateurActif());
 
-// page nouvelle vente validation de l'article creer
-    @PostMapping("/encheres/create")
-    public String createEnchere(@Valid @ModelAttribute Article article, BindingResult result, @RequestParam("categorieId") long categorieId, Model model){
+        return "add_enchere";
+    }
 
-        System.out.println("CATÉGORIE reçue: " +
-                (article.getCategorieArticle() != null ? article.getCategorieArticle().getId_categorie() : "NULL"));
 
-        if (result.hasErrors()) {
+// page nouvelle vente validation de l'article creer et page modification de l'article
+// REMPLACEZ les 2 méthodes POST par 1 SEULE
+@PostMapping("/encheres/save")
+public String saveArticle(@Valid @ModelAttribute Article article,
+                          BindingResult result,
+                          @RequestParam("categorieId") long categorieId,
+                          Model model){
+
+    if (result.hasErrors()) {
         model.addAttribute("categorieList", categorieService.readAll());
         model.addAttribute("article", article);
         return "add_enchere";
-        }
-
-
-        Categorie categorieChoisie = categorieService.readById(categorieId);
-        article.setCategorieArticle(categorieChoisie);
-
-
-        //recuperation des info du vendeur
-        Utilisateur vendeurConnecte = utilisateurService.recuperationIdUtilisateurActif();
-        article.setVendeur(vendeurConnecte);
-
-
-        //Créer retrait avec adresse vendeur
-        Retrait retrait = new Retrait();
-        retrait.setRue(vendeurConnecte.getRue());
-        retrait.setCode_postal(vendeurConnecte.getCode_postal());
-        retrait.setVille(vendeurConnecte.getVille());
-        retraitService.createRetrait(retrait);
-        article.setLieuxRetrait(retrait);
-        article.setAcheteur(null);
-
-
-        try {
-            articleService.create(article);
-            return "redirect:/encheres";
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            model.addAttribute("categorieList", categorieService.readAll());
-            model.addAttribute("article", article);
-            model.addAttribute("error", "Erreur lors de la sauvegarde");
-            return "add_enchere";
-        }
     }
 
+    // categorie
+    Categorie categorieChoisie = categorieService.readById(categorieId);
+    article.setCategorieArticle(categorieChoisie);
+    //vendeur
+    Utilisateur vendeurConnecte = utilisateurService.recuperationIdUtilisateurActif();
+    article.setVendeur(vendeurConnecte);
+    //retrait
+    Retrait retrait = new Retrait();
+    retrait.setRue(vendeurConnecte.getRue());
+    retrait.setCode_postal(vendeurConnecte.getCode_postal());
+    retrait.setVille(vendeurConnecte.getVille());
+    retraitService.createRetrait(retrait);
+    article.setLieuxRetrait(retrait);
+    article.setAcheteur(null);
+
+    try {
+        if(article.getId_article() == 0) {
+            articleService.create(article);  // CREATE
+        } else {
+            articleService.update(article);  // UPDATE
+        }
+        return "redirect:/encheres";
+    } catch (Exception e) {
+        e.printStackTrace();
+        model.addAttribute("categorieList", categorieService.readAll());
+        return "add_enchere";
+    }
+}
+
     @PostMapping("/encheres/filtres")
-    public String filtrerArticles(Model model, @RequestParam("search") String search, @RequestParam(value = "categorie", required = false, defaultValue = "0") long id){
-            List<Article> articleList = articleService.readAllArticlesEnVenteFiltre(search, id);
+    public String filtrerArticles(Model model, @RequestParam("search") String search, @RequestParam(value = "categorie", required = false, defaultValue = "0") long id, @RequestParam(value = "encheres_ouvertes", required = false, defaultValue = "false") boolean encheres_ouvertes){
+            List<Article> articleList = articleService.readAllArticlesEnVenteFiltre(search, id, encheres_ouvertes);
             List<Categorie> categorieList = categorieService.readAll();
             model.addAttribute("articleList", articleList);
         model.addAttribute("categorieList", categorieList);
+        model.addAttribute("id_categorie_selectionnee", id);
+        model.addAttribute("search", search);
+        model.addAttribute("encheres_ouvertes", encheres_ouvertes);
             return "encheres";
     }
 
-
+    //permet la supression de l'article
+    @GetMapping("/encheres/delete")
+    public String deleteArticle(@RequestParam("id") long id_article){
+        Article article = articleService.readById(id_article);
+        //verifie si bien etat=CREER
+        if (!"CREER".equals(article.getEtat_vente())){
+            return "redirect:/encheres?error=enchereDemarree";
+        }
+        //verifie si proprietaire uniquement
+        Utilisateur vendeurConnecte = utilisateurService.recuperationIdUtilisateurActif();
+        if (article.getVendeur().getId_utilisateur() != vendeurConnecte.getId_utilisateur()){
+            return "redirect:/encheres?error=nonAutorise";
+        }
+        //suppression de l'article
+        articleService.delete(id_article);
+        return "redirect:/encheres?success=supprime";
+    }
 }

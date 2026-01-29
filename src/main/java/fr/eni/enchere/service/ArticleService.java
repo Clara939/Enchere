@@ -19,5 +19,6 @@ public interface ArticleService {
 
     List<Article> readAllArticlesEnVente();
 
-    List<Article> readAllArticlesEnVenteFiltre(String search, long id_categorie);
+
+    List<Article> readAllArticlesEnVenteFiltre(String search, long id_categorie, boolean encheres_ouvertes);
 }

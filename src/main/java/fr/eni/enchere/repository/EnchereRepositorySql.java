@@ -1,18 +1,14 @@
 package fr.eni.enchere.repository;
 
 import fr.eni.enchere.bo.Enchere;
-import fr.eni.enchere.repository.rowMapper.ArticleRowMapper;
 import fr.eni.enchere.repository.rowMapper.EnchereRowMapper;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Objects;
 
 @Repository
 public class EnchereRepositorySql implements EnchereRepository{
@@ -113,5 +109,15 @@ public class EnchereRepositorySql implements EnchereRepository{
 
 
 
+    }
+
+    @Override
+    public List<Enchere> readAllForOneArticle(long id) {
+        String sql = "select Encheres.id_enchere as id_enchere, encheres.id_encherisseur as id_encherisseur, utilisateurs.nom as nom_encherisseur, utilisateurs.prenom as prenom_encherisseur, utilisateurs.email as email_encherisseur, encheres.id_article as id_article, encheres.date_enchere as date_enchere, encheres.montant_enchere as montant_enchere, articles.nom_article as nom_article, articles.description as description, articles.prix_vente as prix_vente, articles.etat_vente as etat_vente, articles.date_debut_encheres as date_debut_encheres, articles.date_fin_encheres as date_fin_encheres from Encheres\n " +
+                " left join Utilisateurs on encheres.id_encherisseur = utilisateurs.id_utilisateur\n " +
+                " left join Articles on encheres.id_article = articles.id_article\n " +
+                "WHERE id_article = :id";
+
+        return jdbcTemplate.query(sql, new EnchereRowMapper());
     }
 }

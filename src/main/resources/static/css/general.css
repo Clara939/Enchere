@@ -1,14 +1,15 @@
 :root {
-    --couleur-fond-sombre: #262626;
+    --couleur-fond-sombre: #262624;
     --couleur-blanc-secondaire: rgba(255, 255, 255, 0.85);
     --couleur-orange: rgba(255, 99, 26, 0.95);
     --couleur-orange-dark: rgba(235, 59, 26, 0.95);
-    --couleur-gris-clair : #cdcdcd;
+    --couleur-gris-clair : #999999;
     --couleur-vert-vif : #98CE00;
 }
 
 *{
-overflow: hidden;
+padding :0;
+    margin:0;
 }
 
 body{
@@ -29,7 +30,24 @@ header{
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
+    align-items: center;
     gap: 25px;
+    min-height: 100px;
+}
+
+nav form {
+    margin: 0;
+    padding: 0;
+}
+
+nav form button {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
 }
 
 nav ul{
@@ -38,6 +56,7 @@ nav ul{
     justify-content: space-evenly;
     gap: 20px;
     list-style-type: none;
+    align-items: center;
 }
 
 .boutonOrange{
@@ -50,6 +69,7 @@ nav ul{
     color: var(--couleur-blanc-secondaire);
     outline: none;
     border: none;
+    width: fit-content;
 }
 
 .boutonOrange:hover{
@@ -65,10 +85,30 @@ nav ul{
     color: var(--couleur-orange);
     outline: none;
     border: none;
+    width: fit-content;
 }
 
 .boutonBlanc:hover{
     background-color: var(--couleur-gris-clair);
+    color: var(--couleur-fond-sombre);
+}
+
+.boutonNoirEtBlanc{
+    /*background-color: var(--couleur-blanc-secondaire);*/
+    border-radius :30px;
+    padding: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    color: var(--couleur-blanc-secondaire);
+    /*outline: none;*/
+    border: solid 2px var(--couleur-blanc-secondaire);
+    width: fit-content;
+}
+
+.boutonNoirEtBlanc:hover{
+    outline-style: none;
+    color: var(--couleur-gris-clair);
+    border: solid 2px var(--couleur-gris-clair);
 }
 
 h2{
@@ -77,16 +117,13 @@ h2{
 
 h3{
     font-size: 20px;
+    text-align: center;
 }
 
 #encheres_corps_principal{
-/*    display: grid;*/
-/*    grid-template-areas: "encheres_section_filtres encheres_section_filtres"*/
-/*"encheres_section_liste_encheres encheres_section_liste_encheres";*/
-/*    grid-template-columns: 1fr 4fr;*/
-/*    gap: 25px;*/
-/*    color: var(--couleur-fond-sombre);*/
-/*    margin: 25px;*/
+    gap: 25px;
+    color: var(--couleur-fond-sombre);
+    margin: 25px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -97,25 +134,91 @@ h3{
     overflow: hidden;
 }
 
-#encheres_form_filtre, .encheres_article_vente{
+#encheres_form_filtre{
+    padding: 20px;
+    border-radius :50px;
+    background-color: var(--couleur-gris-clair);
+    aspect-ratio: 1/1;
+    /*permet d'adapter la taille des images à celle de l'écran en gardant ici une hauteur égale à la largeur*/
+    object-fit: cover;
+    max-height: 400px;
+}
+
+.encheres_article_vente{
     padding: 20px;
     border-radius :50px;
     background-color: var(--couleur-blanc-secondaire);
     aspect-ratio: 1/1;
     /*permet d'adapter la taille des images à celle de l'écran en gardant ici une hauteur égale à la largeur*/
     object-fit: cover;
-    max-height: 350px;
+    max-height: 400px;
 }
 
-/*#encheres_section_liste_encheres{*/
-/*    display: grid;*/
-/*    grid-template-columns: 2fr 2fr;*/
-/*    gap: 25px;*/
+/*#encheres_form_mes_encheres{*/
+/*    padding: 20px;*/
+/*    border-radius :50px;*/
+/*    background-color: var(--couleur-blanc-secondaire);*/
+/*    aspect-ratio: 1/1;*/
+/*    !*permet d'adapter la taille des images à celle de l'écran en gardant ici une hauteur égale à la largeur*!*/
+/*    object-fit: cover;*/
+/*    max-height: 350px;*/
 /*}*/
 
-.encheres_article_vente h3{
+#encheres_form_mes_encheres{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#encheres_form_filtre{
+    display: flex;
+    flex-direction: column;
+}
+
+.bloc_filtre{
+    margin:15px auto;
+}
+
+#encheres_form_filtre label, #encheres_form_filtre input, #encheres_form_filtre select{
+    padding:15px;
+}
+
+#encheres_form_filtre label{
+    /*font-size: 20px;*/
+}
+
+#encheres_form_filtre button{
+    margin: auto;
+}
+
+/*#encheres_radio_achats:checked, #encheres_radio_ventes:checked{*/
+/*    appearance: none;*/
+/*    outline: none;*/
+/*    border-radius: 50%;*/
+/*    border : solid 5px var(--couleur-orange);*/
+/*    width: 3px;*/
+/*    transform: scale(0.3)*/
+/*}*/
+
+.encheres_checkbox{
+    margin: 15px 0 0 25px;
+}
+
+.encheres_checkbox label{
+    font-size: 15px;
+}
+
+.bloc_filtre:not(:has(input[type="radio"]:checked)) .encheres_checkbox {
+    opacity: 0.4; /* les blocs apparaissent grisés */
+    pointer-events: none;  /* les clics sur les checkbox ne passent plus */
+}
+
+.encheres_article_vente h3, #encheres_form_filtre label{
     text-align: center;
 }
+
+
 
 .encheres_article_infos{
     display: flex;

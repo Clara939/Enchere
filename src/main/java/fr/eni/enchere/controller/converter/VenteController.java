@@ -25,6 +25,8 @@ public class VenteController {
         this.enchereService = enchereService;
         this.categorieService = categorieService;
     }
+
+    //page faire une enchere
     @GetMapping("/encheres/details")
     public String afficherDetail(@RequestParam(name = "id_article")long id, Model model){
         Article article = articleService.readById(id);
@@ -32,7 +34,7 @@ public class VenteController {
 
         return "details_vente";
     }
-
+    //permet d'encherir sur un article
     @PostMapping("/encheres/encherir")
     public String afficherPageEncherir(
             @RequestParam("id") long idArticle,

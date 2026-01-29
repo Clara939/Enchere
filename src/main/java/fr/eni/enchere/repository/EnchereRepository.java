@@ -15,6 +15,8 @@ public interface EnchereRepository {
 
     void deleteEnchere(long id);
 
+    List<Enchere> readAllForOneArticle(long id);
+
     // dernière enchère (la plus élevée) Renvoie la dernière enchère
     Enchere findTopEnchereByArticle(long idArticle);
 
