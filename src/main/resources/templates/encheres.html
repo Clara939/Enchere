@@ -5,19 +5,38 @@
     <div id="encheres_corps_principal">
         <!--        <section id="encheres_section_filtres">-->
         <form id="encheres_form_filtre" th:action="@{/encheres/filtres}" method="post">
-            <label for="encheres_input_recherche">Filtres :</label>
-            <input id="encheres_input_recherche" type="search" name="search" placeholder="🔍︎ le nom de l'article contient" th:value="${search}">
-            <!--                        th:value permet d'afficher le mot recherché sur la page des résultats-->
-            <label for="encheres_select_categories">Catégories :</label>
-            <select id="encheres_select_categories" name="categorie">
-                <option value="0" th:selected="${id_categorie_selectionnee == 0}">Toutes les catégories</option>
-                <!--                            th:selected="condition" : l'option est sélectionnée si la condition est vérifiée-->
-                <option th:each="cat : ${categorieList}"
-                        th:text="${cat.getLibelle()}"
-                        th:value="${cat.getId_categorie()}"
-                        th:selected="${cat.getId_categorie() == id_categorie_selectionnee}">
-                </option>
-            </select>
+            <div>
+                <label for="encheres_input_recherche">Filtres :</label>
+                <input id="encheres_input_recherche" type="search" name="search" placeholder="🔍︎ le nom de l'article contient" th:value="${search}">
+                <!--                        th:value permet d'afficher le mot recherché sur la page des résultats-->
+                <label for="encheres_select_categories">Catégories :</label>
+                <select id="encheres_select_categories" name="categorie">
+                    <option value="0" th:selected="${id_categorie_selectionnee == 0}">Toutes les catégories</option>
+                    <!--                            th:selected="condition" : l'option est sélectionnée si la condition est vérifiée-->
+                    <option th:each="cat : ${categorieList}"
+                            th:text="${cat.getLibelle()}"
+                            th:value="${cat.getId_categorie()}"
+                            th:selected="${cat.getId_categorie() == id_categorie_selectionnee}">
+                    </option>
+                </select>
+
+            </div>
+            <div id="encheres_form_mes_encheres" th:if="${#authorization.expression('isAuthenticated()')}">
+                <div>
+                    <input type="radio" id="encheres_radio_achats" name="encheres_radio" th:value="${achat}">
+                    <label for="encheres_radio_achats">Achats</label>
+                    <div class="encheres_checkbox">
+                        <input type="checkbox" name="encheres_ouvertes" id="encheres_ouvertes"> <label for="encheres_ouvertes">Enchères ouvertes</label><br>
+                        <input type="checkbox" name="mes_encheres_cours" id="mes_encheres_cours"> <label for="mes_encheres_cours">Mes enchères en cours</label><br>
+                        <input type="checkbox" name="mes_encheres_remportees" id="mes_encheres_remportees"> <label for="mes_encheres_remportees">Mes enchères remportées</label><br>
+                    </div>
+                </div>
+                <div>
+                    <input type="radio" id="encheres_radio_ventes" name="encheres_radio" th:value="${vente}">
+                    <label for="encheres_radio_ventes">Mes ventes</label>
+                </div>
+            </div>
+
             <button type="submit" class="boutonOrange">RECHERCHER</button>
         </form>
         <!--        </section>-->

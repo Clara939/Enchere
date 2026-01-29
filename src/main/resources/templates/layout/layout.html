@@ -16,15 +16,15 @@
 
     <nav>
         <ul>
-            <li><a href="/" class="nav-link">Accueil</a></li>
+            <li ><a href="/encheres" class="nav-link boutonBlanc">Enchères</a></li>
 
-            <li ><a href="/encheres" class="nav-link">Enchères</a></li>
+            <li><a href="/" class="nav-link boutonNoirEtBlanc">Accueil</a></li>
 
-            <li th:if="${#authorization.expression('hasRole(''UTILISATEUR'')')}"><a href="/encheres/add" class="nav-link">Vendre un article</a></li>
+            <li th:if="${#authorization.expression('hasRole(''UTILISATEUR'')')}"><a href="/encheres/add" class="nav-link boutonNoirEtBlanc">Vendre un article</a></li>
 
             <li th:if="${!#authorization.expression('isAuthenticated()')}"><a href="/inscription" class="nav-link boutonBlanc">Inscription</a> </li>
 
-            <li th:if="${#authorization.expression('hasRole(''UTILISATEUR'')')}"><a href="/MonProfil" class="nav-link">Mon Profil</a> </li>
+            <li th:if="${#authorization.expression('hasRole(''UTILISATEUR'')')}"><a href="/MonProfil" class="nav-link boutonNoirEtBlanc">Mon Profil</a> </li>
 
 
 
@@ -34,7 +34,7 @@
             <li th:if="${#authorization.expression('isAuthenticated()')}">
                 <form th:action="@{/logout}" method="post">
                     <input type="hidden" name="_csrf" value="${_csrf.token}">
-                    <button type="submit" class="nav-link">Déconnexion</button>
+                    <button type="submit" class="nav-link boutonNoirEtBlanc">Déconnexion</button>
                 </form>
             </li>
         </ul>
