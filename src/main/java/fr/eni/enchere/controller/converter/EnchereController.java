@@ -18,14 +18,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Controller
-public class ArticleController {
+public class EnchereController {
     UtilisateurService  utilisateurService;
     ArticleService articleService;
     CategorieService categorieService;
     EnchereService enchereService;
     RetraitService retraitService;
 
-    public ArticleController(UtilisateurService utilisateurService, ArticleService articleService, RetraitService retraitService, EnchereService enchereService, CategorieService categorieService) {
+    public EnchereController(UtilisateurService utilisateurService, ArticleService articleService, RetraitService retraitService, EnchereService enchereService, CategorieService categorieService) {
         this.utilisateurService = utilisateurService;
         this.articleService = articleService;
         this.retraitService = retraitService;
