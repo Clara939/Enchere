@@ -92,8 +92,21 @@ public class EnchereRepositorySql implements EnchereRepository{
         String sql = "select Encheres.id_enchere as id_enchere, encheres.id_encherisseur as id_encherisseur, utilisateurs.nom as nom_encherisseur, utilisateurs.prenom as prenom_encherisseur, utilisateurs.email as email_encherisseur, encheres.id_article as id_article, encheres.date_enchere as date_enchere, encheres.montant_enchere as montant_enchere, articles.nom_article as nom_article, articles.description as description, articles.prix_vente as prix_vente, articles.etat_vente as etat_vente, articles.date_debut_encheres as date_debut_encheres, articles.date_fin_encheres as date_fin_encheres from Encheres\n " +
                 " left join Utilisateurs on encheres.id_encherisseur = utilisateurs.id_utilisateur\n " +
                 " left join Articles on encheres.id_article = articles.id_article\n " +
+                "ORDER BY montant_enchere DESC\n " +
                 "WHERE id_article = :id";
 
         return jdbcTemplate.query(sql, new EnchereRowMapper());
     }
+
+    @Override
+    public List<Enchere> readAllForOneUtilisateur(long id) {
+        String sql = "select Encheres.id_enchere as id_enchere, encheres.id_encherisseur as id_encherisseur, utilisateurs.nom as nom_encherisseur, utilisateurs.prenom as prenom_encherisseur, utilisateurs.email as email_encherisseur, encheres.id_article as id_article, encheres.date_enchere as date_enchere, encheres.montant_enchere as montant_enchere, articles.nom_article as nom_article, articles.description as description, articles.prix_vente as prix_vente, articles.etat_vente as etat_vente, articles.date_debut_encheres as date_debut_encheres, articles.date_fin_encheres as date_fin_encheres from Encheres\n " +
+                " left join Utilisateurs on encheres.id_encherisseur = utilisateurs.id_utilisateur\n " +
+                " left join Articles on encheres.id_article = articles.id_article\n " +
+                "WHERE id_encherisseur = :id";
+
+        return jdbcTemplate.query(sql, new EnchereRowMapper());
+    }
+
+
 }
