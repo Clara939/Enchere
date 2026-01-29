@@ -16,4 +16,6 @@ public interface ArticleRepository {
     void update(Article article);
 
     List<Article> readAllArticlesEnVente();
+
+    List<Article> readAllArticlesEnVenteFiltreSearch(String search);
 }

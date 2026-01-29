@@ -5,6 +5,7 @@ import fr.eni.enchere.repository.ArticleRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ArticleServiceImpl implements ArticleService{
@@ -32,4 +33,13 @@ public class ArticleServiceImpl implements ArticleService{
 
     @Override
     public List<Article> readAllArticlesEnVente() { return this.articleRepository.readAllArticlesEnVente(); }
+
+    @Override
+    public List<Article> readAllArticlesEnVenteFiltre(String search, long id_categorie) {
+        List<Article> articleListreFiltre = articleRepository.readAllArticlesEnVenteFiltreSearch(search);
+        return articleListreFiltre.stream()
+                .filter(a -> a.getCategorieArticle().getId_categorie() == id_categorie)
+                .collect(Collectors.toList());
+    }
+
 }

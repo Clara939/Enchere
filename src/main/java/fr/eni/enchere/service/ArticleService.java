@@ -18,4 +18,6 @@ public interface ArticleService {
     void update(Article article);
 
     List<Article> readAllArticlesEnVente();
+
+    List<Article> readAllArticlesEnVenteFiltre(String search, long id_categorie);
 }
