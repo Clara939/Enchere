@@ -17,6 +17,9 @@ public interface EnchereRepository {
 
     List<Enchere> readAllForOneArticle(long id);
 
+    List<Enchere> readAllForOneUtilisateur(long id);
+
+
     // dernière enchère (la plus élevée) Renvoie la dernière enchère
     Enchere findTopEnchereByArticle(long idArticle);
 

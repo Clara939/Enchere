@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr" th:replace="~{layout/layout :: frag_layout(content=~{::main})}">
 <main>
-    <h2>Liste des enchères 💰</h2>
+    <h2>Liste des enchères</h2>
     <div id="encheres_corps_principal">
         <!--        <section id="encheres_section_filtres">-->
         <form id="encheres_form_filtre" th:action="@{/encheres/filtres}" method="post">
@@ -27,21 +27,22 @@
             </div>
             <div id="encheres_form_mes_encheres" th:if="${#authorization.expression('isAuthenticated()')}">
                 <div class="bloc_filtre bloc_achat">
-                    <input type="radio" id="encheres_radio_achats" name="encheres_radio" th:value="${achat}" checked>
+                    <input type="radio" id="encheres_radio_achats" name="encheres_radio" th:checked="${achat}" value="achat" checked>
                     <label for="encheres_radio_achats">Achats</label>
                     <div class="encheres_checkbox">
                         <input type="checkbox" name="encheres_ouvertes" id="encheres_ouvertes" th:checked="${encheres_ouvertes}"> <label for="encheres_ouvertes">Enchères ouvertes</label><br>
-                        <input type="checkbox" name="mes_encheres_cours" id="mes_encheres_cours"> <label for="mes_encheres_cours">Mes enchères en cours</label><br>
-                        <input type="checkbox" name="mes_encheres_remportees" id="mes_encheres_remportees"> <label for="mes_encheres_remportees">Mes enchères remportées</label><br>
+                        <input type="checkbox" name="mes_encheres_cours" id="mes_encheres_cours" th:checked="${mes_encheres_cours}"> <label for="mes_encheres_cours">Mes enchères en cours</label><br>
+                        <!--                        th:checked="condition" : la condition (booléen) est true si la case est cochée-->
+                        <input type="checkbox" name="mes_encheres_remportees" id="mes_encheres_remportees" th:checked="${mes_encheres_remportees}"> <label for="mes_encheres_remportees">Mes enchères remportées</label><br>
                     </div>
                 </div>
                 <div class="bloc_filtre bloc_vente">
-                    <input type="radio" id="encheres_radio_ventes" name="encheres_radio" th:value="${vente}">
+                    <input type="radio" id="encheres_radio_ventes" name="encheres_radio" th:checked="${vente}" value="vente">
                     <label for="encheres_radio_ventes">Mes ventes</label>
                     <div class="encheres_checkbox">
-                        <input type="checkbox" name="mes_ventes_cours" id="mes_ventes_cours"> <label for="mes_ventes_cours">Mes ventes en cours</label><br>
-                        <input type="checkbox" name="ventes_non_debutees" id="ventes_non_debutees"> <label for="ventes_non_debutees">Ventes non débutées</label><br>
-                        <input type="checkbox" name="ventes_terminees" id="ventes_terminees"> <label for="ventes_terminees">Ventes terminées</label><br>
+                        <input type="checkbox" name="mes_ventes_cours" id="mes_ventes_cours" th:checked="${mes_ventes_cours}"> <label for="mes_ventes_cours">Ventes en cours</label><br>
+                        <input type="checkbox" name="ventes_non_debutees" id="ventes_non_debutees" th:checked="${ventes_non_debutees}"> <label for="ventes_non_debutees">Ventes non débutées</label><br>
+                        <input type="checkbox" name="ventes_terminees" id="ventes_terminees" th:checked="${ventes_terminees}"> <label for="ventes_terminees">Ventes terminées</label><br>
                     </div>
                 </div>
             </div>
@@ -56,11 +57,11 @@
             <div class="encheres_article_infos">
                 <div>
                     <p>Prix actuel :
-                        <strong><span th:text="${article.getPrix_vente()}"></span><span> points</span></p></strong>
+                        <strong><span th:text="${article.getPrix_vente()}"></span><span> points</span></strong></p>
                     <p>Fin de l'enchère :
-                        <strong><span th:text="${article.getDate_fin_encheres()}"></span></p></strong>
+                        <strong><span th:text="${article.getDate_fin_encheres()}"></span></strong></p>
                     <p>Vendeur :
-                        <strong><span th:text="${article.getVendeur().getPseudo()}"></span></p></strong>
+                        <strong><span th:text="${article.getVendeur().getPseudo()}"></span></strong></p>
                 </div>
                 <button type="button" class="boutonOrange">Enchérir</button>
             </div>

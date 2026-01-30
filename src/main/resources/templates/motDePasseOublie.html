@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr" th:replace="~{layout/layout :: frag_layout(content=~{::main})}">
-<main>
+<main class="page-mdp">
   <h2>Mot de passe oublié ?</h2>
   <form th:action="@{/MonProfil/MotDePasseOublie}" method="post">
     <!-- Affichage erreur si pseudo/email inconnu -->
