@@ -138,19 +138,22 @@ public String saveArticle(@Valid @ModelAttribute Article article,
 //    public String
 
     @PostMapping("/encheres/filtres")
-    public String filtrerArticles(Model model, @RequestParam("search") String search,
+    public String filtrerArticles(Model model, @RequestParam(value = "search", defaultValue = "") String search,
                                   @RequestParam(value = "categorie", required = false, defaultValue = "0") long id,
-                                  @RequestParam(value = "achat", required = false, defaultValue = "false") boolean achat,
+                                  //@RequestParam(value = "achat", required = false, defaultValue = "false") boolean achat,
+                                  @RequestParam(value = "encheres_radio", required = false) String radioSelectionnee,  // "achat" ou "vente"
                                   @RequestParam(value = "encheres_ouvertes", required = false, defaultValue = "false") boolean encheres_ouvertes,
                                   @RequestParam(value = "mes_encheres_cours", required = false, defaultValue = "false") boolean mes_encheres_cours,
                                   @RequestParam(value = "mes_encheres_remportees", required = false, defaultValue = "false") boolean mes_encheres_remportees,
-                                  @RequestParam(value = "vente", required = false, defaultValue = "false") boolean vente,
+                                  //@RequestParam(value = "vente", required = false, defaultValue = "false") boolean vente,
                                   @RequestParam(value = "mes_ventes_cours", required = false, defaultValue = "false") boolean mes_ventes_cours,
                                   @RequestParam(value = "ventes_non_debutees", required = false, defaultValue = "false") boolean ventes_non_debutees,
                                   @RequestParam(value = "ventes_terminees", required = false, defaultValue = "false") boolean ventes_terminees
     ){
-            List<Article> articleList = articleService.readAllArticlesEnVenteFiltre(search, id, achat, encheres_ouvertes, mes_encheres_cours, mes_encheres_remportees, vente, mes_ventes_cours, ventes_non_debutees, ventes_terminees);
+            List<Article> articleList = articleService.readAllArticlesEnVenteFiltre(search, id, radioSelectionnee, encheres_ouvertes, mes_encheres_cours, mes_encheres_remportees, mes_ventes_cours, ventes_non_debutees, ventes_terminees);
             List<Categorie> categorieList = categorieService.readAll();
+        boolean achat = "achat".equals(radioSelectionnee);
+        boolean vente = "vente".equals(radioSelectionnee);
             model.addAttribute("articleList", articleList);
         model.addAttribute("categorieList", categorieList);
         model.addAttribute("id_categorie_selectionnee", id);

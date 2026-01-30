@@ -22,4 +22,10 @@ public interface ArticleRepository {
     List<Article> readAllArticlesVenteNonDebutees();
 
     List<Article> readAllArticlesVenteTerminee();
+
+    List<Article> readAllArticlesEnVenteByUtilisateurEnCours(long id);
+
+    List<Article> readAllArticlesEnVenteByUtilisateurNonDebutees(long id);
+
+    List<Article> readAllArticlesEnVenteByUtilisateurTerminées(long id);
 }
