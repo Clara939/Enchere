@@ -16,4 +16,7 @@ public interface EnchereRepository {
     void deleteEnchere(long id);
 
     List<Enchere> readAllForOneArticle(long id);
+
+    List<Enchere> readAllForOneUtilisateur(long id);
+
 }

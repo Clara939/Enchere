@@ -70,6 +70,7 @@ nav ul{
     outline: none;
     border: none;
     width: fit-content;
+    box-shadow: 6px 6px 25px rgba(0, 0, 0, 0.5);
 }
 
 .boutonOrange:hover{
@@ -86,6 +87,7 @@ nav ul{
     outline: none;
     border: none;
     width: fit-content;
+    box-shadow: 6px 6px 25px rgba(0, 0, 0, 0.5);
 }
 
 .boutonBlanc:hover{
@@ -103,6 +105,7 @@ nav ul{
     /*outline: none;*/
     border: solid 2px var(--couleur-blanc-secondaire);
     width: fit-content;
+    box-shadow: 6px 6px 25px rgba(0, 0, 0, 0.5);
 }
 
 .boutonNoirEtBlanc:hover{
@@ -131,6 +134,7 @@ h2{
 
 h3{
     font-size: 20px;
+    text-align: center;
 }
 
 /*enchere **********************************************************************************/
@@ -155,7 +159,8 @@ h3{
     aspect-ratio: 1/1;
     /*permet d'adapter la taille des images à celle de l'écran en gardant ici une hauteur égale à la largeur*/
     object-fit: cover;
-    max-height: 350px;
+    max-height: 400px;
+    box-shadow: 6px 6px 25px rgba(0, 0, 0, 0.5);
 }
 
 .encheres_article_vente{
@@ -165,7 +170,8 @@ h3{
     aspect-ratio: 1/1;
     /*permet d'adapter la taille des images à celle de l'écran en gardant ici une hauteur égale à la largeur*/
     object-fit: cover;
-    max-height: 350px;
+    max-height: 400px;
+    box-shadow: 6px 6px 25px rgba(0, 0, 0, 0.5);
 }
 
 /*#encheres_form_mes_encheres{*/
@@ -190,6 +196,10 @@ h3{
     flex-direction: column;
 }
 
+.bloc_filtre{
+    margin:15px auto;
+}
+
 #encheres_form_filtre label, #encheres_form_filtre input, #encheres_form_filtre select{
     padding:15px;
 }
@@ -199,16 +209,29 @@ h3{
 }
 
 #encheres_form_filtre button{
-    margin: 15px auto;
+    margin: auto;
 }
 
-.encheres_checkbox{
-    margin-left: 15px;
+/*#encheres_radio_achats:checked, #encheres_radio_ventes:checked{*/
+/*    appearance: none;*/
+/*    outline: none;*/
+/*    border-radius: 50%;*/
+/*    border : solid 5px var(--couleur-orange);*/
+/*    width: 3px;*/
+/*    transform: scale(0.3)*/
+/*}*/
 
+.encheres_checkbox{
+    margin: 15px 0 0 25px;
 }
 
 .encheres_checkbox label{
-    font-size: 10px;
+    font-size: 15px;
+}
+
+.bloc_filtre:not(:has(input[type="radio"]:checked)) .encheres_checkbox {
+    opacity: 0.4; /* les blocs apparaissent grisés */
+    pointer-events: none;  /* les clics sur les checkbox ne passent plus */
 }
 
 .encheres_article_vente h3, #encheres_form_filtre label{
