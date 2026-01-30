@@ -47,6 +47,7 @@ model.addAttribute("articleList", articleList);
         Utilisateur utilisateurConnecte = utilisateurService.recuperationIdUtilisateurActif();
         //nouvel article
         Article article = new Article();
+        article.setId_article(0);
 
         //pré-remplit retrait avec infos utilisateur connecté
         if (utilisateurConnecte != null){
@@ -88,10 +89,7 @@ model.addAttribute("articleList", articleList);
 // page nouvelle vente validation de l'article creer et page modification de l'article
 // REMPLACEZ les 2 méthodes POST par 1 SEULE
 @PostMapping("/encheres/save")
-public String saveArticle(@Valid @ModelAttribute Article article,
-                          BindingResult result,
-                          @RequestParam("categorieId") long categorieId,
-                          Model model){
+public String saveArticle(@RequestParam("categorieId") long categorieId,@Valid @ModelAttribute Article article, BindingResult result,  Model model){
 
     if (result.hasErrors()) {
         model.addAttribute("categorieList", categorieService.readAll());
@@ -115,7 +113,7 @@ public String saveArticle(@Valid @ModelAttribute Article article,
     article.setAcheteur(null);
 
     try {
-        if(article.getId_article() == 0) {
+        if(article.getId_article() == 0L) {
             articleService.create(article);  // CREATE
         } else {
             articleService.update(article);  // UPDATE

@@ -1,24 +1,23 @@
 <!DOCTYPE html>
 <html lang="fr" th:replace="~{layout/layout::frag_layout(content=~{::main})}">
-<main>
-  <h2>Page de connexion</h2>
+<main class="page-login">
   <form th:action="@{/login}"
         method="post">
-    <ul class="flex-outer">
+    <ul class="flex-out">
       <li>
         <label for="idUsername">Identifiant</label>
-        <input id="idUsername" type="text" name="username">
+        <input class="input" id="idUsername" type="text" name="username">
       </li>
       <li>
         <label for="idPassword">Mot de passe</label>
-        <input id="idPassword" type="password" name="password">
+        <input class="input" id="idPassword" type="password" name="password">
       </li>
       <li>
-        <button type="submit">se connecter</button>
+        <button class="boutonVert" type="submit">se connecter</button>
       </li>
       <li>
         <label for="idSouvenir">Se souvenir de moi</label>
-        <input id="idSouvenir" type="checkbox" name="remember-me">
+        <input class="input" id="idSouvenir" type="checkbox" name="remember-me">
       </li>
       <li>
         <a th:href="@{/MonProfil/MotDePasseOublie}">Mot de passe oublié</a>

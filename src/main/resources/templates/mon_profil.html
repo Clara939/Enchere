@@ -1,35 +1,48 @@
 <!DOCTYPE html>
 <html lang="fr" th:replace="~{layout/layout :: frag_layout(content=~{::main})}">
-<main>
+<main class="page-profil">
     <h2>Mon Profil</h2>
-    <table>
-        <thead>
-        <tr>
-            <th>Pseudo</th>
-            <th>Nom</th>
-            <th>Prénom</th>
-            <th>Email</th>
-            <th>Téléphone</th>
-            <th>Rue</th>
-            <th>Code postal</th>
-            <th>Ville</th>
-            <th>Crédit</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td th:text="${utilisateur.pseudo}"></td>
-            <td th:text="${utilisateur.nom}"></td>
-            <td th:text="${utilisateur.prenom}"></td>
-            <td th:text="${utilisateur.email}"></td>
-            <td th:text="${utilisateur.telephone}"></td>
-            <td th:text="${utilisateur.rue}"></td>
-            <td th:text="${utilisateur.code_postal}"></td>
-            <td th:text="${utilisateur.ville}"></td>
-            <td th:text="${utilisateur.credit}"></td>
-        </tr>
-        </tbody>
-    </table>
-    <button type="button"><a th:href="@{/MonProfil/update}">Modifier</a></button>
+    <div class="profil-grid">
+        <div class="profil-item">
+            <span class="profil-label">Pseudo</span>
+            <span class="profil-value" th:text="${utilisateur.pseudo}"></span>
+        </div>
+        <div class="profil-item">
+            <span class="profil-label">Nom</span>
+            <span class="profil-value" th:text="${utilisateur.nom}"></span>
+        </div>
+        <div class="profil-item">
+            <span class="profil-label">Prénom</span>
+            <span class="profil-value" th:text="${utilisateur.prenom}"></span>
+        </div>
+        <div class="profil-item">
+            <span class="profil-label">Email</span>
+            <span class="profil-value" th:text="${utilisateur.email}"></span>
+        </div>
+        <div class="profil-item">
+            <span class="profil-label">Téléphone</span>
+            <span class="profil-value" th:text="${utilisateur.telephone}"></span>
+        </div>
+        <div class="profil-item">
+            <span class="profil-label">Rue</span>
+            <span class="profil-value" th:text="${utilisateur.rue}"></span>
+        </div>
+        <div class="profil-item">
+            <span class="profil-label">Code postal</span>
+            <span class="profil-value" th:text="${utilisateur.code_postal}"></span>
+        </div>
+        <div class="profil-item">
+            <span class="profil-label">Ville</span>
+            <span class="profil-value" th:text="${utilisateur.ville}"></span>
+        </div>
+        <div class="profil-item">
+            <span class="profil-label">Crédit</span>
+            <span class="profil-value" th:text="${utilisateur.credit}"></span>
+        </div>
+
+        <div class="profil-item">
+            <button class="boutonOrange" type="button"><a th:href="@{/MonProfil/update}">Modifier</a></button>
+        </div>
+    </div>
 </main>
 </html>

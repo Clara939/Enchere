@@ -1,84 +1,87 @@
 <!DOCTYPE html>
 <html lang="fr" th:replace="~{layout/layout :: frag_layout(content=~{::main})}">
 <main>
-    <h2 th:text="${article.id_article == null ? 'Nouvelle vente' : 'Modifier vente'}">Nouvelle vente</h2>
-    <form th:action="@{/encheres/save}" method="post" enctype="multipart/form-data" th:object="${article}">
-        <ul class="flex-outer">
-            <li>
-                <label for="nomArticle">Article</label>
-                <input id="nomArticle" type="text" th:field="*{nom_article}" required />
-                <span th:if="${#fields.hasErrors('nom_article')}" th:errors="*{nom_article}" class="error"></span>
-            </li>
-            <li>
-                <label for="idDescription">Description</label>
-                <input id="idDescription" type="text" th:field="*{description}" required/>
-                <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="error"></span>
-            </li>
-            <li>
-                <label for="idCategorie">Catégorie</label>
-                <select id="idCategorie" name="categorieId" required>
-                    <option value="">Choisir une catégorie</option>
-                    <option th:each="item : ${categorieList}"
-                            th:value="${item.id_categorie}"
-                            th:text="${item.libelle}"
-                            th:selected="${article.categorieArticle != null ? article.categorieArticle.id_categorie == item.id_categorie : false}">
-                    </option>
-                </select>
-                <span th:if="${#fields.hasErrors('categorieArticle')}" th:errors="*{categorieArticle}" class="error"></span>
-            </li>
-            <li>
-                <label for="photoArticle">Photo de l'article</label>
-<!--                <input type="file" id="photoArticle" name="photoArticle" accept="image/*"/>-->
-                <input id="photoArticle" type="file" name="ignorePhoto" /> <!-- Nom différent = ignoré -->
+    <h2 th:text="${article.id_article == 0 ? 'Nouvelle vente' : 'Modifier vente'}">Nouvelle vente</h2>
+    <div id="article_corp_principal">
+        <form id="article_formulaire" th:action="@{/encheres/save}" method="post" enctype="multipart/form-data" th:object="${article}">
+            <ul class="flex-outer">
+                <li>
+                    <label for="nomArticle">Article</label>
+                    <input class="input" id="nomArticle" type="text" th:field="*{nom_article}" required />
+                    <span th:if="${#fields.hasErrors('nom_article')}" th:errors="*{nom_article}" class="error"></span>
+                </li>
+                <li>
+                    <label for="idDescription">Description</label>
+                    <input class="input" id="idDescription" type="text" th:field="*{description}" required/>
+                    <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="error"></span>
+                </li>
+                <li>
+                    <label for="idCategorie">Catégorie</label>
+                    <select class="input" id="idCategorie" name="categorieId" required>
+                        <option value="">Choisir une catégorie</option>
+                        <option th:each="item : ${categorieList}"
+                                th:value="${item.id_categorie}"
+                                th:text="${item.libelle}"
+                                th:selected="${article.categorieArticle != null ? article.categorieArticle.id_categorie == item.id_categorie : false}">
+                        </option>
+                    </select>
+                    <span th:if="${#fields.hasErrors('categorieArticle')}" th:errors="*{categorieArticle}" class="error"></span>
+                </li>
+                <li>
+                    <label for="photoArticle">Photo de l'article</label>
+                    <!--                <input type="file" id="photoArticle" name="photoArticle" accept="image/*"/>-->
+                    <input class="input" id="photoArticle" type="file" name="ignorePhoto" /> <!-- Nom différent = ignoré -->
 
-            </li>
-            <li>
-                <label for="MiseAPrix">Mise à prix</label>
-                <input id="MiseAPrix" type="number" min="0" th:field="*{prix_initial}" required/>
-                <span th:if="${#fields.hasErrors('prix_initial')}" th:errors="*{prix_initial}" class="error"></span>
-            </li>
-            <li>
-                <label for="debutEnchere">Début de l'enchère</label>
-                <input id="debutEnchere" type="date" th:field="*{date_debut_encheres}" required/>
-                <span th:if="${#fields.hasErrors('date_debut_encheres')}" th:errors="*{date_debut_encheres}" class="error"></span>
-            </li>
-            <li>
-                <label for="finEnchere">Fin de l'enchère</label>
-                <input id="finEnchere" type="date" th:field="*{date_fin_encheres}" required/>
-                <span th:if="${#fields.hasErrors('date_fin_encheres')}" th:errors="*{date_fin_encheres}" class="error"></span>
-            </li>
-            <ul class="retrait">
-                <label>Retrait</label>
-                <li>
-                <label for="rue">Rue</label>
-                <input id="rue" type="text" th:field="*{lieuxRetrait.rue}"/>
-                    <span th:if="${#fields.hasErrors('lieuxRetrait.rue')}" th:errors="*{lieuxRetrait.rue}" class="error"></span>
                 </li>
                 <li>
-                <label for="codePostal">Code Postal</label>
-                <input id="codePostal" type="text" th:field="*{lieuxRetrait.code_postal}"/>
-                    <span th:if="${#fields.hasErrors('lieuxRetrait.code_postal')}" th:errors="*{lieuxRetrait.code_postal}" class="error"></span>
+                    <label for="MiseAPrix">Mise à prix</label>
+                    <input class="input" id="MiseAPrix" type="number" min="0" th:field="*{prix_initial}" required/>
+                    <span th:if="${#fields.hasErrors('prix_initial')}" th:errors="*{prix_initial}" class="error"></span>
                 </li>
                 <li>
-                    <label for="ville">Ville</label>
-                    <input id="ville" type="text" th:field="*{lieuxRetrait.ville}"/>
-                    <span th:if="${#fields.hasErrors('lieuxRetrait.ville')}" th:errors="*{lieuxRetrait.ville}" class="error"></span>
+                    <label for="debutEnchere">Début de l'enchère</label>
+                    <input class="input" id="debutEnchere" type="date" th:field="*{date_debut_encheres}" required/>
+                    <span th:if="${#fields.hasErrors('date_debut_encheres')}" th:errors="*{date_debut_encheres}" class="error"></span>
+                </li>
+                <li>
+                    <label for="finEnchere">Fin de l'enchère</label>
+                    <input class="input" id="finEnchere" type="date" th:field="*{date_fin_encheres}" required/>
+                    <span th:if="${#fields.hasErrors('date_fin_encheres')}" th:errors="*{date_fin_encheres}" class="error"></span>
+                </li>
+                <li class="retrait_adresse">
+                    <label>Retrait</label>
+                    <div class="champs-retrait">
+                        <div class="retrait-champ">
+                            <label for="rue">Rue</label>
+                            <input class="input" id="rue" type="text" th:field="*{lieuxRetrait.rue}"/>
+                            <span th:if="${#fields.hasErrors('lieuxRetrait.rue')}" th:errors="*{lieuxRetrait.rue}" class="error"></span>
+                        </div>
+                        <div class="retrait-champ">
+                            <label for="codePostal">Code Postal</label>
+                            <input class="input" id="codePostal" type="text" th:field="*{lieuxRetrait.code_postal}"/>
+                            <span th:if="${#fields.hasErrors('lieuxRetrait.code_postal')}" th:errors="*{lieuxRetrait.code_postal}" class="error"></span>
+                        </div>
+                        <div class="retrait-champ">
+                            <label for="ville">Ville</label>
+                            <input class="input" id="ville" type="text" th:field="*{lieuxRetrait.ville}"/>
+                            <span th:if="${#fields.hasErrors('lieuxRetrait.ville')}" th:errors="*{lieuxRetrait.ville}" class="error"></span>
+                        </div>
+                    </div>
+                </li>
+                <li class="boutons-bas">
+                    <div class="boutons-groupe">
+                        <button class="boutonVert" type="submit" th:text="${article.id_article == 0 ? 'Enregistrer' : 'Modifier'}">Enregistrer</button>
+                        <a class="boutonOrange" href="/" >Annuler</a>
+                        <a th:if="${article.id_article != null}"
+                           th:href="@{/encheres/delete(id=${article.id_article})}"
+                           class="boutonNoirEtBlanc"
+                           onclick="return confirm('Supprimer cet article ?')">
+                            Annuler la vente
+                        </a>
+                    </div>
                 </li>
             </ul>
-            <li>
-                <button class="boutonVert" type="submit" th:text="${article.id_article == null ? 'Enregistrer' : 'Modifier'}">Enregistrer</button>
-            </li>
-            <li>
-                <a class="boutonOrange" href="/" >Annuler</a>
-            </li>
-            <li th:if="${article.id_article != null}">
-                <a th:href="@{/encheres/delete(id=${article.id_article})}"
-                   class="boutonGris"
-                   onclick="return confirm('Supprimer cet article ?')">
-                    Annuler la vente
-                </a>
-            </li>
-        </ul>
-    </form>
+        </form>
+    </div>
 </main>
 </html>

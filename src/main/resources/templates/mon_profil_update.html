@@ -1,51 +1,56 @@
 <!DOCTYPE html>
 <html lang="fr" th:replace="~{layout/layout :: frag_layout(content=~{::main})}">
-<main>
+<main class="page-update">
     <h2>Modifier mon profil</h2>
-    <form   th:action="@{/MonProfil/update}"
-            method="post"
-            th:object="${utilisateur}">
-        <ul class="flex-outer">
-            <input type="text" th:field="*{id_utilisateur}" hidden />
-            <li>
-                <label for="idPseudo">Pseudo</label>
-                <input id="idPseudo" type="text" th:field="*{pseudo}" />
-            </li>
-            <li>
-                <label for="idNom">Nom</label>
-                <input id="idNom" type="text" th:field="*{nom}" />
-            </li>
-            <li>
-                <label for="idPrenom">Prénom</label>
-                <input id="idPrenom" type="text" th:field="*{prenom}" />
-            </li>
-            <li>
-                <label for="idEmail">Pseudo</label>
-                <input id="idEmail" type="text" th:field="*{email}" />
-            </li>
-            <li>
-                <label for="idTelephone">Téléphone</label>
-                <input id="idTelephone" type="text" th:field="*{telephone}" />
-            </li>
-            <li>
-                <label for="idRue">Rue</label>
-                <input id="idRue" type="text" th:field="*{rue}" />
-            </li>
-            <li>
-                <label for="idCode_postal">Code postal</label>
-                <input id="idCode_postal" type="text" th:field="*{code_postal}" />
-            </li>
-            <li>
-                <label for="idVille">Ville</label>
-                <input id="idVille" type="text" th:field="*{ville}" />
-            </li>
-            <li>
-                <button type="submit">Enregistrer</button>
-            </li>
-            <li>
-                <button type="button"><a th:href="@{/MonProfil/delete}">Supprimer mon compte</a></button>
-            </li>
-        </ul>
-    </form>
+    <div id="update_corp_principal">
+        <form   th:action="@{/MonProfil/update}"
+                method="post"
+                th:object="${utilisateur}"
+                id="update_formulaire">
+            <ul class="flex-outer">
+                <input class="input" type="text" th:field="*{id_utilisateur}" hidden />
+                <li>
+                    <label for="idPseudo">Pseudo</label>
+                    <input class="input" id="idPseudo" type="text" th:field="*{pseudo}" />
+                </li>
+                <li>
+                    <label for="idNom">Nom</label>
+                    <input class="input" id="idNom" type="text" th:field="*{nom}" />
+                </li>
+                <li>
+                    <label for="idPrenom">Prénom</label>
+                    <input class="input" id="idPrenom" type="text" th:field="*{prenom}" />
+                </li>
+                <li>
+                    <label for="idEmail">Pseudo</label>
+                    <input class="input" id="idEmail" type="text" th:field="*{email}" />
+                </li>
+                <li>
+                    <label for="idTelephone">Téléphone</label>
+                    <input class="input" id="idTelephone" type="text" th:field="*{telephone}" />
+                </li>
+                <li>
+                    <label for="idRue">Rue</label>
+                    <input class="input" id="idRue" type="text" th:field="*{rue}" />
+                </li>
+                <li>
+                    <label for="idCode_postal">Code postal</label>
+                    <input class="input" id="idCode_postal" type="text" th:field="*{code_postal}" />
+                </li>
+                <li>
+                    <label for="idVille">Ville</label>
+                    <input class="input" id="idVille" type="text" th:field="*{ville}" />
+                </li>
+                <div class="boutons-groupe">
+                    <li>
+                        <button class="boutonVert" type="submit">Enregistrer</button>
+                    </li>
+                    <li>
+                        <button class="boutonOrange" type="button"><a th:href="@{/MonProfil/delete}">Supprimer mon compte</a></button>
+                    </li>
+                </div>
+            </ul>
+        </form>
+    </div>
 </main>
 </html>
