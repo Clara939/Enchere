@@ -16,5 +16,5 @@ public interface EnchereService {
     void deleteEnchere(long id);
 
 //  Méthode pour faire une enchère
-    void placeEnchere(long idArticle, long idUtilisateur, int montantPropose) throws Exception;
+    void placerEnchere(long idArticle, long idUtilisateur, int montantPropose) throws Exception;
 }

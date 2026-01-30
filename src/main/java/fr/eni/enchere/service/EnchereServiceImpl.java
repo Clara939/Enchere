@@ -42,7 +42,7 @@ public class EnchereServiceImpl implements EnchereService{
 
 ///////////// Logique d'un enchere (Raman)
     @Override
-    public void placeEnchere(long idArticle, long idUtilisateur, int montantPropose) throws Exception {
+    public void placerEnchere(long idArticle, long idUtilisateur, int montantPropose) throws Exception {
         Article article = articleService.readById(idArticle);
 
         // Vérifier si l'article existe

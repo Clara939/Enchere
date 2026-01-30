@@ -73,7 +73,7 @@ public class VenteController {
 
     }
 
-  /*  @PostMapping("/encheres/placer")
+    @PostMapping("/encheres/placer")
     public String placerEnchere(
             @RequestParam("idArticle") long idArticle,
             @RequestParam("montantPropose") int montantPropose,
@@ -87,10 +87,32 @@ public class VenteController {
             return "redirect:/login"; // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
         }
 
+        // Service (place enchère)
+        try{
+            enchereService.placerEnchere(idArticle, utilisateurConnecte.getId_utilisateur(), montantPropose);
+
+            model.addAttribute("success", "Enchere placee avec succes");
+            return "redirect:/encheres";
+        } catch (Exception e) {
+            Article article = articleService.readById(idArticle);
+
+            int prixActuel = article.getPrix_vente();
+            if (prixActuel == 0) {
+                prixActuel = article.getPrix_initial();
+            }
+            int enchereMinimale = prixActuel + 1;
+
+            // Transmission des données au modèle
+            model.addAttribute("article", article);
+            model.addAttribute("utilisateurConnecte", utilisateurConnecte);
+            model.addAttribute("prixActuel", prixActuel);
+            model.addAttribute("enchereMinimale", enchereMinimale);
+            model.addAttribute("error", e.getMessage()); // Afficher le message d'erreur
 
 
-        return "encherir";
+            return "encherir";
+        }
+
     }
-  */
 
 }
