@@ -16,6 +16,7 @@ public class Article {
     @FutureOrPresent(message = "Le début de la vente ne peut pas etre inferieur à la date du jour")
     private LocalDate date_debut_encheres;
     @NotNull(message = "Date de fin obligatoire")
+    @FutureOrPresent(message = "La fin de la vente ne peut pas etre inferieur à la date du jour")
     private LocalDate date_fin_encheres;
     private Integer prix_initial;
     private Integer prix_vente;

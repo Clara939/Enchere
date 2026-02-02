@@ -397,7 +397,14 @@ color: var(--couleur-vert-vif);
     width: 100%;
     box-sizing: border-box;
 }
-
+/* Erreurs */
+main.page-nouvelle-vente .error {
+    color: brown;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 5px 0 0 165px;
+    grid-column: 2;
+}
 /*page profil *****************************************************************************************/
 /*conteneur principal profil*/
 main.page-profil {
@@ -770,10 +777,6 @@ main.page-inscription .flex-outer.droite {
 
 /* Grille label + input */
 main.page-inscription .flex-outer > li {
-    display: grid;
-    grid-template-columns: 120px 1fr;
-    gap: 15px;
-    align-items: center;
     margin-bottom: 20px;
 }
 
@@ -798,9 +801,9 @@ main.page-inscription input {
 
 /* Erreurs */
 main.page-inscription .error {
-    color: #e74c3c;
-    font-size: 14px;
-    margin: 5px 0 0 165px;
+    color: brown;
+    font-size: 20px;
+    font-weight: bold;
     grid-column: 2;
 }
 main.page-inscription .error:empty {
