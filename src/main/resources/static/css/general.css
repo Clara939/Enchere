@@ -141,6 +141,11 @@ h3{
     text-align: center;
 }
 
+footer{
+    margin : auto;
+    text-align: center;
+}
+
 /*enchere **********************************************************************************/
 #encheres_corps_principal{
     gap: 25px;
@@ -238,6 +243,13 @@ h3{
     pointer-events: none;  /* les clics sur les checkbox ne passent plus */
 }
 
+encheres_article_vente{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .encheres_article_vente h3, #encheres_form_filtre label{
     text-align: center;
 }
@@ -264,6 +276,16 @@ h3{
 
 #lienVersProfil:hover{
 color: var(--couleur-vert-vif);
+}
+
+#encheres_photo_article{
+    display: block;
+    max-width: 90%;
+    max-height: 70%;
+    margin: 10px auto;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
 }
 
 /*page formulaire article  **************************************************************************************************************************************/
@@ -883,4 +905,25 @@ main.page-inscription ul:last-of-type a {
     }
 }
 
+/*page afficher_un_profil **************************************************************************************/
 
+#afficher_profil_conteneur{
+    background-color: var(--couleur-gris-clair);
+    padding: 20px;
+    border-radius :50px;
+    width: fit-content;
+    margin: 20px auto;
+    color: var(--couleur-fond-sombre);
+    font-size: 20px;
+}
+
+#afficher_profil_conteneur span{
+    font-weight: bold;
+}
+
+#afficher_profil_conteneur div{
+    margin: 15px;
+    padding: 15px;
+    border-radius: 20px;
+    background-color: var(--couleur-blanc-secondaire);
+}

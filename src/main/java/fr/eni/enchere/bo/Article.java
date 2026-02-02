@@ -22,7 +22,7 @@ public class Article {
     private Integer prix_vente;
         @NotNull
     private String etat_vente = "CREE";
-    private String photoArticle;
+    private String photoArticle = "/image/encheres_marteau.jpg";
     private Retrait lieuxRetrait;
     private Categorie categorieArticle;
     private Utilisateur vendeur;
