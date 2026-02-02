@@ -127,6 +127,10 @@ nav ul{
     width: fit-content;
 }
 
+a {
+    text-decoration: none;
+    color: var(--couleur-fond-sombre);
+}
 
 h2{
     text-align: center;
@@ -628,7 +632,7 @@ main.page-login .flex-out li:last-child {
 }
 
 main.page-login .flex-out li:last-child a {
-    color: var(--couleur-orange);
+    color: var(--couleur-fond-sombre);
     text-decoration: none;
     font-weight: 500;
     font-size: 14px;

@@ -63,7 +63,7 @@
                     <p>Vendeur :
 <!--                        <strong><span th:text="${article.getVendeur().getPseudo()}"></span></strong></p>-->
                 </div>
-                <button type="button" class="boutonOrange">Enchérir</button>
+                <button type="button" class="boutonOrange"><a th:href="@{/encherir(id=${article.id_article})}">Enchérir</a></button>
             </div>
         </div>
         <!--        </section>-->
