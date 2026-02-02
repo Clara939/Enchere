@@ -238,6 +238,13 @@ h3{
     pointer-events: none;  /* les clics sur les checkbox ne passent plus */
 }
 
+encheres_article_vente{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .encheres_article_vente h3, #encheres_form_filtre label{
     text-align: center;
 }
@@ -264,6 +271,15 @@ h3{
 
 #lienVersProfil:hover{
 color: var(--couleur-vert-vif);
+}
+
+#encheres_photo_article{
+    display: block;
+    max-width: 90%;
+    max-height: 70%;
+    margin: 10px auto;
+    justify-content: center;
+    align-items: center;
 }
 
 /*page formulaire article  **************************************************************************************************************************************/
