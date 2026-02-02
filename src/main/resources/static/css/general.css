@@ -905,6 +905,9 @@ main.page-inscription ul:last-of-type a {
 /*page afficher_un_profil **************************************************************************************/
 
 #afficher_profil_conteneur{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     background-color: var(--couleur-gris-clair);
     padding: 20px;
     border-radius :50px;
@@ -912,15 +915,33 @@ main.page-inscription ul:last-of-type a {
     margin: 20px auto;
     color: var(--couleur-fond-sombre);
     font-size: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
 }
 
-#afficher_profil_conteneur span{
-    font-weight: bold;
+.afficher_profil_donnees{
+    color:var(--couleur-blanc-secondaire);
+    background-color: var(--couleur-fond-sombre);
+    padding: 15px 15px;
+    border-radius: 25px;
+    border: 1px solid rgba(255,255,255,0.15);
+    font-weight: 500;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    flex: 1;
+    min-width: 50%;
+    text-align: left;
 }
 
 #afficher_profil_conteneur div{
-    margin: 15px;
     padding: 15px;
-    border-radius: 20px;
-    background-color: var(--couleur-blanc-secondaire);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+align-items: center;
+}
+
+.afficher_profil_label{
+    color:var(--couleur-fond-sombre);
+    min-width: 130px;
+    text-align: left;
+    font-size: 16px;
 }
