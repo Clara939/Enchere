@@ -52,6 +52,10 @@ public class SecurityConfiguration {
                     .requestMatchers(HttpMethod.POST, "/encheres/save").hasRole("UTILISATEUR")
                     .requestMatchers(HttpMethod.GET, "/encheres/details").hasRole("UTILISATEUR")
                     .requestMatchers(HttpMethod.POST, "/encheres/encherir").hasRole("UTILISATEUR")
+
+                    // add by Raman pour la modification et suppression d'une enchere
+                    .requestMatchers(HttpMethod.GET, "/encheres/placer").hasRole("UTILISATEUR")
+
                     .requestMatchers(HttpMethod.GET, "/encheres/update").hasRole("UTILISATEUR")
                     .requestMatchers(HttpMethod.GET, "/encheres/delete").hasRole("UTILISATEUR")
                     .requestMatchers(HttpMethod.GET, "/encherir").hasRole("UTILISATEUR")
