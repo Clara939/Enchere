@@ -61,7 +61,7 @@
                         <strong><span th:text="${(article.getPrix_vente() != null and article.getPrix_vente() != article.getPrix_initial()) ? article.getPrix_vente() : article.getPrix_initial()}"></span><span> points</span></strong></p>
                     <p>Fin de l'enchère :
                         <strong><span th:text="${article.getDate_fin_encheres()}"></span></strong></p>
-                    <p>Vendeur :
+                    <p th:if="${article.getVendeur() != null}">Vendeur :
                         <a id="lienVersProfil" th:href="@{/afficheProfilVendeur(id=${article.getVendeur().getId_utilisateur()})}"><strong><span th:text="${article.getVendeur().getPseudo()}"></span></strong></a></p>
                 </div>
                 <div>

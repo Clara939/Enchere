@@ -58,6 +58,62 @@ nav ul{
     list-style-type: none;
     align-items: center;
 }
+/* navigation responsive*/
+/* 1. Cacher checkbox */
+.menu-toggle {
+    display: none;
+}
+
+/* 2. Burger (label) */
+.burger-menu {
+    display: none;
+    font-size: 30px;
+    color: var(--couleur-blanc-secondaire);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    margin-right: 20px;
+}
+
+/* 3. Desktop */
+@media (min-width: 769px) {
+    nav ul {
+        display: flex;
+    }
+}
+
+/* 4. MOBILE */
+@media (max-width: 768px) {
+    /* Afficher burger */
+    .burger-menu {
+        display: block;
+    }
+
+    /* Menu caché par défaut */
+    nav ul {
+        display: none;
+        flex-direction: column;
+        background-color: var(--couleur-fond-sombre);
+        position: absolute;
+        top: 100px;
+        right: 0;
+        width: 50%;
+        padding: 20px;
+        border-radius: 0 0 0 20px;
+        box-shadow: 0 6px 25px rgba(0,0,0,0.6);
+    }
+
+    /*  Menu ouvert si checkbox cochée */
+    #menu-toggle:checked ~ nav ul {
+        display: flex;
+    }
+
+    nav li {
+        text-align: center;
+        margin: 10px 0;
+    }
+}
 
 .boutonOrange{
     background-color: var(--couleur-orange);

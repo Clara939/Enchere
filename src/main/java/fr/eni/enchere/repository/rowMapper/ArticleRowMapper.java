@@ -35,44 +35,44 @@ public class ArticleRowMapper implements RowMapper<Article> {
             vendeur.setNom(rs.getString("nom_vendeur"));
             vendeur.setPrenom(rs.getString("prenom_vendeur"));
 
+            articleResult.setVendeur(vendeur);
+        }
 
-            //récupération de la catégorie
-            long idCategorie = rs.getLong("id_categorie");
-            if(idCategorie > 0) {
-                Categorie categorie = new Categorie();
-                categorie.setId_categorie(rs.getLong("id_categorie"));
-                categorie.setLibelle(rs.getString("libelle_categorie"));
+        //récupération de la catégorie
+        long idCategorie = rs.getLong("id_categorie");
+        if(idCategorie > 0) {
+            Categorie categorie = new Categorie();
+            categorie.setId_categorie(rs.getLong("id_categorie"));
+            categorie.setLibelle(rs.getString("libelle_categorie"));
 
-                //récupération du retrait
-                long idRetrait = rs.getLong("id_retrait");
-                if (idRetrait > 0) {
-                    Retrait retrait = new Retrait();
-                    retrait.setId_retrait(rs.getLong("id_retrait"));
-                    retrait.setRue(rs.getString("rue_retrait"));
-                    retrait.setCode_postal(rs.getString("code_postal_retrait"));
-                    retrait.setVille((rs.getString("ville_retrait")));
+            articleResult.setCategorieArticle(categorie);
+        }
+            //récupération du retrait
+        long idRetrait = rs.getLong("id_retrait");
+        if (idRetrait > 0) {
+            Retrait retrait = new Retrait();
+            retrait.setId_retrait(rs.getLong("id_retrait"));
+            retrait.setRue(rs.getString("rue_retrait"));
+            retrait.setCode_postal(rs.getString("code_postal_retrait"));
+            retrait.setVille((rs.getString("ville_retrait")));
+            articleResult.setLieuxRetrait(retrait);
+        }
 
 //reconstitution de l'objet article
-                    articleResult.setVendeur(vendeur);
-                    articleResult.setCategorieArticle(categorie);
-                    articleResult.setLieuxRetrait(retrait);
 
-                    //récupération de l'id de l'acheteur si il y en a un
-                    long idAcheteur = rs.getLong("id_acheteur");
-                    //test si il y a un acheteur
-                    Utilisateur acheteur = new Utilisateur();
-                    if (idAcheteur > 0) {
-                        //j'ai un acheteur associé à l'article : je le crée puis je remplis ses champs :
-                        acheteur.setId_utilisateur(rs.getInt("id_acheteur"));
-                        acheteur.setNom(rs.getString("nom_acheteur"));
-                        acheteur.setPrenom(rs.getString("prenom_acheteur"));
+        //récupération de l'id de l'acheteur si il y en a un
+        long idAcheteur = rs.getLong("id_acheteur");
+        //test si il y a un acheteur
+        Utilisateur acheteur = new Utilisateur();
+        if (idAcheteur > 0) {
+            //j'ai un acheteur associé à l'article : je le crée puis je remplis ses champs :
+            acheteur.setId_utilisateur(rs.getInt("id_acheteur"));
+            acheteur.setNom(rs.getString("nom_acheteur"));
+            acheteur.setPrenom(rs.getString("prenom_acheteur"));
 
-                        articleResult.setAcheteur(acheteur);
-                    } else {
-                        articleResult.setAcheteur(null);
-                    }
-                }
-            }
+            articleResult.setAcheteur(acheteur);
+        } else {
+            articleResult.setAcheteur(null);
         }
         return articleResult;
     }
