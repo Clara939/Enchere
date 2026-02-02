@@ -1,6 +1,8 @@
 package fr.eni.enchere.service;
 
 import fr.eni.enchere.bo.Enchere;
+import fr.eni.enchere.bo.Utilisateur;
+import org.springframework.ui.Model;
 
 import java.util.List;
 
@@ -17,4 +19,9 @@ public interface EnchereService {
 
 //  Méthode pour faire une enchère
     void placerEnchere(long idArticle, long idUtilisateur, int montantPropose) throws Exception;
+
+//    remporter une enchere
+     String getPageRemportee(Long idArticle, Utilisateur utilisateurConnecte, Model model);
+
+
 }

@@ -118,21 +118,9 @@ public class VenteController {
 
     //quand on remporte une enchere
     @GetMapping("/encheres/fini")
-    public String enchereGagner(@RequestParam("id")long id_article, Model model){
-        //recupere l'article existant
-        Article article = articleService.readById(id_article);
-        //verifie l'etat= vendu
-        if(!"vendu".equals(article.getEtat_vente())){
-            return "redirect:/encheres";
-        }
-        //utilisateur connecté
+    public String enchereGagner(@RequestParam("id") Long id_article, Model model) {
         Utilisateur utilisateurConnecte = utilisateurService.recuperationIdUtilisateurActif();
-//        page remporter_vendeur si vendeur
-        if (utilisateurConnecte == article.getVendeur()){
-            return "enchere_remporter_vendeur";
-        }
-
-//        redirige vers la page remporter_acheteur si acheteur
-        return "enchere_remporter_acheteur";
+        return enchereService.getPageRemportee(id_article, utilisateurConnecte, model);
     }
+
 }
