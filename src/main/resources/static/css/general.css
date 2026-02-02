@@ -127,6 +127,10 @@ nav ul{
     width: fit-content;
 }
 
+a {
+    text-decoration: none;
+    color: var(--couleur-fond-sombre);
+}
 
 h2{
     text-align: center;
