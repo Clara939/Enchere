@@ -69,7 +69,7 @@ public class VenteController {
         model.addAttribute("enchereMinimale", enchereMinimale);
         model.addAttribute("prixActuel", prixActuel);
 
-        return "encherir";
+        return "details_vente";
 
     }
 
@@ -110,7 +110,7 @@ public class VenteController {
             model.addAttribute("error", e.getMessage()); // Afficher le message d'erreur
 
 
-            return "encherir";
+            return "details_vente";
         }
 
     }
