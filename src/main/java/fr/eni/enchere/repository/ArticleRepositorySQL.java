@@ -230,6 +230,32 @@ JdbcTemplate jdbcTemplate;
         return namedParameterJdbcTemplate.query(sql, map, new ArticleRowMapper());
     }
 
+    //recup id_articles de tous les articles en cours de vente
 
+    @Override
+    public List<Long> readAllIdArticlesEnVente() {
+        String sql = "select id_article from Articles\n " +
+                "WHERE date_debut_encheres <= GETDATE() AND date_fin_encheres >= GETDATE()";
+
+        return jdbcTemplate.queryForList(sql, Long.class);
+    }
+
+    //recup id_articles de tous les articles en cours de vente sur lesquels l'utilisateur est le mieux placé
+
+    @Override
+    public List<Long> readIdArticlesMeilleureOffreUtilisateur(long id) {
+        String sql = """
+				SELECT DISTINCT articles.id_article
+				FROM Articles 
+				JOIN Encheres ON articles.id_article = encheres.id_article
+				WHERE encheres.id_encherisseur = :id
+				AND encheres.montant_enchere = articles.prix_vente
+				""";
+
+        MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue("id", id);
+
+        return namedParameterJdbcTemplate.queryForList(sql, map, Long.class);
+    }
 
 }

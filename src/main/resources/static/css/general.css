@@ -755,13 +755,14 @@ main.page-inscription .flex-outer.droite {
     min-height: 450px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: space-between;
 }
+
 
 /* Grille label + input */
 main.page-inscription .flex-outer > li {
     display: grid;
-    grid-template-columns: 150px 1fr;
+    grid-template-columns: 120px 1fr;
     gap: 15px;
     align-items: center;
     margin-bottom: 20px;
@@ -772,13 +773,13 @@ main.page-inscription .flex-outer label {
     color: var(--couleur-fond-sombre);
     font-weight: bold;
     text-align: right;
-    width: 150px;
-    min-width: 150px;
+    width: 120px;
+    min-width: 120px;
 }
 
 /* Inputs */
 main.page-inscription input {
-    padding: 15px;
+    padding: 15px 20px;
     border-radius: 25px;
     background: var(--couleur-blanc-secondaire);
     border: 2px solid transparent;
@@ -792,6 +793,9 @@ main.page-inscription .error {
     font-size: 14px;
     margin: 5px 0 0 165px;
     grid-column: 2;
+}
+main.page-inscription .error:empty {
+    display: none;
 }
 
 /* BOUTONS - Conteneur centré en bas */

@@ -28,4 +28,8 @@ public interface ArticleRepository {
     List<Article> readAllArticlesEnVenteByUtilisateurNonDebutees(long id);
 
     List<Article> readAllArticlesEnVenteByUtilisateurTerminées(long id);
+
+    List<Long> readAllIdArticlesEnVente();
+
+    List<Long> readIdArticlesMeilleureOffreUtilisateur(long id);
 }
