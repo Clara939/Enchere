@@ -132,7 +132,7 @@ public class EnchereServiceImpl implements EnchereService{
 
     private boolean peutAccederPageRemportee(Article article, Utilisateur utilisateur){
 // verification sur l'article
-        if (article == null || !"vendu".equals(article.getEtat_vente())){
+        if (article == null || !"VENDU".equals(article.getEtat_vente())){
             return false;
         }
         if (utilisateur == null){
