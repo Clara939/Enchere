@@ -1,10 +1,7 @@
 package fr.eni.enchere.controller.converter;
 
 
-import fr.eni.enchere.bo.Article;
-import fr.eni.enchere.bo.Categorie;
-import fr.eni.enchere.bo.Retrait;
-import fr.eni.enchere.bo.Utilisateur;
+import fr.eni.enchere.bo.*;
 import fr.eni.enchere.service.*;
 
 import jakarta.validation.Valid;
@@ -179,5 +176,14 @@ public String saveArticle(@RequestParam("categorieId") long categorieId,@Valid @
         //suppression de l'article
         articleService.delete(id_article);
         return "redirect:/encheres?success=supprime";
+    }
+
+    @GetMapping("/encherir")
+    public String faireUneEnchere(@RequestParam("id") long id_article, Model model){
+        Article article = articleService.readById(id_article);
+//        Enchere enchere = new Enchere();
+//        model.addAttribute("enchere", enchere);
+        model.addAttribute("article", article);
+        return "details_vente";
     }
 }

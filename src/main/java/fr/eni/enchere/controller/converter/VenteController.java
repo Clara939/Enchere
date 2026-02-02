@@ -35,7 +35,7 @@ public class VenteController {
         return "details_vente";
     }
     //permet d'encherir sur un article
-    @PostMapping("/encheres/encherir")
+    @PostMapping("/encherir")
     public String afficherPageEncherir(
             @RequestParam("id") long idArticle,
             Model model) {
@@ -51,6 +51,9 @@ public class VenteController {
 
         // Obtenir l'utilisateur autorisé, renvoie l'objet Utilisateur (l'utilisateur actuellement connecté)
         Utilisateur utilisateurConnecte = utilisateurService.recuperationIdUtilisateurActif();
+        if (utilisateurConnecte == null) {
+            return "redirect:/login"; // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
+        }
 
         // déterminons le prix actuel
         int prixActuel = article.getPrix_vente(); // prix de vente actuel
@@ -69,7 +72,7 @@ public class VenteController {
         model.addAttribute("enchereMinimale", enchereMinimale);
         model.addAttribute("prixActuel", prixActuel);
 
-        return "encherir";
+        return "details_vente";
 
     }
 
@@ -110,7 +113,7 @@ public class VenteController {
             model.addAttribute("error", e.getMessage()); // Afficher le message d'erreur
 
 
-            return "encherir";
+            return "details_vente";
         }
 
     }

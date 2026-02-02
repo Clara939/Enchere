@@ -44,15 +44,21 @@ public class SecurityConfiguration {
                     /* les changements c'est ici le reste ne change pas il n'y a pas de raison
                      *********************************************    */
 
-//                            requestMatchers(HttpMethod.GET, "/encheres").hasRole("UTILISATEUR")
-                    requestMatchers(HttpMethod.POST, "/encheres/filtres").hasRole("UTILISATEUR")
+                            requestMatchers(HttpMethod.GET, "/encheres").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/encheres/filtres").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/encheres/filtres").permitAll()
                     /*accès au chemin /encheres/add en Get pour les utilisateurs */
                     .requestMatchers(HttpMethod.GET, "/encheres/add").hasRole("UTILISATEUR")
                     .requestMatchers(HttpMethod.POST, "/encheres/save").hasRole("UTILISATEUR")
                     .requestMatchers(HttpMethod.GET, "/encheres/details").hasRole("UTILISATEUR")
                     .requestMatchers(HttpMethod.POST, "/encheres/encherir").hasRole("UTILISATEUR")
+
+                    // add by Raman pour la modification et suppression d'une enchere
+                    .requestMatchers(HttpMethod.GET, "/encheres/placer").hasRole("UTILISATEUR")
+
                     .requestMatchers(HttpMethod.GET, "/encheres/update").hasRole("UTILISATEUR")
                     .requestMatchers(HttpMethod.GET, "/encheres/delete").hasRole("UTILISATEUR")
+                    .requestMatchers(HttpMethod.GET, "/encherir").hasRole("UTILISATEUR")
                     .requestMatchers(HttpMethod.GET, "/profil").hasRole("UTILISATEUR")
                     .requestMatchers(HttpMethod.GET, "/MonProfil").hasRole("UTILISATEUR")
                     .requestMatchers(HttpMethod.GET, "/MonProfil/update").hasRole("UTILISATEUR")
