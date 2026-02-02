@@ -114,6 +114,20 @@ nav ul{
     border: solid 2px var(--couleur-gris-clair);
 }
 
+.boutonVert{
+    background-color: var(--couleur-vert-vif);
+    border-radius :30px;
+    padding: 20px;
+    height: fit-content;
+    text-decoration: none;
+    font-weight: bold;
+    color: var(--couleur-blanc-secondaire);
+    outline: none;
+    border: none;
+    width: fit-content;
+}
+
+
 h2{
     text-align: center;
 }
@@ -123,6 +137,7 @@ h3{
     text-align: center;
 }
 
+/*enchere **********************************************************************************/
 #encheres_corps_principal{
     gap: 25px;
     color: var(--couleur-fond-sombre);
@@ -242,3 +257,614 @@ h3{
     font-size: 20px;
     color: var(--couleur-fond-sombre);
 }
+/*page formulaire article  **************************************************************************************************************************************/
+/*centre le formulaire de la page*/
+#article_corp_principal {
+    gap: 25px;
+    color: var(--couleur-fond-sombre);
+    margin: 25px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: min(30px, 5vw);
+    justify-content: center;
+    margin: 30px auto;
+    max-width: 90%;
+    overflow: hidden;
+}
+/*style tous les input*/
+.input {
+    padding: 15px;
+    border-radius: 30px;
+    background-color: var(--couleur-blanc-secondaire);
+    width: 100%;
+    box-sizing: border-box;
+}
+/*gere hauteur largeur du formulaire*/
+#article_formulaire {
+    display: flex;
+    flex-direction: column;
+    min-height: 80vh;
+    width: 100%;
+    max-width: 600px;
+}
+/*conteneur principal*/
+.flex-outer {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 20px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+/*gere chaque ligne label/input*/
+.flex-outer > li {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 15px;
+    align-items: center;
+}
+/*style des label*/
+.flex-outer label {
+    font-weight: bold;
+    text-align: right;
+    margin: 0;
+    color: var(--couleur-blanc-secondaire);
+}
+/*encadrer gris de retrait*/
+.retrait_adresse {
+    grid-column: 1 / -1;
+    padding: 20px;
+    border-radius: 50px;
+    background-color: var(--couleur-gris-clair);
+    margin: 20px 0;
+}
+/*les 3 ligne retrait */
+.retrait_adresse li {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 10px;
+    align-items: center;
+}
+/*label adresse style*/
+.retrait_adresse label {
+    font-weight: bold;
+    text-align: right;
+    color: var(--couleur-blanc-secondaire);
+    position: relative;
+}
+/*label adresse position*/
+.retrait_adresse > label {
+    position: relative;
+    left: -50px;
+    grid-column: 1;
+    text-align: right;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: var(--couleur-blanc-secondaire);
+}
+/*boutton du bas*/
+.boutons-bas {
+    margin-top: auto;
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 100px 20px 0;
+    gap: 20px;
+}
+
+.boutons-groupe {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    flex-wrap: nowrap;
+}
+
+.champs-retrait {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.retrait-champ {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 15px;
+    align-items: center;
+    width: 100%;
+}
+
+.retrait-champ label {
+    font-weight: bold;
+    text-align: right;
+    color: var(--couleur-blanc-secondaire);
+    margin: 0;
+}
+.retrait-champ .input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/*page profil *****************************************************************************************/
+/*conteneur principal profil*/
+main.page-profil {
+    min-height: 80vh;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+main.page-profil h2 {
+    color: var(--couleur-blanc-secondaire);
+    font-size: 32px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    margin: 0;
+}
+
+/* ENCADRÉ GRIS */
+main.page-profil .profil-grid {
+    background: var(--couleur-gris-clair);
+    border-radius: 40px;
+    padding: 40px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    width: 100%;
+    max-width: 700px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+/* Lignes centrées */
+main.page-profil .profil-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 25px;
+    gap: 40px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+main.page-profil .profil-item:last-child {
+    border-bottom: none;
+}
+
+/* Labels GAUCHE foncés */
+main.page-profil .profil-label {
+    font-weight: bold;
+    color: var(--couleur-fond-sombre);
+    min-width: 130px;
+    text-align: left;
+    font-size: 16px;
+}
+
+/* Valeurs DROITE (GRIS FONCÉ) */
+main.page-profil .profil-value {
+    background: rgba(38, 38, 36, 0.9);
+    color: var(--couleur-blanc-secondaire);
+    padding: 15px 25px;
+    border-radius: 25px;
+    border: 1px solid rgba(255,255,255,0.15);
+    font-weight: 500;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    flex: 1;
+    min-width: 200px;
+}
+
+/* BOUTON */
+main.page-profil .profil-grid button {
+    margin: 30px auto 0 auto;
+    display: block;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    main.page-profil .profil-grid {
+        margin: 0 20px;
+        padding: 30px 20px;
+    }
+
+    main.page-profil .profil-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+
+    main.page-profil .profil-label {
+        min-width: auto;
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .profil-value {
+        order: 1;
+        max-width: none;
+    }
+}
+/*page modifier profil ***************************************************************************************/
+main.page-update {
+    min-height: 80vh;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+}
+
+main.page-update h2 {
+    color: var(--couleur-blanc-secondaire);
+    font-size: 32px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    margin: 0;
+}
+
+/*  ENCADRÉ GRIS CLAIR */
+main.page-update #update_formulaire ul.flex-outer {
+    background: var(--couleur-gris-clair);
+    border-radius: 40px;
+    padding: 40px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    max-width: 700px;
+    width: 100%;
+    list-style: none;
+    margin: 0 auto;
+}
+
+/* Labels DANS le cadre = foncés */
+main.page-update .flex-outer label {
+    color: var(--couleur-fond-sombre);
+    text-align: right;
+    font-weight: bold;
+}
+
+/* Boutons HORS cadre → CENTRE en bas */
+main.page-update .boutons-groupe {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    main.page-update #update_formulaire ul.flex-outer {
+        margin: 0 20px;
+        padding: 30px 20px;
+        max-width: none;
+    }
+
+    main.page-update .boutons-groupe {
+        flex-direction: column;
+        gap: 20px;
+        width: 100%;
+    }
+}
+
+/*page login + mdp oublié *************************************************************************************************/
+main.page-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    padding: 20px;
+    flex-direction: column;
+}
+
+main.page-login ul.flex-out {
+    background: var(--couleur-gris-clair);
+    border-radius: 40px;
+    padding: 40px;
+    width: 100%;
+    max-width: 450px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    list-style: none;
+    gap: 25px;
+    margin: 20px auto;
+}
+
+main.page-login h2,
+main.page-mdp h2 {
+    color: var(--couleur-blanc-secondaire);
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 25px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+main.page-login .flex-out > li {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 0;
+}
+
+main.page-login .flex-out label {
+    text-align: left;
+    color: var(--couleur-fond-sombre);
+    font-weight: bold;
+    font-size: 16px;
+    justify-self: start;
+}
+
+main.page-login .flex-out li:has(input[type="checkbox"]) {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 5px 0;
+}
+
+main.page-login .flex-out input[type="checkbox"] {
+    width: auto;
+    height: 20px;
+    padding: 0;
+    margin: 0;
+    flex-shrink: 0;
+}
+
+main.page-login .flex-out li:has(.boutonVert) {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+main.page-login .flex-out .boutonVert {
+    width: 100%;
+    padding: 18px;
+    margin: 10px 0;
+    justify-self: center;
+}
+
+main.page-login .flex-out li:last-child {
+    text-align: center;
+    padding: 15px 0;
+    justify-content: center;
+}
+
+main.page-login .flex-out li:last-child a {
+    color: var(--couleur-orange);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.1);
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+main.page-login .flex-out li:last-child a:hover {
+    background: var(--couleur-orange);
+    color: var(--couleur-blanc-secondaire);
+}
+
+/* MDP OUBLIÉ */
+main.page-mdp {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    padding: 20px;
+    flex-direction: column;
+}
+
+main.page-mdp form {
+    background: var(--couleur-gris-clair);
+    border-radius: 40px;
+    padding: 40px;
+    width: 100%;
+    max-width: 450px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    margin: 20px auto;
+}
+
+main.page-mdp label {
+    display: block;
+    color: var(--couleur-fond-sombre);
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+main.page-mdp input[type="text"] {
+    width: 100%;
+    padding: 18px;
+    border: 2px solid #ddd;
+    border-radius: 25px;
+    background: var(--couleur-blanc-secondaire);
+    font-size: 16px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+main.page-mdp button[type="submit"] {
+    width: 100%;
+    padding: 18px;
+    background: var(--couleur-vert-vif);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 20px 0;
+    transition: all 0.3s ease;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    main.page-login ul.flex-out,
+    main.page-mdp form {
+        margin: 20px;
+        padding: 30px 20px;
+        max-width: none;
+    }
+}
+/*page inscription **************************************************************************************/
+main.page-inscription {
+    min-height: 80vh;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+main.page-inscription h2 {
+    color: var(--couleur-blanc-secondaire);
+    font-size: 32px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+/* Formulaire : 2 colonnes + boutons */
+main.page-inscription form {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    max-width: 1200px;
+    width: 100%;
+    align-items: center;
+}
+
+/* Conteneur des 2 colonnes côte à côte */
+main.page-inscription .colonnes {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+main.page-inscription .flex-outer.gauche,
+main.page-inscription .flex-outer.droite {
+    flex: 1;
+    background: var(--couleur-gris-clair);
+    border-radius: 40px;
+    padding: 40px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    list-style: none;
+    margin: 0;
+    min-height: 450px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+/* Grille label + input */
+main.page-inscription .flex-outer > li {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* Labels */
+main.page-inscription .flex-outer label {
+    color: var(--couleur-fond-sombre);
+    font-weight: bold;
+    text-align: right;
+    width: 150px;
+    min-width: 150px;
+}
+
+/* Inputs */
+main.page-inscription input {
+    padding: 15px;
+    border-radius: 25px;
+    background: var(--couleur-blanc-secondaire);
+    border: 2px solid transparent;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Erreurs */
+main.page-inscription .error {
+    color: #e74c3c;
+    font-size: 14px;
+    margin: 5px 0 0 165px;
+    grid-column: 2;
+}
+
+/* BOUTONS - Conteneur centré en bas */
+main.page-inscription ul:last-of-type {
+    background: var(--couleur-gris-clair);
+    border-radius: 40px;
+    padding: 30px 40px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    list-style: none;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    width: fit-content;
+}
+
+main.page-inscription ul:last-of-type li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+main.page-inscription ul:last-of-type button,
+main.page-inscription ul:last-of-type a {
+    width: 220px;
+    padding: 18px 30px;
+    border-radius: 30px;
+    display: block;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+    main.page-inscription .colonnes {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 768px) {
+    main.page-inscription .flex-outer {
+        padding: 30px 20px;
+        margin: 0 20px;
+    }
+
+    main.page-inscription .flex-outer > li {
+        grid-template-columns: 1fr;
+        text-align: left;
+    }
+
+    main.page-inscription .flex-outer label {
+        text-align: left;
+    }
+
+    main.page-inscription .error {
+        margin-left: 0;
+    }
+
+    main.page-inscription ul:last-of-type {
+        padding: 25px 30px;
+        width: 90%;
+        max-width: 350px;
+        margin: 0 20px;
+    }
+
+    main.page-inscription ul:last-of-type button,
+    main.page-inscription ul:last-of-type a {
+        width: 100%;
+        max-width: 250px;
+    }
+}
+
+
