@@ -5,6 +5,8 @@ import fr.eni.enchere.bo.Enchere;
 import fr.eni.enchere.repository.ArticleRepository;
 import fr.eni.enchere.repository.EnchereRepository;
 import org.jspecify.annotations.NonNull;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -52,12 +54,12 @@ public class ArticleServiceImpl implements ArticleService{
     }
 
     public List<Article> readAllArticlesEnVenteFiltre(String search, long id_categorie, String radioSelectionnee, boolean encheres_ouvertes, boolean mes_encheres_cours, boolean mes_encheres_remportees, boolean mes_ventes_cours, boolean ventes_non_debutees, boolean ventes_terminees) {
-        long idUtilisateurActif = utilisateurService.recuperationIdUtilisateurActif().getId_utilisateur();
+
         List<Long> idArticleListeAchatTotale = new ArrayList<>();
         List<Article> articleListeVenteTotale = new ArrayList<>();
         List<Article> articleListeFiltreRecherche = new ArrayList<>();
         List<Article> articleListeFiltre = new ArrayList<>();
-        List<Long> intersection = new ArrayList<>();
+        List<Long> idArticleListeEncheresOuvertes = new ArrayList<>();
 
         articleListeFiltreRecherche = articleRepository.readAllArticlesEnVenteFiltreSearch(search);
         if (!(id_categorie == 0)){ //si une categorie est choisie, on filtre la première liste
@@ -69,20 +71,33 @@ public class ArticleServiceImpl implements ArticleService{
                 .map(a -> a.getId_article())
                 .collect(Collectors.toList());
 
-        if("achat".equals(radioSelectionnee)){
-            List<Long> idArticleListeEncheresOuvertes = new ArrayList<>();
+        //test si l'utilisateur est connecté. si non, on renvoit les résultats sans passer par les autres filtres
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth == null || radioSelectionnee == null){
+            idArticleListeEncheresOuvertes = articleRepository.readAllIdArticlesEnVente();
+            idArticleRechercheListe.retainAll(idArticleListeEncheresOuvertes);
+            articleListeFiltre = idArticleRechercheListe.stream()
+                    .map(l -> articleRepository.readById(l))
+                    .collect(Collectors.toList());
+
+            return articleListeFiltre;
+        }
+        long idUtilisateurActif = utilisateurService.recuperationIdUtilisateurActif().getId_utilisateur();
+        System.out.println("id utilisateur : " + idUtilisateurActif);
+        if ("achat".equals(radioSelectionnee)) {
+
             List<Long> idArticleListeEncheresEnCours = new ArrayList<>();
             List<Long> idArticleListeEncheresEmportees = new ArrayList<>();
-            if (encheres_ouvertes){
+            if (encheres_ouvertes) {
                 //Liste des articles actuellement en vente
             }
             idArticleListeEncheresOuvertes = articleRepository.readAllIdArticlesEnVente();
 
-            if(mes_encheres_cours){
+            if (mes_encheres_cours) {
                 //Liste des articles sur lesquels l'utilisateur a fait au moins une enchère
                 idArticleListeEncheresEnCours = enchereRepository.readAllidArticleForOneUtilisateur(idUtilisateurActif);
             }
-            if (mes_encheres_remportees){
+            if (mes_encheres_remportees) {
                 //Liste des articles pour lesquels la meilleure anchère est faite par l'utilisateur
                 idArticleListeEncheresEmportees = articleRepository.readIdArticlesMeilleureOffreUtilisateur(idUtilisateurActif);
 
@@ -94,19 +109,20 @@ public class ArticleServiceImpl implements ArticleService{
             idArticleRechercheListe.retainAll(idArticleListeAchatTotale);
         }
 
-        if("vente".equals(radioSelectionnee)){
+        if ("vente".equals(radioSelectionnee)) {
             List<Article> articleListeVente = new ArrayList<>();
             List<Article> articleListeVenteNonDeb = new ArrayList<>();
             List<Article> articleListeTerminees = new ArrayList<>();
-            if (mes_ventes_cours){
+            if (mes_ventes_cours) {
                 articleListeVente = articleRepository.readAllArticlesEnVenteByUtilisateurEnCours(idUtilisateurActif);
             }
-            if (ventes_non_debutees){
+            if (ventes_non_debutees) {
                 articleListeVenteNonDeb = articleRepository.readAllArticlesEnVenteByUtilisateurNonDebutees(idUtilisateurActif);
             }
-            if (ventes_terminees){
+            if (ventes_terminees) {
                 articleListeTerminees = articleRepository.readAllArticlesEnVenteByUtilisateurTerminées(idUtilisateurActif);
-            };
+            }
+            ;
 
             articleListeVenteTotale.addAll(articleListeVente);
             articleListeVenteTotale.addAll(articleListeVenteNonDeb);
@@ -117,6 +133,7 @@ public class ArticleServiceImpl implements ArticleService{
                     .collect(Collectors.toList());
             idArticleRechercheListe.retainAll(idArticleVenteListe);
         }
+
 
         articleListeFiltre = idArticleRechercheListe.stream()
                 .map(l -> articleRepository.readById(l))
