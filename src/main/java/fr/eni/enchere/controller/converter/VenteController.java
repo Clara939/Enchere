@@ -35,7 +35,7 @@ public class VenteController {
         return "details_vente";
     }
     //permet d'encherir sur un article
-    @PostMapping("/encheres/encherir")
+    @PostMapping("/encheres/details_vente")
     public String afficherPageEncherir(
             @RequestParam("id") long idArticle,
             Model model) {
