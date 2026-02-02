@@ -74,8 +74,8 @@ model.addAttribute("categorieList", categorieList);
     public String modifierArticle(@RequestParam("id")long id_article, Model model){
         //recupere l'article existant
         Article article = articleService.readById(id_article);
-        //verifie l'etat= creer
-        if(!"CREER".equals(article.getEtat_vente())){
+        //verifie l'etat= cree
+        if(!"CREE".equalsIgnoreCase(article.getEtat_vente())){
             return "redirect:/encheres";
         }
         //pré-remplis le formulaire
@@ -87,7 +87,7 @@ model.addAttribute("categorieList", categorieList);
     }
 
 
-// page nouvelle vente validation de l'article creer et page modification de l'article
+// page nouvelle vente validation de l'article créé et page modification de l'article
 // REMPLACEZ les 2 méthodes POST par 1 SEULE
 @PostMapping("/encheres/save")
 public String saveArticle(@RequestParam("categorieId") long categorieId,@Valid @ModelAttribute Article article, BindingResult result,  Model model){
@@ -164,8 +164,8 @@ public String saveArticle(@RequestParam("categorieId") long categorieId,@Valid @
     @GetMapping("/encheres/delete")
     public String deleteArticle(@RequestParam("id") long id_article){
         Article article = articleService.readById(id_article);
-        //verifie si bien etat=CREER
-        if (!"CREER".equals(article.getEtat_vente())){
+        //verifie si bien etat=CREE
+        if (!"CREE".equalsIgnoreCase(article.getEtat_vente())){
             return "redirect:/encheres?error=enchereDemarree";
         }
         //verifie si proprietaire uniquement

@@ -153,4 +153,11 @@ Utilisateur utilisateurConnecte = utilisateurService.recuperationIdUtilisateurAc
         return "resetLinkGenerated";
     }
 
+    @GetMapping("/afficheProfilVendeur")
+    public String afficherProfilVendeur(@RequestParam("id") long id, Model model){
+        Utilisateur vendeur = utilisateurService.readById(id);
+        model.addAttribute("utilisateur", vendeur);
+        return "afficher_un_profil";
+    }
+
 }

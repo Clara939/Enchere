@@ -256,11 +256,16 @@ h3{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: auto;
+    margin: 10px auto;
     font-weight: bold;
     font-size: 20px;
     color: var(--couleur-fond-sombre);
 }
+
+#lienVersProfil:hover{
+color: var(--couleur-vert-vif);
+}
+
 /*page formulaire article  **************************************************************************************************************************************/
 /*centre le formulaire de la page*/
 #article_corp_principal {

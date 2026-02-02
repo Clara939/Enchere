@@ -13,8 +13,8 @@ import java.util.List;
 @Repository
 public class EnchereRepositorySql implements EnchereRepository{
 
-        JdbcTemplate jdbcTemplate;
-        NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    JdbcTemplate jdbcTemplate;
+    NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     public EnchereRepositorySql(JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -27,7 +27,7 @@ public class EnchereRepositorySql implements EnchereRepository{
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
 
         String sql = "insert into Encheres (date_enchere, montant_enchere, id_encherisseur, id_article)\n " +
-                    "values (:date_enchere, :montant_enchere, :id_encherisseur, :id_article)";
+                "values (:date_enchere, :montant_enchere, :id_encherisseur, :id_article)";
         MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue("date_enchere", enchere.getDate_enchere());
         map.addValue("montant_enchere", enchere.getMontant_enchere());
@@ -137,18 +137,35 @@ public class EnchereRepositorySql implements EnchereRepository{
         map.addValue("id", id);
 
         return namedParameterJdbcTemplate.query(sql, map, new EnchereRowMapper());
-        //return jdbcTemplate.query(sql, new EnchereRowMapper());
     }
 
     //recup id_articles de tous les articles en cours de vente sur lesquels l'utilisateur a fait au moins une offre
 
     @Override
     public List<Long> readAllidArticleForOneUtilisateur(long id) {
-        String sql = "SELECT DISTINCT id_article FROM ENCHERES WHERE id_encherisseur = :id";
+        String sql = "SELECT DISTINCT encheres.id_article FROM ENCHERES WHERE id_encherisseur = :id";
 
         MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue("id", id);
 
         return namedParameterJdbcTemplate.queryForList(sql, map, Long.class);
     }
+
+    @Override
+    public List<Long> readAllForOneUtilisateurVenteEnCours(long id) {
+        String sql = """
+        
+                SELECT DISTINCT encheres.id_article 
+        FROM Encheres
+        LEFT JOIN Articles ON encheres.id_article = articles.id_article
+        WHERE encheres.id_encherisseur = :id 
+        AND articles.date_debut_encheres <= GETDATE() 
+        AND articles.date_fin_encheres >= GETDATE()
+        """;
+
+        MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue("id", id);
+
+        return namedParameterJdbcTemplate.queryForList(sql, map, Long.class);
+        }
 }

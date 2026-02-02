@@ -83,7 +83,6 @@ public class ArticleServiceImpl implements ArticleService{
             return articleListeFiltre;
         }
         long idUtilisateurActif = utilisateurService.recuperationIdUtilisateurActif().getId_utilisateur();
-        System.out.println("id utilisateur : " + idUtilisateurActif);
         if ("achat".equals(radioSelectionnee)) {
 
             List<Long> idArticleListeEncheresEnCours = new ArrayList<>();
@@ -95,7 +94,7 @@ public class ArticleServiceImpl implements ArticleService{
 
             if (mes_encheres_cours) {
                 //Liste des articles sur lesquels l'utilisateur a fait au moins une enchère
-                idArticleListeEncheresEnCours = enchereRepository.readAllidArticleForOneUtilisateur(idUtilisateurActif);
+                idArticleListeEncheresEnCours = enchereRepository.readAllForOneUtilisateurVenteEnCours(idUtilisateurActif);
             }
             if (mes_encheres_remportees) {
                 //Liste des articles pour lesquels la meilleure anchère est faite par l'utilisateur
