@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr" th:replace="~{layout/layout :: frag_layout(content=~{::main})}">
 <main>
-    <h2 th:text="${article.id_article == 0 ? 'Nouvelle vente' : 'Modifier vente'}">Nouvelle vente</h2>
+    <h2 th:text="${article.id_article == 0 ? 'Nouvelle vente' : 'Modifier vente'}"></h2>
     <div id="article_corp_principal">
         <form id="article_formulaire" th:action="@{/encheres/save}" method="post" enctype="multipart/form-data" th:object="${article}">
             <ul class="flex-outer">
