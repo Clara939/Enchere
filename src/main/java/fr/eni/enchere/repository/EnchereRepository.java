@@ -19,4 +19,5 @@ public interface EnchereRepository {
 
     List<Enchere> readAllForOneUtilisateur(long id);
 
+    List<Long> readAllidArticleForOneUtilisateur(long id);
 }

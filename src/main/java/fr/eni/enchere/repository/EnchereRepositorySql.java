@@ -116,5 +116,15 @@ public class EnchereRepositorySql implements EnchereRepository{
         //return jdbcTemplate.query(sql, new EnchereRowMapper());
     }
 
+    //recup id_articles de tous les articles en cours de vente sur lesquels l'utilisateur a fait au moins une offre
 
+    @Override
+    public List<Long> readAllidArticleForOneUtilisateur(long id) {
+        String sql = "SELECT DISTINCT id_article FROM ENCHERES WHERE id_encherisseur = :id";
+
+        MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue("id", id);
+
+        return namedParameterJdbcTemplate.queryForList(sql, map, Long.class);
+    }
 }
