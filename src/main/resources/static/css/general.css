@@ -141,6 +141,11 @@ h3{
     text-align: center;
 }
 
+footer{
+    margin : auto;
+    text-align: center;
+}
+
 /*enchere **********************************************************************************/
 #encheres_corps_principal{
     gap: 25px;
@@ -280,6 +285,7 @@ color: var(--couleur-vert-vif);
     margin: 10px auto;
     justify-content: center;
     align-items: center;
+    border-radius: 20px;
 }
 
 /*page formulaire article  **************************************************************************************************************************************/
@@ -896,4 +902,25 @@ main.page-inscription ul:last-of-type a {
     }
 }
 
+/*page afficher_un_profil **************************************************************************************/
 
+#afficher_profil_conteneur{
+    background-color: var(--couleur-gris-clair);
+    padding: 20px;
+    border-radius :50px;
+    width: fit-content;
+    margin: 20px auto;
+    color: var(--couleur-fond-sombre);
+    font-size: 20px;
+}
+
+#afficher_profil_conteneur span{
+    font-weight: bold;
+}
+
+#afficher_profil_conteneur div{
+    margin: 15px;
+    padding: 15px;
+    border-radius: 20px;
+    background-color: var(--couleur-blanc-secondaire);
+}
