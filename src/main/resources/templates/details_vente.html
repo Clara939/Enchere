@@ -2,8 +2,6 @@
 <html lang="fr" th:replace="~{layout/layout :: frag_layout(content=~{::main})}">
 <main>
   <h2>Détails ventes</h2>
-    <div id="detail_ventes_contenu_principal">
-        <div id="detail_vente_conteneur">
   <!-- bloc d'affichage des erreurs-->
   <div th:if="${error}" class="error-message" style="color: red; padding: 10px; border: 1px solid red; margin-bottom: 20px;">
     <strong>Error : </strong> <span th:text="${error}"></span>
@@ -12,37 +10,34 @@
   <div th:if="${success}" class="success-message" style="color: #98CE00; padding: 10px; border: 1px solid #98CE00; margin-bottom: 20px;">
     <strong>Succès : </strong> <span th:text="${success}"></span>
   </div>
-
-
-
   <table>
     <thead>
-      <tr>
-        <th>Article</th>
-        <th>Description</th>
-        <th>Catégorie</th>
-        <th>Meilleure offre</th>
-        <th>Mise à prix</th>
-        <th>Fin de l'enchère</th>
-        <th>Rue</th>
-        <th>Code postal</th>
-        <th>Ville</th>
-        <th>Vendeur</th>
-      </tr>
+    <tr>
+      <th>Article</th>
+      <th>Description</th>
+      <th>Catégorie</th>
+      <th>Meilleure offre</th>
+      <th>Mise à prix</th>
+      <th>Fin de l'enchère</th>
+      <th>Rue</th>
+      <th>Code postal</th>
+      <th>Ville</th>
+      <th>Vendeur</th>
+    </tr>
     </thead>
     <tbody>
-      <tr>
-        <td th:text="${article.nom_article}"></td>
-        <td th:text="${article.description}"></td>
-        <td th:text="${article.categorieArticle.libelle}"></td>
-        <td th:text="${article.prix_vente}"></td>
-        <td th:text="${article.prix_initial}"></td>
-        <td th:text="${article.date_fin_encheres}"></td>
-        <td th:text="${article.lieuxRetrait.rue}"></td>
-        <td th:text="${article.lieuxRetrait.code_postal}"></td>
-        <td th:text="${article.lieuxRetrait.ville}"></td>
-        <td th:text="${article.vendeur.nom}"></td>
-      </tr>
+    <tr>
+      <td th:text="${article.nom_article}"></td>
+      <td th:text="${article.description}"></td>
+      <td th:text="${article.categorieArticle.libelle}"></td>
+      <td th:text="${article.prix_vente}"></td>
+      <td th:text="${article.prix_initial}"></td>
+      <td th:text="${article.date_fin_encheres}"></td>
+      <td th:text="${article.lieuxRetrait.rue}"></td>
+      <td th:text="${article.lieuxRetrait.code_postal}"></td>
+      <td th:text="${article.lieuxRetrait.ville}"></td>
+      <td th:text="${article.vendeur.nom}"></td>
+    </tr>
     </tbody>
   </table>
   <div id="detail_vente_conteneur">
@@ -118,14 +113,14 @@
     <form id="detail_vente_form_proposition" th:action="@{/encheres/placer}"
           method="post">
       <div>
-          <label for="proposition">Ma proposition</label>
-          <input id="proposition" type="number" th:min="${enchereMinimale}" th:value="${enchereMinimale}" th:name="montantPropose" required>
-          <input type="hidden" th:name="id_article" th:value="${article.id_article}">
+        <label for="proposition">Ma proposition</label>
+        <input id="proposition" type="number" th:min="${enchereMinimale}" th:value="${enchereMinimale}" th:name="montantPropose" required>
+        <input type="hidden" th:name="id_article" th:value="${article.id_article}">
       </div>
-        <div id="btn_detail_vente_formulaire">
-          <button class="boutonVert" type="submit">Faire une enchère</button>
-          <a  href="/encheres" class="boutonBlanc">Annuler</a>
-        </div>
+      <div id="btn_detail_vente_formulaire">
+        <button class="boutonVert" type="submit">Faire une enchère</button>
+        <a  href="/encheres" class="boutonBlanc">Annuler</a>
+      </div>
     </form>
   </div>
 </main>
