@@ -4,28 +4,28 @@
     <h2>Profil</h2>
     <div id="afficher_profil_conteneur">
         <div>
-            <p>Pseudo : <span th:text="${utilisateur.getPseudo()}"></span></p>
+            <span class="afficher_profil_label">Pseudo</span><span class="afficher_profil_donnees" th:text="${utilisateur.getPseudo()}"></span>
         </div>
         <div>
-            <p>Nom : <span th:text="${utilisateur.getNom()}"></span></p>
+            <span class="afficher_profil_label">Nom</span><span class="afficher_profil_donnees"  th:text="${utilisateur.getNom()}"></span>
         </div>
         <div>
-            <p>Prenom : <span th:text="${utilisateur.getPrenom()}"></span></p>
+            <span class="afficher_profil_label">Prenom</span><span class="afficher_profil_donnees"  th:text="${utilisateur.getPrenom()}"></span>
         </div>
         <div>
-            <p>Email : <span th:text="${utilisateur.getEmail()}"></span></p>
+            <span class="afficher_profil_label">Email</span><span class="afficher_profil_donnees"  th:text="${utilisateur.getEmail()}"></span>
         </div>
         <div>
-            <p>Téléphone : <span th:text="${utilisateur.getTelephone()}"></span></p>
+            <span class="afficher_profil_label">Téléphone</span><span class="afficher_profil_donnees"  th:text="${utilisateur.getTelephone()}"></span>
         </div>
         <div>
-            <p>Rue : <span th:text="${utilisateur.getRue()}"></span></p>
+            <span class="afficher_profil_label">Rue</span><span class="afficher_profil_donnees"  th:text="${utilisateur.getRue()}"></span>
         </div>
         <div>
-            <p>Code postal : <span th:text="${utilisateur.getCode_postal()}"></span></p>
+            <span class="afficher_profil_label">Code postal</span><span class="afficher_profil_donnees"  th:text="${utilisateur.getCode_postal()}"></span>
         </div>
         <div>
-            <p>Ville : <span th:text="${utilisateur.getVille()}"></span></p>
+            <span class="afficher_profil_label">Ville</span><span class="afficher_profil_donnees"  th:text="${utilisateur.getVille()}"></span>
         </div>
     </div>
 </main>

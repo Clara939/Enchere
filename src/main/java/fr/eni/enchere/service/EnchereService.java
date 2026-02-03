@@ -4,6 +4,7 @@ import fr.eni.enchere.bo.Enchere;
 import fr.eni.enchere.bo.Utilisateur;
 import org.springframework.ui.Model;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface EnchereService {
@@ -24,4 +25,5 @@ public interface EnchereService {
      String getPageRemportee(Long idArticle, Utilisateur utilisateurConnecte, Model model);
 
 
+    boolean afficherBoutonEnchereEnCours(LocalDate date_debut, LocalDate date_fin);
 }

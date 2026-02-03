@@ -3,7 +3,6 @@ package fr.eni.enchere.service;
 import fr.eni.enchere.bo.Article;
 import fr.eni.enchere.bo.Enchere;
 import fr.eni.enchere.bo.Utilisateur;
-import fr.eni.enchere.repository.ArticleRepository;
 import fr.eni.enchere.repository.ArticleRepositorySQL;
 import fr.eni.enchere.repository.EnchereRepository;
 import org.springframework.stereotype.Service;
@@ -147,4 +146,13 @@ public class EnchereServiceImpl implements EnchereService{
 //        verification acheteur doit etre le gagnant
         return utilisateur.equals(article.getAcheteur());
     }
+
+    @Override
+    public boolean afficherBoutonEnchereEnCours(LocalDate date_debut, LocalDate date_fin){
+        if(date_debut.isBefore(LocalDate.now()) & date_fin.isAfter(LocalDate.now())){
+            return true;
+        } else{
+            return false;
+        }
+}
 }

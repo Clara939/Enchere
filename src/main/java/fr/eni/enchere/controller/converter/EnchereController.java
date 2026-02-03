@@ -32,8 +32,16 @@ public class EnchereController {
 
     @GetMapping("/encheres")
     public String afficherEncheres(Model model){
-        List<Article> articleList = articleService.readAllArticlesEnVente();
+        //récupération de l'idUtilisateur pour affichage sélectif des boutons
+        Utilisateur utilisateurConnecte = null;
+        try {
+            utilisateurConnecte = utilisateurService.recuperationIdUtilisateurActif();
+        } catch (Exception e) {
+            // on laisse null si erreur (aucun utilisateur connecté)
+        }
+         List<Article> articleList = articleService.readAllArticlesEnVente();
         List<Categorie> categorieList = categorieService.readAll();
+        model.addAttribute("utilisateurConnecte", utilisateurConnecte);
 model.addAttribute("articleList", articleList);
 model.addAttribute("categorieList", categorieList);
         model.addAttribute("id_categorie_selectionnee", 0);
@@ -144,7 +152,7 @@ public String saveArticle(@RequestParam("categorieId") long categorieId,@Valid @
             List<Categorie> categorieList = categorieService.readAll();
         boolean achat = "achat".equals(radioSelectionnee);
         boolean vente = "vente".equals(radioSelectionnee);
-            model.addAttribute("articleList", articleList);
+        model.addAttribute("articleList", articleList);
         model.addAttribute("categorieList", categorieList);
         model.addAttribute("id_categorie_selectionnee", id);
         model.addAttribute("search", search);
@@ -178,12 +186,4 @@ public String saveArticle(@RequestParam("categorieId") long categorieId,@Valid @
         return "redirect:/encheres?success=supprime";
     }
 
-    @GetMapping("/encherir")
-    public String faireUneEnchere(@RequestParam("id") long id_article, Model model){
-        Article article = articleService.readById(id_article);
-//        Enchere enchere = new Enchere();
-//        model.addAttribute("enchere", enchere);
-        model.addAttribute("article", article);
-        return "details_vente";
-    }
 }

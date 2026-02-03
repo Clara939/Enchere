@@ -35,7 +35,7 @@ public class VenteController {
         return "details_vente";
     }
     //permet d'encherir sur un article
-    @PostMapping("/encherir")
+    @GetMapping("/encherir")
     public String afficherPageEncherir(
             @RequestParam("id") long idArticle,
             Model model) {
@@ -43,17 +43,8 @@ public class VenteController {
         // Récupérer l'article par son ID
         Article article = articleService.readById(idArticle); // Récupérer l'article par son ID
 
-        if (article == null) {
-            // Vérifier si l'article existe, si non, afficher un message d'erreur
-            model.addAttribute("error", "Article introuvable.");
-            return "redirect:/encheres";
-        }
-
         // Obtenir l'utilisateur autorisé, renvoie l'objet Utilisateur (l'utilisateur actuellement connecté)
         Utilisateur utilisateurConnecte = utilisateurService.recuperationIdUtilisateurActif();
-        if (utilisateurConnecte == null) {
-            return "redirect:/login"; // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
-        }
 
         // déterminons le prix actuel
         int prixActuel = article.getPrix_vente(); // prix de vente actuel
@@ -68,7 +59,9 @@ public class VenteController {
 
         // Transmission des données au modèle HTML
         model.addAttribute("article", article);
-        model.addAttribute("utilisateurConnecte", utilisateurConnecte);
+        //à gérer
+        model.addAttribute("monObjet", utilisateurConnecte.getId_utilisateur() ==  article.getVendeur().getId_utilisateur());
+        ///
         model.addAttribute("enchereMinimale", enchereMinimale);
         model.addAttribute("prixActuel", prixActuel);
 
@@ -78,7 +71,7 @@ public class VenteController {
 
     @PostMapping("/encheres/placer")
     public String placerEnchere(
-            @RequestParam("idArticle") long idArticle,
+            @RequestParam("id_article") long idArticle,
             @RequestParam("montantPropose") int montantPropose,
             Model model
     ) {
@@ -91,11 +84,12 @@ public class VenteController {
         }
 
         // Service (place enchère)
-        try{
+        try {
             enchereService.placerEnchere(idArticle, utilisateurConnecte.getId_utilisateur(), montantPropose);
 
             model.addAttribute("success", "Enchere placee avec succes");
             return "redirect:/encheres";
+            // il faut changer tout les execptions
         } catch (Exception e) {
             Article article = articleService.readById(idArticle);
 

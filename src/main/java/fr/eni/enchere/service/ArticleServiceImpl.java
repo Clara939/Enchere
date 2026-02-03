@@ -37,6 +37,9 @@ public class ArticleServiceImpl implements ArticleService{
     @Override
     public Article readById(long id_article) {
         Article article = articleRepository.readById(id_article);
+        if(article.getPrix_vente() == 0){
+            article.setPrix_vente(article.getPrix_initial());
+        }
         if (article != null) {
             mettreAJourEtatVente(article);
         }
@@ -52,7 +55,7 @@ public class ArticleServiceImpl implements ArticleService{
     public List<Article> readAllArticlesEnVente() {
         List<Article> articleListeEnVente = articleRepository.readAllArticlesEnVente();
         for (Article a : articleListeEnVente){
-            if (a.getPrix_vente() == null){
+            if (a.getPrix_vente() == 0){
                 a.setPrix_vente(a.getPrix_initial());
             }
         }
@@ -143,6 +146,12 @@ public class ArticleServiceImpl implements ArticleService{
         articleListeFiltre = idArticleRechercheListe.stream()
                 .map(l -> articleRepository.readById(l))
                 .collect(Collectors.toList());
+
+        for (Article a : articleListeFiltre){
+            if (a.getPrix_vente() == 0){
+                a.setPrix_vente(a.getPrix_initial());
+            }
+        }
 
         return articleListeFiltre;
     }
