@@ -30,4 +30,7 @@ public interface UtilisateurService {
     boolean verificationDoublonEmail(String email);
 
     void verificationDoublons(Utilisateur utilisateur, BindingResult bindingResult, String confirmationMDP);
+
+
+    void ajouterDesCredits(Utilisateur utilisateur, int credit);
 }

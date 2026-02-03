@@ -25,7 +25,7 @@
 
             <li th:if="${!#authorization.expression('isAuthenticated()')}"><a href="/inscription" class="nav-link boutonBlanc">Inscription</a> </li>
 
-            <li th:if="${#authorization.expression('hasRole(''UTILISATEUR'')')}"><a href="/MonProfil" class="nav-link boutonNoirEtBlanc">Mon Profil</a> </li>
+            <li th:if="${#authorization.expression('hasRole(''UTILISATEUR'')')}"><a href="/MonProfil" class="nav-link boutonNoirEtBlanc" >Mon profil</a> </li>
 
 
 

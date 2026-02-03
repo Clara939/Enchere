@@ -20,7 +20,7 @@ import javax.sql.DataSource;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
-//    realisation du bcrypt
+    //    realisation du bcrypt
     private final DataSource dataSource;
 
     public SecurityConfiguration(DataSource dataSource) {
@@ -48,7 +48,8 @@ public class SecurityConfiguration {
                     /* les changements c'est ici le reste ne change pas il n'y a pas de raison
                      *********************************************    */
 
-                     requestMatchers(HttpMethod.GET, "/encheres").permitAll()
+                            requestMatchers(HttpMethod.GET, "/encheres").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/error").permitAll()
                     .requestMatchers(HttpMethod.GET, "/encheres/filtres").permitAll()
                     .requestMatchers(HttpMethod.POST, "/encheres/filtres").permitAll()
                     //accès au chemin /encheres/add en Get pour les utilisateurs
@@ -69,6 +70,8 @@ public class SecurityConfiguration {
                     .requestMatchers(HttpMethod.GET, "/MonProfil/update").hasRole("UTILISATEUR")
                     .requestMatchers(HttpMethod.POST, "/MonProfil/update").hasRole("UTILISATEUR")
                     .requestMatchers(HttpMethod.GET, "/MonProfil/delete").hasRole("UTILISATEUR")
+                    .requestMatchers(HttpMethod.GET, "/MonProfil/addCredit").hasRole("UTILISATEUR")
+                    .requestMatchers(HttpMethod.POST, "/MonProfil/addCredit").hasRole("UTILISATEUR")
                     //donne à tous la permission de s'inscrire
                     .requestMatchers(HttpMethod.GET, "/inscription").permitAll()
                     .requestMatchers(HttpMethod.POST, "/inscription").permitAll()

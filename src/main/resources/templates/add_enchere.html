@@ -1,7 +1,19 @@
 <!DOCTYPE html>
 <html lang="fr" th:replace="~{layout/layout :: frag_layout(content=~{::main})}">
 <main class="page-nouvelle-vente">
+
+    <!-- Message contextuel concernant le succès------------------------------------------------------->
+    <div th:if="${successMessage}" class="success-message orange">
+        <span class="icon">✔</span>
+        <span th:text="${successMessage}"></span>
+    </div>
+    <div th:if="${errorMessage}" class="success-message" style="background-color: #f44336;">
+        <span class="icon">✖</span>
+        <span th:text="${errorMessage}"></span>
+    </div>
+
     <h2 th:text="${article.id_article == 0 ? 'Nouvelle vente' : 'Modifier vente'}"></h2>
+
     <div id="article_corp_principal">
         <form id="article_formulaire" th:action="@{/encheres/save}" method="post" enctype="multipart/form-data" th:object="${article}">
             <ul class="flex-outer">
@@ -17,7 +29,7 @@
                 </li>
                 <li>
                     <label for="idCategorie">Catégorie</label>
-                    <select class="input" id="idCategorie" name="categorieId" required>
+                    <select class="input" id="idCategorie" name="categorieId" th:field="*{categorieArticle}" required>
                         <option value="">Choisir une catégorie</option>
                         <option th:each="item : ${categorieList}"
                                 th:value="${item.id_categorie}"
@@ -70,6 +82,9 @@
                             <label for="ville">Ville</label>
                             <input class="input" id="ville" type="text" th:field="*{lieuxRetrait.ville}"/>
                             <span th:if="${#fields.hasErrors('lieuxRetrait.ville')}" th:errors="*{lieuxRetrait.ville}" class="error"></span>
+                        </div>
+                        <div>
+                            <input class="input" id="idRetrait" type="hidden" th:field="*{lieuxRetrait.id_retrait}" value="0"/>
                         </div>
                     </div>
                 </li>

@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import java.util.List;
 
 @Controller
@@ -56,6 +58,15 @@ model.addAttribute("categorieList", categorieList);
 // page nouvelle vente ( création de l'article a mettre en ventes)
     @GetMapping("/encheres/add")
     public String nouvelleVente(Model model){
+
+        if (model.containsAttribute("successMessage")) {
+            model.addAttribute("successMessage", model.asMap().get("successMessage"));
+        }
+
+        if (model.containsAttribute("errorMessage")) {
+            model.addAttribute("errorMessage", model.asMap().get("errorMessage"));
+        }
+
         //utilisateur connecté
         Utilisateur utilisateurConnecte = utilisateurService.recuperationIdUtilisateurActif();
         //nouvel article
@@ -84,6 +95,15 @@ model.addAttribute("categorieList", categorieList);
     //page modification de l'article
     @GetMapping("/encheres/update")
     public String modifierArticle(@RequestParam("id")long id_article, Model model){
+
+        if (model.containsAttribute("successMessage")) {
+            model.addAttribute("successMessage", model.asMap().get("successMessage"));
+        }
+
+        if (model.containsAttribute("errorMessage")) {
+            model.addAttribute("errorMessage", model.asMap().get("errorMessage"));
+        }
+
         //recupere l'article existant
         Article article = articleService.readById(id_article);
         //verifie l'etat= cree
@@ -128,8 +148,6 @@ public String saveArticle(@RequestParam("categorieId") long categorieId, @Reques
         return "add_enchere";
     }
 }
-
-
 
     @PostMapping("/encheres/filtres")
     public String filtrerArticles(Model model, @RequestParam(value = "search", defaultValue = "") String search,
