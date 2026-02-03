@@ -2,6 +2,18 @@
 <html lang="fr" th:replace="~{layout/layout :: frag_layout(content=~{::main})}">
 <main>
   <h2>Détails ventes</h2>
+
+  <!-- bloc d'affichage des erreurs-->
+  <div th:if="${error}" class="error-message" style="color: red; padding: 10px; border: 1px solid red; margin-bottom: 20px;">
+    <strong>Error : </strong> <span th:text="${error}"></span>
+  </div>
+
+  <div th:if="${success}" class="success-message" style="color: #98CE00; padding: 10px; border: 1px solid #98CE00; margin-bottom: 20px;">
+    <strong>Succès : </strong> <span th:text="${success}"></span>
+  </div>
+
+
+
   <table>
     <thead>
       <tr>
