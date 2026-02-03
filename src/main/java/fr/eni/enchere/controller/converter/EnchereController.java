@@ -144,7 +144,7 @@ public String saveArticle(@RequestParam("categorieId") long categorieId,@Valid @
             List<Categorie> categorieList = categorieService.readAll();
         boolean achat = "achat".equals(radioSelectionnee);
         boolean vente = "vente".equals(radioSelectionnee);
-            model.addAttribute("articleList", articleList);
+        model.addAttribute("articleList", articleList);
         model.addAttribute("categorieList", categorieList);
         model.addAttribute("id_categorie_selectionnee", id);
         model.addAttribute("search", search);
@@ -178,12 +178,4 @@ public String saveArticle(@RequestParam("categorieId") long categorieId,@Valid @
         return "redirect:/encheres?success=supprime";
     }
 
-    @GetMapping("/encherir")
-    public String faireUneEnchere(@RequestParam("id") long id_article, Model model){
-        Article article = articleService.readById(id_article);
-//        Enchere enchere = new Enchere();
-//        model.addAttribute("enchere", enchere);
-        model.addAttribute("article", article);
-        return "details_vente";
-    }
 }
