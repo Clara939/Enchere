@@ -24,6 +24,14 @@ public class ArticleRowMapper implements RowMapper<Article> {
         articleResult.setPrix_vente(rs.getInt("prix_vente"));
         articleResult.setEtat_vente(rs.getString(("etat_vente")));
 
+//        //gestion du prix de vente initialement null
+//        int prix_vente = rs.getInt("prix_vente");
+//        if(prix_vente == 0){
+//            articleResult.setPrix_vente(null);
+//        } else {
+//            articleResult.setPrix_vente(prix_vente);
+//        }
+
         //récupération de l'id du vendeur si il y en a un (normalement : obligatoire)
         long idVendeur = rs.getLong("id_vendeur");
         //test si il y a un vendeur
