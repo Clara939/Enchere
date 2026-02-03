@@ -6,6 +6,7 @@ import fr.eni.enchere.repository.RoleRepository;
 import fr.eni.enchere.repository.UtilisateurRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
@@ -16,14 +17,18 @@ import java.util.List;
 public class UtilisateurServiceImpl implements UtilisateurService{
     UtilisateurRepository utilisateurRepository;
     RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UtilisateurServiceImpl(UtilisateurRepository utilisateurRepository, RoleRepository roleRepository) {
-        this.utilisateurRepository = utilisateurRepository;
+    public UtilisateurServiceImpl(PasswordEncoder passwordEncoder, RoleRepository roleRepository, UtilisateurRepository utilisateurRepository) {
+        this.passwordEncoder = passwordEncoder;
         this.roleRepository = roleRepository;
+        this.utilisateurRepository = utilisateurRepository;
     }
 
     @Override
     public void createUtilisateur(Utilisateur utilisateur) {
+        utilisateur.setMot_de_passe(passwordEncoder.encode(utilisateur.getMot_de_passe()));
+
         this.utilisateurRepository.createUtilisateur(utilisateur);
     //on ajoute un role au nouvel utilisateur pour qu'il puisse se connecter (utilisateur par défaut)
         roleRepository.createRole(new Role(utilisateur.getPseudo(), "ROLE_UTILISATEUR"));

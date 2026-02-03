@@ -131,7 +131,7 @@ class EnchereApplicationTests {
 
     @Test
     void testDeleteUtilisateur() {
-        utilisateurDAO.deleteUtilisateur(3);
+        utilisateurDAO.deleteUtilisateur(1);
     }
 
 
