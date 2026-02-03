@@ -23,21 +23,22 @@
         <td th:text="${article.description}"></td>
         <td th:text="${article.categorieArticle.libelle}"></td>
         <td th:text="${article.prix_vente}"></td>
+        <td th:text="${article.prix_initial}"></td>
         <td th:text="${article.date_fin_encheres}"></td>
         <td th:text="${article.lieuxRetrait.rue}"></td>
         <td th:text="${article.lieuxRetrait.code_postal}"></td>
         <td th:text="${article.lieuxRetrait.ville}"></td>
-        <td th:text="${article.vendeur}"></td>
+        <td th:text="${article.vendeur.nom}"></td>
       </tr>
     </tbody>
   </table>
   <form th:action="@{/encheres/placer}"
-        method="post"
-        th:object="${article}">
+        method="post">
     <ul>
       <li>
         <label for="proposition">Ma proposition</label>
-        <input id="proposition" type="number" th:min="*{prix_initial}" th:field="*{prix_vente}" required>
+        <input id="proposition" type="number" th:min="${enchereMinimale}" th:value="${enchereMinimale}" th:name="montantPropose" required>
+        <input type="hidden" th:name="id_article" th:value="${article.id_article}">
       </li>
       <li>
         <button type="submit">Faire une enchère</button>
