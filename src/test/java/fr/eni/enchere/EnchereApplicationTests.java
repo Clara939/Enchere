@@ -105,11 +105,11 @@ class EnchereApplicationTests {
     // TEST DE UTILISATEUR ----------------------------------------------------------------------------------------------------------------------------------------------------
     @Test
     void testCreateUtilisateur() {
-        utilisateurDAO.createUtilisateur(new Utilisateur("user1", "Dupont", "Jean", "0612345678", "jean.dupont@example.com", "12 rue des Lilas", "75001", "Paris", "{noop}123", 0, true, true));
+        utilisateurDAO.createUtilisateur(new Utilisateur("user1", "Dupont", "Jean", "0612345678", "jean.dupont@example.com", "12 rue des Lilas", "75001", "Paris", "{noop}123", 500, true, true));
 
-        utilisateurDAO.createUtilisateur(new Utilisateur("user2", "Martin", "Claire", "0623456789", "claire.martin@example.com", "45 avenue Victor Hugo", "69002", "Lyon", "{noop}456", 0, false, true));
+        utilisateurDAO.createUtilisateur(new Utilisateur("user2", "Martin", "Claire", "0623456789", "claire.martin@example.com", "45 avenue Victor Hugo", "69002", "Lyon", "{noop}456", 900, false, true));
 
-        utilisateurDAO.createUtilisateur(new Utilisateur("user3", "Bernard", "Luc", "0634567890", "luc.bernard@example.com", "8 boulevard Voltaire", "13001", "Marseille", "{noop}789", 0, false, true));
+        utilisateurDAO.createUtilisateur(new Utilisateur("user3", "Bernard", "Luc", "0634567890", "luc.bernard@example.com", "8 boulevard Voltaire", "13001", "Marseille", "{noop}789", 10, false, true));
     }
 
 
@@ -215,15 +215,16 @@ class EnchereApplicationTests {
 
     @Test
     void createArticle(){
-       articleRepository.create(new Article("bureau", "magnifique bureau en bois", LocalDate.of(2026, 1, 24), LocalDate.of(2026, 1, 31), 200, 200, "créé", retraitRepository.readRetraitById(2), categorieRepository.readById(1), utilisateurDAO.readById(2), null));
-        articleRepository.create(new Article("cafetière", "n'accepte pas les dosettes", LocalDate.of(2026, 1, 3), LocalDate.of(2026, 1, 30), 50, 60, "vendu", retraitRepository.readRetraitById(1), categorieRepository.readById(3), utilisateurDAO.readById(1), utilisateurDAO.readById(2)));
-   articleRepository.create((new Article("ballon", "pour jouer au foot, au basket ou abimer les fleurs de Mamie", LocalDate.of(2026, 3, 25), LocalDate.of(2026, 3, 30), 85, null, "créé", retraitRepository.readRetraitById(2), categorieRepository.readById(3), utilisateurDAO.readById(2), null)));
-    articleRepository.create(new Article("VTT", "un peu cabossé", LocalDate.of(2026, 01, 01), LocalDate.of(2026, 02, 28), 250, null, "en vente", retraitRepository.readRetraitById(2), categorieRepository.readById(1), utilisateurDAO.readById(1), null));
+       articleRepository.create(new Article("bureau", "magnifique bureau en bois", LocalDate.of(2026, 1, 24), LocalDate.of(2026, 1, 31), 200, 200, "CREE", "/image/encheres_marteau.jpg", retraitRepository.readRetraitById(2), categorieRepository.readById(1), utilisateurDAO.readById(2), null));
+        articleRepository.create(new Article("cafetière", "n'accepte pas les dosettes", LocalDate.of(2026, 1, 3), LocalDate.of(2026, 1, 30), 50, 60, "VENDU", "/image/encheres_marteau.jpg", retraitRepository.readRetraitById(1), categorieRepository.readById(3), utilisateurDAO.readById(1), utilisateurDAO.readById(2)));
+   articleRepository.create((new Article("ballon", "pour jouer au foot, au basket ou abimer les fleurs de Mamie", LocalDate.of(2026, 3, 25), LocalDate.of(2026, 3, 30), 85, null, "CREE", "/image/encheres_marteau.jpg", retraitRepository.readRetraitById(2), categorieRepository.readById(3), utilisateurDAO.readById(2), null)));
+    articleRepository.create(new Article("VTT", "un peu cabossé", LocalDate.of(2026, 01, 01), LocalDate.of(2026, 02, 28), 250, null, "EN_VENTE", "/image/encheres_marteau.jpg", retraitRepository.readRetraitById(2), categorieRepository.readById(1), utilisateurDAO.readById(1), null));
+        articleRepository.create((new Article("horloge", "plus d'excuses pour être en retard", LocalDate.of(2026, 3, 25), LocalDate.of(2026, 3, 30), 185, null, "CREE", "/image/encheres_marteau.jpg", retraitRepository.readRetraitById(2), categorieRepository.readById(3), utilisateurDAO.readById(2), null)));
     }
 
     @Test
     void updateArticle(){
-        articleRepository.update(new Article(2,"cafetière", "n'accepte ni les dosettes ni le café en grains", LocalDate.of(2026, 1, 3), LocalDate.of(2026, 1, 30), 50, 60, "vendu", retraitRepository.readRetraitById(1), categorieRepository.readById(3), utilisateurDAO.readById(1), utilisateurDAO.readById(2)));
+        articleRepository.update(new Article(2,"cafetière", "n'accepte ni les dosettes ni le café en grains", LocalDate.of(2026, 1, 3), LocalDate.of(2026, 1, 30), 50, 60, "VENDU", retraitRepository.readRetraitById(1), categorieRepository.readById(3), utilisateurDAO.readById(1), utilisateurDAO.readById(2)));
     }
 
     @Test

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr" th:replace="~{layout/layout :: frag_layout(content=~{::main})}">
+<main>
+    <h2>L'enchère a été remportée</h2>
+    <div class="enchere_remporter_vendeur_corp">
+        <div class="remporter_item">
+            <span class="vendeur-label">Article</span>
+            <span class="vendeur-value" th:text="${article.nom_article}"></span>
+        </div>
+        <div class="remporter_item">
+            <span class="vendeur-label">Description</span>
+            <span class="vendeur-value" th:text="${article.description}"></span>
+        </div>
+        <div class="remporter_item">
+            <span class="vendeur-label">Meilleure offre</span>
+            <span class="vendeur-value" th:text="${article.prix_vente}"></span>
+        </div>
+        <div class="remporter_item">
+            <span class="vendeur-label">Mise à prix</span>
+            <span class="vendeur-value" th:text="${article.prix_initial}"></span>
+        </div>
+        <div class="remporter_item">
+            <span class="vendeur-label">Retrait</span>
+            <span class="vendeur-value" th:text="${article.lieuxRetrait}"></span>
+        </div>
+        <div class="remporter_item">
+            <span class="vendeur_label">Acheteur</span>
+            <span class="vendeur-value" th:text="${article.acheteur.pseudo}"></span>
+        </div>
+        <div class="remporter_item">
+            <span class="vendeur-label">Tel de l'acheteur</span>
+            <span class="vendeur-value" th:text="${article.acheteur.telephone}"></span>
+        </div>
+    </div>
+</main>
+</html>

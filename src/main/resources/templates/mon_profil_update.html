@@ -11,35 +11,35 @@
                 <input class="input" type="text" th:field="*{id_utilisateur}" hidden />
                 <li>
                     <label for="idPseudo">Pseudo</label>
-                    <input class="input" id="idPseudo" type="text" th:field="*{pseudo}" />
+                    <input class="input" id="idPseudo" type="text" th:field="*{pseudo}" pattern="^[A-Za-z0-9]+$" required/>
                 </li>
                 <li>
                     <label for="idNom">Nom</label>
-                    <input class="input" id="idNom" type="text" th:field="*{nom}" />
+                    <input class="input" id="idNom" type="text" th:field="*{nom}" pattern="^[a-zA-ZÀ-ÿ\-]+$" required/>
                 </li>
                 <li>
                     <label for="idPrenom">Prénom</label>
-                    <input class="input" id="idPrenom" type="text" th:field="*{prenom}" />
+                    <input class="input" id="idPrenom" type="text" th:field="*{prenom}" pattern="^[a-zA-ZÀ-ÿ\-]+$" required/>
                 </li>
                 <li>
-                    <label for="idEmail">Pseudo</label>
-                    <input class="input" id="idEmail" type="text" th:field="*{email}" />
+                    <label for="idEmail">Email</label>
+                    <input class="input" id="idEmail" type="text" th:field="*{email}" required/>
                 </li>
                 <li>
                     <label for="idTelephone">Téléphone</label>
-                    <input class="input" id="idTelephone" type="text" th:field="*{telephone}" />
+                    <input class="input" id="idTelephone" type="text" th:field="*{telephone}" required/>
                 </li>
                 <li>
                     <label for="idRue">Rue</label>
-                    <input class="input" id="idRue" type="text" th:field="*{rue}" />
+                    <input class="input" id="idRue" type="text" th:field="*{rue}" required/>
                 </li>
                 <li>
                     <label for="idCode_postal">Code postal</label>
-                    <input class="input" id="idCode_postal" type="text" th:field="*{code_postal}" />
+                    <input class="input" id="idCode_postal" type="text" th:field="*{code_postal}" required/>
                 </li>
                 <li>
                     <label for="idVille">Ville</label>
-                    <input class="input" id="idVille" type="text" th:field="*{ville}" />
+                    <input class="input" id="idVille" type="text" th:field="*{ville}" required/>
                 </li>
                 <div class="boutons-groupe">
                     <li>

@@ -7,6 +7,7 @@ import fr.eni.enchere.repository.ArticleRepository;
 import fr.eni.enchere.repository.ArticleRepositorySQL;
 import fr.eni.enchere.repository.EnchereRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -40,7 +41,7 @@ public class EnchereServiceImpl implements EnchereService{
     @Override
     public void deleteEnchere(long id) { this.enchereRepository.deleteEnchere(id); }
 
-///////////// Logique d'un enchere (Raman)
+    ///////////// Logique d'un enchere (Raman)
     @Override
     public void placerEnchere(long idArticle, long idUtilisateur, int montantPropose) throws Exception {
         Article article = articleService.readById(idArticle);
@@ -115,5 +116,35 @@ public class EnchereServiceImpl implements EnchereService{
         enchereRepository.createEnchere(nouvelleEnchere); // Enregistrer dans la base de données
     }
 
+    public String getPageRemportee(Long idArticle, Utilisateur utilisateurConnecte, Model model){
+        Article article = articleService.readById(idArticle);
 
+        if (!peutAccederPageRemportee(article, utilisateurConnecte)){
+            return "redirect:/encheres";
+        }
+        model.addAttribute("article", article);
+
+        if (utilisateurConnecte.equals(article.getVendeur())){
+            return "enchere_remporter_vendeur";
+        }
+        return "enchere_remporter_acheteur";
+    }
+
+    private boolean peutAccederPageRemportee(Article article, Utilisateur utilisateur){
+// verification sur l'article
+        if (article == null || !"VENDU".equals(article.getEtat_vente())){
+            return false;
+        }
+        if (utilisateur == null){
+            return false;
+        }
+
+//        verification sur le vendeur
+        if (utilisateur.equals(article.getVendeur())){
+            return article.getPrix_vente() != 0 && article.getAcheteur() != null;
+        }
+
+//        verification acheteur doit etre le gagnant
+        return utilisateur.equals(article.getAcheteur());
+    }
 }

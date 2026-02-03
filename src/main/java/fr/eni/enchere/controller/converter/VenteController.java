@@ -112,4 +112,12 @@ public class VenteController {
 
     }
 
+
+    //quand on remporte une enchere
+    @GetMapping("/encheres/fini")
+    public String enchereGagner(@RequestParam("id") Long id_article, Model model) {
+        Utilisateur utilisateurConnecte = utilisateurService.recuperationIdUtilisateurActif();
+        return enchereService.getPageRemportee(id_article, utilisateurConnecte, model);
+    }
+
 }

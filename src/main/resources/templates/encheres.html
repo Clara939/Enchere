@@ -54,16 +54,20 @@
         <div th:each="article : ${articleList}" class="encheres_article_vente">
             <!--<img th:src="${article.}">-->
             <h3 th:text="${article.getNom_article()}"></h3>
+            <img id="encheres_photo_article" th:src="${article.getPhotoArticle()}" alt="photo de l'article">
             <div class="encheres_article_infos">
                 <div>
                     <p>Prix actuel :
-                        <strong><span th:text="${article.getPrix_vente()}"></span><span> points</span></strong></p>
+                        <strong><span th:text="${(article.getPrix_vente() != null and article.getPrix_vente() != article.getPrix_initial()) ? article.getPrix_vente() : article.getPrix_initial()}"></span><span> points</span></strong></p>
                     <p>Fin de l'enchère :
                         <strong><span th:text="${article.getDate_fin_encheres()}"></span></strong></p>
-                    <p>Vendeur :
-<!--                        <strong><span th:text="${article.getVendeur().getPseudo()}"></span></strong></p>-->
+                    <p th:if="${article.getVendeur() != null}">Vendeur :
+                        <a id="lienVersProfil" th:href="@{/afficheProfilVendeur(id=${article.getVendeur().getId_utilisateur()})}"><strong><span th:text="${article.getVendeur().getPseudo()}"></span></strong></a></p>
                 </div>
-                <button type="button" class="boutonOrange"><a th:href="@{/encherir(id=${article.id_article})}">Enchérir</a></button>
+                <div>
+                    <button th:if="${#authorization.expression('isAuthenticated()') and vente == true and ventes_non_debutees == true and article.getEtat_vente() == 'CREE'}" type="button" class="boutonVert"><a th:href="@{/encheres/update(id=${article.getId_article()})}">Modifier</a></button>
+                    <button th:if="${not #authorization.expression('isAuthenticated()') or article.getEtat_vente() == 'EN_VENTE'}" type="button" class="boutonOrange"><a th:href="@{/encherir(id=${article.id_article})}">Enchérir</a></button>
+                </div>
             </div>
         </div>
         <!--        </section>-->

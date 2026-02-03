@@ -36,8 +36,8 @@ JdbcTemplate jdbcTemplate;
     public void create(Article article) {
 // création d'un keyholder pour generer et gérer l'id
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
-        String sql = "insert into Articles (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, etat_vente, id_vendeur, id_categorie, id_retrait, id_acheteur)\n " +
-                " values (:nom_article, :description, :date_debut_encheres, :date_fin_encheres, :prix_initial, :prix_vente, :etat_vente, :id_vendeur, :id_categorie, :id_retrait, :id_acheteur)";
+        String sql = "insert into Articles (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, etat_vente, photoArticle, id_vendeur, id_categorie, id_retrait, id_acheteur)\n " +
+                " values (:nom_article, :description, :date_debut_encheres, :date_fin_encheres, :prix_initial, :prix_vente, :etat_vente, :photoArticle, :id_vendeur, :id_categorie, :id_retrait, :id_acheteur)";
         //dans le cadre de l'association on fait la map à la main
         MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue("nom_article", article.getNom_article());
@@ -56,6 +56,12 @@ JdbcTemplate jdbcTemplate;
             map.addValue("id_acheteur", article.getAcheteur().getId_utilisateur());
         } else {
             map.addValue("id_acheteur", null);
+        }
+
+        if (article.getPhotoArticle() !=null){
+            map.addValue("photoArticle", article.getPhotoArticle());
+        } else {
+            map.addValue("photoArticle", "/image/encheres_marteau.jpg");
         }
 
         //je passe le keyHolder à la requète pour récupérer l'id

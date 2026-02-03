@@ -9,6 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -34,7 +35,12 @@ public class ArticleServiceImpl implements ArticleService{
         this.articleRepository.create(article); }
 
     @Override
-    public Article readById(long id_article) { return this.articleRepository.readById(id_article); }
+    public Article readById(long id_article) {
+        Article article = articleRepository.readById(id_article);
+        if (article != null) {
+            mettreAJourEtatVente(article);
+        }
+        return article; }
 
     @Override
     public void delete(long id_article) { this.articleRepository.delete(id_article); }
@@ -83,7 +89,6 @@ public class ArticleServiceImpl implements ArticleService{
             return articleListeFiltre;
         }
         long idUtilisateurActif = utilisateurService.recuperationIdUtilisateurActif().getId_utilisateur();
-        System.out.println("id utilisateur : " + idUtilisateurActif);
         if ("achat".equals(radioSelectionnee)) {
 
             List<Long> idArticleListeEncheresEnCours = new ArrayList<>();
@@ -95,7 +100,7 @@ public class ArticleServiceImpl implements ArticleService{
 
             if (mes_encheres_cours) {
                 //Liste des articles sur lesquels l'utilisateur a fait au moins une enchère
-                idArticleListeEncheresEnCours = enchereRepository.readAllidArticleForOneUtilisateur(idUtilisateurActif);
+                idArticleListeEncheresEnCours = enchereRepository.readAllForOneUtilisateurVenteEnCours(idUtilisateurActif);
             }
             if (mes_encheres_remportees) {
                 //Liste des articles pour lesquels la meilleure anchère est faite par l'utilisateur
@@ -141,5 +146,36 @@ public class ArticleServiceImpl implements ArticleService{
 
         return articleListeFiltre;
     }
+//    met a jour l'etat de vente selon dates et prix_vente
+    public void mettreAJourEtatVente(Article article){
+        if (article == null || article.getDate_debut_encheres() == null || article.getDate_fin_encheres() == null){
+            return;
+        }
+        LocalDate aujourdhui = LocalDate.now();
+        LocalDate debut = article.getDate_debut_encheres();
+        LocalDate fin = article.getDate_fin_encheres();
 
+//          CREE
+        if (aujourdhui.isBefore(debut)){
+            article.setEtat_vente("CREE");
+        }
+
+//        EN_VENTE
+        else if (aujourdhui.isAfter(debut) || aujourdhui.equals(debut)) {
+            if (aujourdhui.isBefore(fin) || aujourdhui.isEqual(fin)){
+                article.setEtat_vente("EN_VENTE");
+            }
+        }
+
+//        VENDU ou NON_VENDU
+        else {
+            if (article.getPrix_vente() == null || article.getPrix_vente() == 0){
+                article.setEtat_vente("NON_VENDU");
+            }
+            else {
+                article.setEtat_vente("VENDU");
+            }
+        }
+        update(article);
+    }
 }

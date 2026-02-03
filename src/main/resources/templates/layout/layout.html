@@ -10,10 +10,11 @@
 <body class="master">
 <header>
     <div id="logo_titre">
-    <a th:href="@{/encheres}"><img th:src="@{/image/logo_eni.png}" alt="Logo"/></a>
-    <h1 id="nav-title">ENI - Enchères</h1>
+        <a th:href="@{/encheres}"><img th:src="@{/image/logo_eni.png}" alt="Logo"/></a>
+        <h1 id="nav-title">ENI - Enchères</h1>
     </div>
-
+    <input type="checkbox" id="menu-toggle" class="menu-toggle">
+    <label for="menu-toggle" class="burger-menu">☰</label>
     <nav>
         <ul>
             <li ><a href="/encheres" class="nav-link boutonBlanc">Enchères</a></li>

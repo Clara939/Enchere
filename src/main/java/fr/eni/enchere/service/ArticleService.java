@@ -21,4 +21,7 @@ public interface ArticleService {
 
 
     List<Article> readAllArticlesEnVenteFiltre(String search, long id_categorie, String radioSelectionnee, boolean encheres_ouvertes, boolean mes_encheres_cours, boolean mes_encheres_remportees, boolean mes_ventes_cours, boolean ventes_non_debutees, boolean ventes_terminees);
+
+    public void mettreAJourEtatVente(Article article);
+
 }
