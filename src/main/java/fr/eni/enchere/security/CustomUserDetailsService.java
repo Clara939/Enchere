@@ -50,7 +50,9 @@ public class CustomUserDetailsService implements UserDetailsService {
 
                     System.out.println(" [LOGIN] Utilisateur trouvé: " + pseudo);
                     System.out.println("   → actif: " + enabled);
-                    System.out.println("   → hash: " + password.substring(0, 20) + "...");
+                    //System.out.println("   → hash: " + password.substring(0, 20) + "..."); //ici erreur si le mot de passe est inférieur à 20 caractères
+                    //System.out.println("   → hash: " + (password == null ? "NULL" : password.length() < 20 ? password : password.substring(0, 20)) + "...");
+
 
                     List<GrantedAuthority> authorities = getAuthorities(pseudo);
 

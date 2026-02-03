@@ -49,6 +49,7 @@ public class SecurityConfiguration {
                      *********************************************    */
 
                      requestMatchers(HttpMethod.GET, "/encheres").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/error").permitAll()
                     .requestMatchers(HttpMethod.GET, "/encheres/filtres").permitAll()
                     .requestMatchers(HttpMethod.POST, "/encheres/filtres").permitAll()
                     //accès au chemin /encheres/add en Get pour les utilisateurs

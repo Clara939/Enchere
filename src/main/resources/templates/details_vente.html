@@ -10,70 +10,7 @@
   <div th:if="${success}" class="success-message" style="color: #98CE00; padding: 10px; border: 1px solid #98CE00; margin-bottom: 20px;">
     <strong>Succès : </strong> <span th:text="${success}"></span>
   </div>
-  <table>
-    <thead>
-    <tr>
-      <th>Article</th>
-      <th>Description</th>
-      <th>Catégorie</th>
-      <th>Meilleure offre</th>
-      <th>Mise à prix</th>
-      <th>Fin de l'enchère</th>
-      <th>Rue</th>
-      <th>Code postal</th>
-      <th>Ville</th>
-      <th>Vendeur</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <td th:text="${article.nom_article}"></td>
-      <td th:text="${article.description}"></td>
-      <td th:text="${article.categorieArticle.libelle}"></td>
-      <td th:text="${article.prix_vente}"></td>
-      <td th:text="${article.prix_initial}"></td>
-      <td th:text="${article.date_fin_encheres}"></td>
-      <td th:text="${article.lieuxRetrait.rue}"></td>
-      <td th:text="${article.lieuxRetrait.code_postal}"></td>
-      <td th:text="${article.lieuxRetrait.ville}"></td>
-      <td th:text="${article.vendeur.nom}"></td>
-    </tr>
-    </tbody>
-  </table>
-  <div id="detail_vente_conteneur">
-    <div>
-      <span class="detail_vente_label" >Article</span>
-      <span class="detail_vente_donnee" th:text="${article.getNom_article()}"></span>
-    </div>
-    <div>
-      <span class="detail_vente_label" >Description</span>
-      <span class="detail_vente_donnee" th:text="${article.getDescription()}"></span>
-    </div>
-    <div>
-      <span class="detail_vente_label" >Catégorie</span>
-      <span class="detail_vente_donnee" th:text="${article.getCategorieArticle().getId_categorie()}"></span>
-    </div>
-    <div>
-      <span class="detail_vente_label" >Meilleure offre</span>
-      <span class="detail_vente_donnee" th:text="${article.getPrix_vente()}"></span>
-    </div>
-    <div>
-      <span class="detail_vente_label" >Mise à prix</span>
-      <span class="detail_vente_donnee" th:text="${article.getPrix_initial()}"></span>
-    </div>
-    <div>
-      <span class="detail_vente_label" >Fin de l'enchère</span>
-      <span class="detail_vente_donnee" th:text="${article.getDate_fin_encheres()}"></span>
-    </div>
-    <div>
-      <span class="detail_vente_label" >Vendeur</span>
-      <span class="detail_vente_donnee" th:text="${article.getVendeur().getPseudo()}"></span>
-    </div>
-    <div>
-      <span class="detail_vente_label" >Ville de retrait</span>
-      <span class="detail_vente_donnee" th:text="${article.getLieuxRetrait().getVille()}"></span>
-    </div>
-  </div>
+
   <div id="detail_ventes_contenu_principal">
     <div id="detail_vente_conteneur">
       <div>
