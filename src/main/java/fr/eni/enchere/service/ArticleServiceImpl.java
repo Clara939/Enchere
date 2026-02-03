@@ -1,13 +1,14 @@
 package fr.eni.enchere.service;
 
-import fr.eni.enchere.bo.Article;
-import fr.eni.enchere.bo.Enchere;
+import fr.eni.enchere.bo.*;
 import fr.eni.enchere.repository.ArticleRepository;
 import fr.eni.enchere.repository.EnchereRepository;
 import org.jspecify.annotations.NonNull;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -15,16 +16,23 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+
 @Service
 public class ArticleServiceImpl implements ArticleService{
-    EnchereRepository enchereRepository;
     private final UtilisateurService utilisateurService;
-    ArticleRepository articleRepository;
+    private final ArticleRepository articleRepository;
+    private final EnchereRepository enchereRepository;
+    private final RetraitService retraitService;     // ← AJOUTEZ
+    private final CategorieService categorieService; // ← AJOUTEZ
+    private final PhotoService photoService;
 
-    public ArticleServiceImpl(UtilisateurService utilisateurService, EnchereRepository enchereRepository, ArticleRepository articleRepository) {
+    public ArticleServiceImpl(UtilisateurService utilisateurService, ArticleRepository articleRepository, EnchereRepository enchereRepository, RetraitService retraitService, CategorieService categorieService, PhotoService photoService) {
         this.utilisateurService = utilisateurService;
-        this.enchereRepository = enchereRepository;
         this.articleRepository = articleRepository;
+        this.enchereRepository = enchereRepository;
+        this.retraitService = retraitService;
+        this.categorieService = categorieService;
+        this.photoService = photoService;
     }
 
     @Override
@@ -155,7 +163,7 @@ public class ArticleServiceImpl implements ArticleService{
 
         return articleListeFiltre;
     }
-//    met a jour l'etat de vente selon dates et prix_vente
+    //    met a jour l'etat de vente selon dates et prix_vente
     public void mettreAJourEtatVente(Article article){
         if (article == null || article.getDate_debut_encheres() == null || article.getDate_fin_encheres() == null){
             return;
@@ -186,5 +194,49 @@ public class ArticleServiceImpl implements ArticleService{
             }
         }
         update(article);
+    }
+
+//    creation de l'article complet
+    @Override
+    @Transactional
+    public Article creerArticleComplet(Article article, Long categorieId, MultipartFile photoArticle) {
+
+        try {
+        // 1. Vendeur connecté
+        Utilisateur vendeur = utilisateurService.recuperationIdUtilisateurActif();
+        article.setVendeur(vendeur);
+
+        // 2. Catégorie
+        Categorie categorie = categorieService.readById(categorieId);
+        article.setCategorieArticle(categorie);
+        article.setAcheteur(null);
+
+        //  3. RETRAIT
+        Retrait retrait = new Retrait();
+        retrait.setRue(vendeur.getRue());
+        retrait.setCode_postal(vendeur.getCode_postal());
+        retrait.setVille(vendeur.getVille());
+        retraitService.createRetrait(retrait);  // ← GÉNÈRE id_retrait
+        article.setLieuxRetrait(retrait);
+
+        // 4.  Article (avec id_retrait valide)
+        this.create(article);
+
+
+        // 5. Photo avec ID réel
+        if (photoArticle != null && !photoArticle.isEmpty()) {
+            String urlPhoto = photoService.SaveArticlePhoto(photoArticle, article.getId_article());
+            article.setPhotoArticle(urlPhoto);
+            this.update(article);
+        }
+
+        mettreAJourEtatVente(article);
+        return article;
+    }
+    catch (Exception e) {
+        System.err.println("ERREUR FATALE: " + e.getMessage());
+        e.printStackTrace();
+        throw e;
+    }
     }
 }

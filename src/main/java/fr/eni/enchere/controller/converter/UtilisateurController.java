@@ -58,7 +58,8 @@ public class UtilisateurController {
         }
 
         utilisateurService.createUtilisateur(utilisateur);
-        return "redirect:/";
+
+        return "redirect:/login";
     }
 
 
@@ -160,4 +161,16 @@ Utilisateur utilisateurConnecte = utilisateurService.recuperationIdUtilisateurAc
         return "afficher_un_profil";
     }
 
+    @GetMapping("/MonProfil/addCredit")
+    public String ajouterDesCredits(){
+
+        return "ajouterCredit";
+    }
+
+    @PostMapping("/MonProfil/addCredit")
+    public String validerAjoutCredit(@RequestParam("credit") int credit, Model model){
+        Utilisateur utilisateur = utilisateurService.recuperationIdUtilisateurActif();
+        utilisateurService.ajouterDesCredits(utilisateur, credit);
+        return "redirect:/MonProfil";
+    }
 }

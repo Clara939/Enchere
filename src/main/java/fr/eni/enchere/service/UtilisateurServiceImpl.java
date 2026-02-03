@@ -116,6 +116,10 @@ public class UtilisateurServiceImpl implements UtilisateurService{
         }
     }
 
-
+@Override
+public void ajouterDesCredits(Utilisateur utilisateur, int credit){
+        utilisateur.setCredit(utilisateur.getCredit() + credit);
+    utilisateurRepository.updateUtilisateur(utilisateur);
+        }
 
 }

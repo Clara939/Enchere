@@ -12,7 +12,7 @@ public class Utilisateur {
     private long id_utilisateur;
     @Pattern(regexp = "^[a-zA-Z0-9]+$",
             message = "Le nom ne peut contenir que des lettres ou des chiffres")
-    @Size(min = 3, max = 30, message = "Le pseudo doit avoir entre 2 et 30 caractères")
+    @Size(min = 3, max = 30, message = "Le pseudo doit avoir entre 3 et 30 caractères")
     @NotBlank(message = "champ obligatoire")
     private String pseudo;
     @Pattern(regexp = "^[a-zA-ZÀ-ÿ\\-]+$",
