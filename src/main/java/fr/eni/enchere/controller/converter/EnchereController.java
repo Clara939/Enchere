@@ -113,13 +113,13 @@ public String saveArticle(@RequestParam("categorieId") long categorieId,@Valid @
     Utilisateur vendeurConnecte = utilisateurService.recuperationIdUtilisateurActif();
     article.setVendeur(vendeurConnecte);
     //retrait
-    Retrait retrait = new Retrait();
-    retrait.setRue(vendeurConnecte.getRue());
-    retrait.setCode_postal(vendeurConnecte.getCode_postal());
-    retrait.setVille(vendeurConnecte.getVille());
-    retraitService.createRetrait(retrait);
-    article.setLieuxRetrait(retrait);
-    article.setAcheteur(null);
+//    Retrait retrait = new Retrait();
+//    retrait.setRue(vendeurConnecte.getRue());
+//    retrait.setCode_postal(vendeurConnecte.getCode_postal());
+//    retrait.setVille(vendeurConnecte.getVille());
+//    retraitService.createRetrait(retrait);
+//    article.setLieuxRetrait(retrait);
+//    article.setAcheteur(null);
 
     try {
         if(article.getId_article() == 0L) {

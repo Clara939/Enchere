@@ -17,7 +17,7 @@
                 </li>
                 <li>
                     <label for="idCategorie">Catégorie</label>
-                    <select class="input" id="idCategorie" name="categorieId" required>
+                    <select class="input" id="idCategorie" name="categorieId" th:field="*{categorieArticle}" required>
                         <option value="">Choisir une catégorie</option>
                         <option th:each="item : ${categorieList}"
                                 th:value="${item.id_categorie}"
@@ -65,6 +65,9 @@
                             <label for="ville">Ville</label>
                             <input class="input" id="ville" type="text" th:field="*{lieuxRetrait.ville}"/>
                             <span th:if="${#fields.hasErrors('lieuxRetrait.ville')}" th:errors="*{lieuxRetrait.ville}" class="error"></span>
+                        </div>
+                        <div>
+                            <input class="input" id="idRetrait" type="hidden" th:field="*{lieuxRetrait.id_retrait}" value="0"/>
                         </div>
                     </div>
                 </li>

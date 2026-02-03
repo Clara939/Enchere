@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="fr" th:replace="~{layout/layout :: frag_layout(content=~{::main})}">
+<main id="main_formulaire_ajout_credit">
+  <h2>Ajouter des crédits</h2>
+  <form id="ajout_credit_formmulaire" th:action="@{/MonProfil/addCredit}" method="post">
+    <div>
+    <label for="nbCredit">Combien de crédits voulez-vous ajouter ?</label>
+    <input id="nbCredit" type="number" name="credit" min="0" required>
+    </div>
+    <div>
+    <button type="submit" class="boutonVert">Valider</button>
+    <button class="boutonOrange"><a th:href="@{/MonProfil}">Annuler</a></button>
+    </div>
+  </form>
+
+</main>
+</html>

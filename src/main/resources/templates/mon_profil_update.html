@@ -11,7 +11,8 @@
                 <input class="input" type="text" th:field="*{id_utilisateur}" hidden />
                 <li>
                     <label for="idPseudo">Pseudo</label>
-                    <input class="input" id="idPseudo" type="text" th:field="*{pseudo}" pattern="^[A-Za-z0-9]+$" required/>
+                    <input class="input" id="idPseudo" type="text" th:field="*{pseudo}" pattern="^[A-Za-z0-9]+$" required readonly/>
+<!--                    on empêche la modification du pseudo car participe à la reconnaissance de l'utilisateur connecté-->
                 </li>
                 <li>
                     <label for="idNom">Nom</label>
