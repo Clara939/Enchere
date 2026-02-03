@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class VenteController {
@@ -73,7 +74,8 @@ public class VenteController {
     public String placerEnchere(
             @RequestParam("id_article") long idArticle,
             @RequestParam("montantPropose") int montantPropose,
-            Model model
+            Model model,
+            RedirectAttributes redirectAttributes
     ) {
 
         // Obtenir l'utilisateur autorisé, renvoie l'objet Utilisateur (l'utilisateur actuellement connecté)
@@ -87,8 +89,9 @@ public class VenteController {
         try {
             enchereService.placerEnchere(idArticle, utilisateurConnecte.getId_utilisateur(), montantPropose);
 
-            model.addAttribute("success", "Enchere placee avec succes");
-            return "redirect:/encheres";
+            redirectAttributes.addFlashAttribute("success", "Enchere placee avec succes");
+            return "redirect:/encherir?id=" + idArticle;
+
             // il faut changer tout les execptions
         } catch (Exception e) {
             Article article = articleService.readById(idArticle);
@@ -104,8 +107,12 @@ public class VenteController {
             model.addAttribute("utilisateurConnecte", utilisateurConnecte);
             model.addAttribute("prixActuel", prixActuel);
             model.addAttribute("enchereMinimale", enchereMinimale);
-            model.addAttribute("error", e.getMessage()); // Afficher le message d'erreur
 
+            if (e.getMessage().contains("Credit isuffisant")) {
+                model.addAttribute("error", "Crédits insuffisants pour placer ce pari. Votre solde :" + utilisateurConnecte.getCredit());
+            } else {
+                model.addAttribute("error", e.getMessage());
+            }
 
             return "details_vente";
         }
