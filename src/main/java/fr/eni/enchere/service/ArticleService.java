@@ -2,6 +2,7 @@ package fr.eni.enchere.service;
 
 import fr.eni.enchere.bo.Article;
 import fr.eni.enchere.bo.Categorie;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -24,4 +25,5 @@ public interface ArticleService {
 
     public void mettreAJourEtatVente(Article article);
 
+    Article creerArticleComplet(Article article, Long categorieId, MultipartFile photoArticle);
 }

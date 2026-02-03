@@ -20,7 +20,7 @@ JdbcTemplate jdbcTemplate;
 
     @Override
     public List<Article> readAll() {
-        String sql = "select articles.id_article as id_article, articles.nom_article as nom_article, articles.description as description, articles.date_debut_encheres as date_debut_encheres, articles.date_fin_encheres as date_fin_encheres, articles.prix_initial as prix_initial, articles.prix_vente as prix_vente, articles.etat_vente as etat_vente, id_vendeur, vendeurs.pseudo as pseudo_vendeur, vendeurs.nom as nom_vendeur, vendeurs.prenom as prenom_vendeur, articles.id_categorie, categories.libelle as libelle_categorie, articles.id_retrait, retraits.rue as rue_retrait, retraits.code_postal as code_postal_retrait, retraits.ville as ville_retrait, articles.id_acheteur, acheteurs.nom as nom_acheteur, acheteurs.prenom as prenom_acheteur from Articles\n " +
+        String sql = "select articles.id_article as id_article, articles.nom_article as nom_article, articles.description as description, articles.date_debut_encheres as date_debut_encheres, articles.date_fin_encheres as date_fin_encheres, articles.prix_initial as prix_initial, articles.prix_vente as prix_vente, articles.etat_vente as etat_vente, articles.photo_article as photo_article, id_vendeur, vendeurs.pseudo as pseudo_vendeur, vendeurs.nom as nom_vendeur, vendeurs.prenom as prenom_vendeur, articles.id_categorie, categories.libelle as libelle_categorie, articles.id_retrait, retraits.rue as rue_retrait, retraits.code_postal as code_postal_retrait, retraits.ville as ville_retrait, articles.id_acheteur, acheteurs.nom as nom_acheteur, acheteurs.prenom as prenom_acheteur from Articles\n " +
                 "    left join utilisateurs as vendeurs on vendeurs.id_utilisateur = articles.id_vendeur\n " +
                 " left join categories on categories.id_categorie = articles.id_categorie\n " +
                 "left join retraits on retraits.id_retrait = articles.id_retrait\n " +
@@ -36,8 +36,8 @@ JdbcTemplate jdbcTemplate;
     public void create(Article article) {
 // création d'un keyholder pour generer et gérer l'id
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
-        String sql = "insert into Articles (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, etat_vente, photoArticle, id_vendeur, id_categorie, id_retrait, id_acheteur)\n " +
-                " values (:nom_article, :description, :date_debut_encheres, :date_fin_encheres, :prix_initial, :prix_vente, :etat_vente, :photoArticle, :id_vendeur, :id_categorie, :id_retrait, :id_acheteur)";
+        String sql = "insert into Articles (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, etat_vente, photo_article, id_vendeur, id_categorie, id_retrait, id_acheteur) " +
+                "values (:nom_article, :description, :date_debut_encheres, :date_fin_encheres, :prix_initial, :prix_vente, :etat_vente, :photo_article, :id_vendeur, :id_categorie, :id_retrait, :id_acheteur)";
         //dans le cadre de l'association on fait la map à la main
         MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue("nom_article", article.getNom_article());
@@ -50,18 +50,13 @@ JdbcTemplate jdbcTemplate;
         map.addValue("id_vendeur", article.getVendeur().getId_utilisateur());
         map.addValue("id_categorie", article.getCategorieArticle().getId_categorie());
         map.addValue("id_retrait", article.getLieuxRetrait() != null ? article.getLieuxRetrait().getId_retrait() : null);
+        map.addValue("photo_article", "/image/encheres_marteau.jpg");
 
         //si il n'y a pas d'acheteur associé on met null ; l'acheteur est un nombre ici
         if (article.getAcheteur() != null) {
             map.addValue("id_acheteur", article.getAcheteur().getId_utilisateur());
         } else {
             map.addValue("id_acheteur", null);
-        }
-
-        if (article.getPhotoArticle() !=null){
-            map.addValue("photoArticle", article.getPhotoArticle());
-        } else {
-            map.addValue("photoArticle", "/image/encheres_marteau.jpg");
         }
 
         //je passe le keyHolder à la requète pour récupérer l'id
@@ -76,7 +71,7 @@ JdbcTemplate jdbcTemplate;
 
     @Override
     public Article readById(long id_article) {
-        String sql = "select articles.id_article as id_article, articles.nom_article as nom_article, articles.description as description, articles.date_debut_encheres as date_debut_encheres, articles.date_fin_encheres as date_fin_encheres, articles.prix_initial as prix_initial, articles.prix_vente as prix_vente, articles.etat_vente as etat_vente, id_vendeur, vendeurs.pseudo as pseudo_vendeur, vendeurs.nom as nom_vendeur, vendeurs.prenom as prenom_vendeur, articles.id_categorie, categories.libelle as libelle_categorie, articles.id_retrait, retraits.rue as rue_retrait, retraits.code_postal as code_postal_retrait, retraits.ville as ville_retrait, articles.id_acheteur, acheteurs.nom as nom_acheteur, acheteurs.prenom as prenom_acheteur from Articles\n " +
+        String sql = "select articles.id_article as id_article, articles.nom_article as nom_article, articles.description as description, articles.date_debut_encheres as date_debut_encheres, articles.date_fin_encheres as date_fin_encheres, articles.prix_initial as prix_initial, articles.prix_vente as prix_vente, articles.etat_vente as etat_vente, articles.photo_article as photo_article, id_vendeur, vendeurs.pseudo as pseudo_vendeur, vendeurs.nom as nom_vendeur, vendeurs.prenom as prenom_vendeur, articles.id_categorie, categories.libelle as libelle_categorie, articles.id_retrait, retraits.rue as rue_retrait, retraits.code_postal as code_postal_retrait, retraits.ville as ville_retrait, articles.id_acheteur, acheteurs.nom as nom_acheteur, acheteurs.prenom as prenom_acheteur from Articles\n " +
                 "    left join utilisateurs as vendeurs on vendeurs.id_utilisateur = articles.id_vendeur\n " +
                 " left join categories on categories.id_categorie = articles.id_categorie\n " +
                 "left join retraits on retraits.id_retrait = articles.id_retrait\n " +
@@ -99,7 +94,7 @@ JdbcTemplate jdbcTemplate;
 
     @Override
     public void update(Article article) {
-        String sql = "update Articles set nom_article=:nom_article, description=:description, date_debut_encheres=:date_debut_encheres, date_fin_encheres=:date_fin_encheres, prix_initial=:prix_initial, prix_vente=:prix_vente, etat_vente=:etat_vente, id_vendeur=:id_vendeur, id_categorie=:id_categorie, id_retrait=:id_retrait, id_acheteur=:id_acheteur where id_article=:id_article";
+        String sql = "update Articles set nom_article=:nom_article, description=:description, date_debut_encheres=:date_debut_encheres, date_fin_encheres=:date_fin_encheres, prix_initial=:prix_initial, prix_vente=:prix_vente, etat_vente=:etat_vente, photo_article=:photo_article,id_vendeur=:id_vendeur, id_categorie=:id_categorie, id_retrait=:id_retrait, id_acheteur=:id_acheteur where id_article=:id_article";
         MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue("id_article", article.getId_article());
         map.addValue("nom_article", article.getNom_article());
@@ -112,6 +107,7 @@ JdbcTemplate jdbcTemplate;
         map.addValue("id_vendeur", article.getVendeur().getId_utilisateur());
         map.addValue("id_categorie", article.getCategorieArticle().getId_categorie());
         map.addValue("id_retrait", article.getLieuxRetrait() != null ? article.getLieuxRetrait().getId_retrait() : null);
+        map.addValue("photo_article", article.getPhotoArticle() != null ? article.getPhotoArticle() :"/image/encheres_marteau.jpg");
 
         //si il n'y a pas d'acheteur associé on met null ; l'acheteur est un nombre ici
         if (article.getAcheteur() != null) {
@@ -143,7 +139,7 @@ JdbcTemplate jdbcTemplate;
         String sql = "select articles.id_article as id_article, articles.nom_article as nom_article, articles.description as " +
                 "description, articles.date_debut_encheres as date_debut_encheres, articles.date_fin_encheres as " +
                 "date_fin_encheres, articles.prix_initial as prix_initial, articles.prix_vente as prix_vente, " +
-                "articles.etat_vente as etat_vente, id_vendeur, vendeurs.pseudo as pseudo_vendeur, vendeurs.nom as nom_vendeur, " +
+                "articles.etat_vente as etat_vente, articles.photo_article as photo_article, id_vendeur, vendeurs.pseudo as pseudo_vendeur, vendeurs.nom as nom_vendeur, " +
                 "vendeurs.prenom as prenom_vendeur, articles.id_categorie, categories.libelle as libelle_categorie, " +
                 "articles.id_retrait, retraits.rue as rue_retrait, retraits.code_postal as code_postal_retrait, " +
                 "retraits.ville as ville_retrait, articles.id_acheteur, acheteurs.nom as nom_acheteur, acheteurs.prenom as " +
@@ -160,7 +156,7 @@ JdbcTemplate jdbcTemplate;
     @Override
     public List<Article> readAllArticlesEnVenteFiltreSearch(String search) {
         String mot= "%" + search + "%";
-        String sql = "select articles.id_article as id_article, articles.nom_article as nom_article, articles.description as description, articles.date_debut_encheres as date_debut_encheres, articles.date_fin_encheres as date_fin_encheres, articles.prix_initial as prix_initial, articles.prix_vente as prix_vente, articles.etat_vente as etat_vente, id_vendeur, vendeurs.pseudo as pseudo_vendeur, vendeurs.nom as nom_vendeur, vendeurs.prenom as prenom_vendeur, articles.id_categorie, categories.libelle as libelle_categorie, articles.id_retrait, retraits.rue as rue_retrait, retraits.code_postal as code_postal_retrait, retraits.ville as ville_retrait, articles.id_acheteur, acheteurs.nom as nom_acheteur, acheteurs.prenom as prenom_acheteur from Articles\n " +
+        String sql = "select articles.id_article as id_article, articles.nom_article as nom_article, articles.description as description, articles.date_debut_encheres as date_debut_encheres, articles.date_fin_encheres as date_fin_encheres, articles.prix_initial as prix_initial, articles.prix_vente as prix_vente, articles.etat_vente as etat_vente, articles.photo_article as photo_article, id_vendeur, vendeurs.pseudo as pseudo_vendeur, vendeurs.nom as nom_vendeur, vendeurs.prenom as prenom_vendeur, articles.id_categorie, categories.libelle as libelle_categorie, articles.id_retrait, retraits.rue as rue_retrait, retraits.code_postal as code_postal_retrait, retraits.ville as ville_retrait, articles.id_acheteur, acheteurs.nom as nom_acheteur, acheteurs.prenom as prenom_acheteur from Articles\n " +
                 "    left join utilisateurs as vendeurs on vendeurs.id_utilisateur = articles.id_vendeur\n " +
                 " left join categories on categories.id_categorie = articles.id_categorie\n " +
                 "left join retraits on retraits.id_retrait = articles.id_retrait\n " +
@@ -173,7 +169,7 @@ JdbcTemplate jdbcTemplate;
 
     @Override
     public List<Article> readAllArticlesVenteNonDebutees() {
-        String sql = "select articles.id_article as id_article, articles.nom_article as nom_article, articles.description as description, articles.date_debut_encheres as date_debut_encheres, articles.date_fin_encheres as date_fin_encheres, articles.prix_initial as prix_initial, articles.prix_vente as prix_vente, articles.etat_vente as etat_vente, id_vendeur, vendeurs.pseudo as pseudo_vendeur, vendeurs.nom as nom_vendeur, vendeurs.prenom as prenom_vendeur, articles.id_categorie, categories.libelle as libelle_categorie, articles.id_retrait, retraits.rue as rue_retrait, retraits.code_postal as code_postal_retrait, retraits.ville as ville_retrait, articles.id_acheteur, acheteurs.nom as nom_acheteur, acheteurs.prenom as prenom_acheteur from Articles\n " +
+        String sql = "select articles.id_article as id_article, articles.nom_article as nom_article, articles.description as description, articles.date_debut_encheres as date_debut_encheres, articles.date_fin_encheres as date_fin_encheres, articles.prix_initial as prix_initial, articles.prix_vente as prix_vente, articles.etat_vente as etat_vente, articles.photo_article as photo_article, id_vendeur, vendeurs.pseudo as pseudo_vendeur, vendeurs.nom as nom_vendeur, vendeurs.prenom as prenom_vendeur, articles.id_categorie, categories.libelle as libelle_categorie, articles.id_retrait, retraits.rue as rue_retrait, retraits.code_postal as code_postal_retrait, retraits.ville as ville_retrait, articles.id_acheteur, acheteurs.nom as nom_acheteur, acheteurs.prenom as prenom_acheteur from Articles\n " +
                 "    left join utilisateurs as vendeurs on vendeurs.id_utilisateur = articles.id_vendeur\n " +
                 " left join categories on categories.id_categorie = articles.id_categorie\n " +
                 "left join retraits on retraits.id_retrait = articles.id_retrait\n " +
@@ -185,7 +181,7 @@ JdbcTemplate jdbcTemplate;
 
     @Override
     public List<Article> readAllArticlesVenteTerminee() {
-        String sql = "select articles.id_article as id_article, articles.nom_article as nom_article, articles.description as description, articles.date_debut_encheres as date_debut_encheres, articles.date_fin_encheres as date_fin_encheres, articles.prix_initial as prix_initial, articles.prix_vente as prix_vente, articles.etat_vente as etat_vente, id_vendeur, vendeurs.pseudo as pseudo_vendeur, vendeurs.nom as nom_vendeur, vendeurs.prenom as prenom_vendeur, articles.id_categorie, categories.libelle as libelle_categorie, articles.id_retrait, retraits.rue as rue_retrait, retraits.code_postal as code_postal_retrait, retraits.ville as ville_retrait, articles.id_acheteur, acheteurs.nom as nom_acheteur, acheteurs.prenom as prenom_acheteur from Articles\n " +
+        String sql = "select articles.id_article as id_article, articles.nom_article as nom_article, articles.description as description, articles.date_debut_encheres as date_debut_encheres, articles.date_fin_encheres as date_fin_encheres, articles.prix_initial as prix_initial, articles.prix_vente as prix_vente, articles.etat_vente as etat_vente, articles.photo_article as photo_article, id_vendeur, vendeurs.pseudo as pseudo_vendeur, vendeurs.nom as nom_vendeur, vendeurs.prenom as prenom_vendeur, articles.id_categorie, categories.libelle as libelle_categorie, articles.id_retrait, retraits.rue as rue_retrait, retraits.code_postal as code_postal_retrait, retraits.ville as ville_retrait, articles.id_acheteur, acheteurs.nom as nom_acheteur, acheteurs.prenom as prenom_acheteur from Articles\n " +
                 "    left join utilisateurs as vendeurs on vendeurs.id_utilisateur = articles.id_vendeur\n " +
                 " left join categories on categories.id_categorie = articles.id_categorie\n " +
                 "left join retraits on retraits.id_retrait = articles.id_retrait\n " +
@@ -197,7 +193,7 @@ JdbcTemplate jdbcTemplate;
 
     @Override
     public List<Article> readAllArticlesEnVenteByUtilisateurEnCours(long id) {
-        String sql = "select articles.id_article as id_article, articles.nom_article as nom_article, articles.description as description, articles.date_debut_encheres as date_debut_encheres, articles.date_fin_encheres as date_fin_encheres, articles.prix_initial as prix_initial, articles.prix_vente as prix_vente, articles.etat_vente as etat_vente, id_vendeur, vendeurs.pseudo as pseudo_vendeur, vendeurs.nom as nom_vendeur, vendeurs.prenom as prenom_vendeur, articles.id_categorie, categories.libelle as libelle_categorie, articles.id_retrait, retraits.rue as rue_retrait, retraits.code_postal as code_postal_retrait, retraits.ville as ville_retrait, articles.id_acheteur, acheteurs.nom as nom_acheteur, acheteurs.prenom as prenom_acheteur from Articles\n " +
+        String sql = "select articles.id_article as id_article, articles.nom_article as nom_article, articles.description as description, articles.date_debut_encheres as date_debut_encheres, articles.date_fin_encheres as date_fin_encheres, articles.prix_initial as prix_initial, articles.prix_vente as prix_vente, articles.etat_vente as etat_vente, articles.photo_article as photo_article, id_vendeur, vendeurs.pseudo as pseudo_vendeur, vendeurs.nom as nom_vendeur, vendeurs.prenom as prenom_vendeur, articles.id_categorie, categories.libelle as libelle_categorie, articles.id_retrait, retraits.rue as rue_retrait, retraits.code_postal as code_postal_retrait, retraits.ville as ville_retrait, articles.id_acheteur, acheteurs.nom as nom_acheteur, acheteurs.prenom as prenom_acheteur from Articles\n " +
                 "    left join utilisateurs as vendeurs on vendeurs.id_utilisateur = articles.id_vendeur\n " +
                 " left join categories on categories.id_categorie = articles.id_categorie\n " +
                 "left join retraits on retraits.id_retrait = articles.id_retrait\n " +
@@ -213,7 +209,7 @@ JdbcTemplate jdbcTemplate;
 
     @Override
     public List<Article> readAllArticlesEnVenteByUtilisateurNonDebutees(long id) {
-        String sql = "select articles.id_article as id_article, articles.nom_article as nom_article, articles.description as description, articles.date_debut_encheres as date_debut_encheres, articles.date_fin_encheres as date_fin_encheres, articles.prix_initial as prix_initial, articles.prix_vente as prix_vente, articles.etat_vente as etat_vente, id_vendeur, vendeurs.pseudo as pseudo_vendeur, vendeurs.nom as nom_vendeur, vendeurs.prenom as prenom_vendeur, articles.id_categorie, categories.libelle as libelle_categorie, articles.id_retrait, retraits.rue as rue_retrait, retraits.code_postal as code_postal_retrait, retraits.ville as ville_retrait, articles.id_acheteur, acheteurs.nom as nom_acheteur, acheteurs.prenom as prenom_acheteur from Articles\n " +
+        String sql = "select articles.id_article as id_article, articles.nom_article as nom_article, articles.description as description, articles.date_debut_encheres as date_debut_encheres, articles.date_fin_encheres as date_fin_encheres, articles.prix_initial as prix_initial, articles.prix_vente as prix_vente, articles.etat_vente as etat_vente, articles.photo_article as photo_article, id_vendeur, vendeurs.pseudo as pseudo_vendeur, vendeurs.nom as nom_vendeur, vendeurs.prenom as prenom_vendeur, articles.id_categorie, categories.libelle as libelle_categorie, articles.id_retrait, retraits.rue as rue_retrait, retraits.code_postal as code_postal_retrait, retraits.ville as ville_retrait, articles.id_acheteur, acheteurs.nom as nom_acheteur, acheteurs.prenom as prenom_acheteur from Articles\n " +
                 "    left join utilisateurs as vendeurs on vendeurs.id_utilisateur = articles.id_vendeur\n " +
                 " left join categories on categories.id_categorie = articles.id_categorie\n " +
                 "left join retraits on retraits.id_retrait = articles.id_retrait\n " +
@@ -229,7 +225,7 @@ JdbcTemplate jdbcTemplate;
 
     @Override
     public List<Article> readAllArticlesEnVenteByUtilisateurTerminées(long id) {
-        String sql = "select articles.id_article as id_article, articles.nom_article as nom_article, articles.description as description, articles.date_debut_encheres as date_debut_encheres, articles.date_fin_encheres as date_fin_encheres, articles.prix_initial as prix_initial, articles.prix_vente as prix_vente, articles.etat_vente as etat_vente, id_vendeur, vendeurs.pseudo as pseudo_vendeur, vendeurs.nom as nom_vendeur, vendeurs.prenom as prenom_vendeur, articles.id_categorie, categories.libelle as libelle_categorie, articles.id_retrait, retraits.rue as rue_retrait, retraits.code_postal as code_postal_retrait, retraits.ville as ville_retrait, articles.id_acheteur, acheteurs.nom as nom_acheteur, acheteurs.prenom as prenom_acheteur from Articles\n " +
+        String sql = "select articles.id_article as id_article, articles.nom_article as nom_article, articles.description as description, articles.date_debut_encheres as date_debut_encheres, articles.date_fin_encheres as date_fin_encheres, articles.prix_initial as prix_initial, articles.prix_vente as prix_vente, articles.etat_vente as etat_vente, articles.photo_article as photo_article, id_vendeur, vendeurs.pseudo as pseudo_vendeur, vendeurs.nom as nom_vendeur, vendeurs.prenom as prenom_vendeur, articles.id_categorie, categories.libelle as libelle_categorie, articles.id_retrait, retraits.rue as rue_retrait, retraits.code_postal as code_postal_retrait, retraits.ville as ville_retrait, articles.id_acheteur, acheteurs.nom as nom_acheteur, acheteurs.prenom as prenom_acheteur from Articles\n " +
                 "    left join utilisateurs as vendeurs on vendeurs.id_utilisateur = articles.id_vendeur\n " +
                 " left join categories on categories.id_categorie = articles.id_categorie\n " +
                 "left join retraits on retraits.id_retrait = articles.id_retrait\n " +

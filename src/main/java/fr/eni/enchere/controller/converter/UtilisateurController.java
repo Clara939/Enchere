@@ -58,7 +58,8 @@ public class UtilisateurController {
         }
 
         utilisateurService.createUtilisateur(utilisateur);
-        return "redirect:/";
+
+        return "redirect:/login";
     }
 
 

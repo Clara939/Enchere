@@ -3,8 +3,7 @@ package fr.eni.enchere.controller.converter;
 
 import fr.eni.enchere.bo.*;
 import fr.eni.enchere.service.*;
-
-import jakarta.validation.Valid;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,6 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.time.LocalDate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -23,13 +25,15 @@ public class EnchereController {
     CategorieService categorieService;
     EnchereService enchereService;
     RetraitService retraitService;
+    PhotoService photoService;
 
-    public EnchereController(UtilisateurService utilisateurService, ArticleService articleService, RetraitService retraitService, EnchereService enchereService, CategorieService categorieService) {
+    public EnchereController(UtilisateurService utilisateurService, ArticleService articleService, CategorieService categorieService, EnchereService enchereService, RetraitService retraitService, PhotoService photoService) {
         this.utilisateurService = utilisateurService;
         this.articleService = articleService;
-        this.retraitService = retraitService;
-        this.enchereService = enchereService;
         this.categorieService = categorieService;
+        this.enchereService = enchereService;
+        this.retraitService = retraitService;
+        this.photoService = photoService;
     }
 
     @GetMapping("/encheres")
@@ -116,54 +120,31 @@ model.addAttribute("categorieList", categorieList);
 
 
 // page nouvelle vente validation de l'article créé et page modification de l'article
-// REMPLACEZ les 2 méthodes POST par 1 SEULE
 @PostMapping("/encheres/save")
-public String saveArticle(@RequestParam("categorieId") long categorieId, @Valid @ModelAttribute Article article, BindingResult result, Model model, RedirectAttributes redirectAttributes){
+public String saveArticle(@RequestParam("categorieId") long categorieId, @RequestParam(value = "photoArticle", required = false) MultipartFile photoArticle, HttpServletRequest request, Model model) {
 
-    if (result.hasErrors()) {
-        model.addAttribute("categorieList", categorieService.readAll());
-        model.addAttribute("article", article);
-
-        return "add_enchere";
-    }
-
-    // categorie
-    Categorie categorieChoisie = categorieService.readById(categorieId);
-    article.setCategorieArticle(categorieChoisie);
-    //vendeur
-    Utilisateur vendeurConnecte = utilisateurService.recuperationIdUtilisateurActif();
-    article.setVendeur(vendeurConnecte);
-    //retrait
-//    Retrait retrait = new Retrait();
-//    retrait.setRue(vendeurConnecte.getRue());
-//    retrait.setCode_postal(vendeurConnecte.getCode_postal());
-//    retrait.setVille(vendeurConnecte.getVille());
-//    retraitService.createRetrait(retrait);
-//    article.setLieuxRetrait(retrait);
-//    article.setAcheteur(null);
+    // Créer Article MANUELLEMENT (évite binding photoArticle)
+    Article article = new Article();
+    article.setNom_article(request.getParameter("nom_article"));
+    article.setDescription(request.getParameter("description"));
+    article.setPrix_initial(Integer.parseInt(request.getParameter("prix_initial")));
+    article.setDate_debut_encheres(LocalDate.parse(request.getParameter("date_debut_encheres")));
+    article.setDate_fin_encheres(LocalDate.parse(request.getParameter("date_fin_encheres")));
+    article.setEtat_vente("CREE");
 
     try {
-        if(article.getId_article() == 0L) {
-            articleService.create(article);  // CREATE
-
-            // CREEz un nouvel article vierge pour le formulaire
-            redirectAttributes.addFlashAttribute("successMessage", article.getNom_article() + " créé avec succès !");
-
-
-            return "redirect:/encheres/add";
-
-        } else {
-            articleService.update(article);  // UPDATE
-            redirectAttributes.addFlashAttribute("successMessage", article.getNom_article() + " mis à jour avec succès !");
-
-            return "redirect:/encheres/update?id=" + article.getId_article();
-        }
+//        appelle service
+        articleService.creerArticleComplet(article, categorieId, photoArticle);
+//        succes redirection
+        return "redirect:/encheres?success=cree";
 
     } catch (Exception e) {
+        System.err.println(" ERREUR SERVICE: " + e.getMessage());
         e.printStackTrace();
         model.addAttribute("categorieList", categorieService.readAll());
-        model.addAttribute("errorMessage", "Erreur lors de la sauvegarde de l'article : " + e.getMessage());
-
+        model.addAttribute("utilisateurConnecte", utilisateurService.recuperationIdUtilisateurActif());
+        model.addAttribute("article", article);
+        model.addAttribute("error", e.getMessage());
         return "add_enchere";
     }
 }
