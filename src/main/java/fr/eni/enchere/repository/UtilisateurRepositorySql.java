@@ -45,11 +45,7 @@ public class UtilisateurRepositorySql implements UtilisateurRepository{
         map.addValue("actif", utilisateur.isActif());
 
         //lors de l'inscription d'un nouvel utilisateur, il faut ajouter le protocole de cryptage au début du mot de passe créé par l'utilisateur
-        String mdpFinal = utilisateur.getMot_de_passe();
-        if (!mdpFinal.startsWith("{noop}")) {
-            mdpFinal = "{noop}" + mdpFinal;
-        }
-        map.addValue("mot_de_passe", mdpFinal);
+       map.addValue("mot_de_passe", utilisateur.getMot_de_passe());
 
         namedParameterJdbcTemplate.update(sql, map, keyHolder);
 
