@@ -31,6 +31,41 @@
       </tr>
     </tbody>
   </table>
+  <div id="detail_vente_conteneur">
+    <div>
+      <span class="detail_vente_label" >Article</span>
+      <span class="detail_vente_donnee" th:text="${article.getNom_article()}"></span>
+    </div>
+    <div>
+      <span class="detail_vente_label" >Description</span>
+      <span class="detail_vente_donnee" th:text="${article.getDescription()}"></span>
+    </div>
+    <div>
+      <span class="detail_vente_label" >Catégorie</span>
+      <span class="detail_vente_donnee" th:text="${article.getCategorieArticle().getId_categorie()}"></span>
+    </div>
+    <div>
+      <span class="detail_vente_label" >Meilleure offre</span>
+      <span class="detail_vente_donnee" th:text="${article.getPrix_vente()}"></span>
+    </div>
+    <div>
+      <span class="detail_vente_label" >Mise à prix</span>
+      <span class="detail_vente_donnee" th:text="${article.getPrix_initial()}"></span>
+    </div>
+    <div>
+      <span class="detail_vente_label" >Fin de l'enchère</span>
+      <span class="detail_vente_donnee" th:text="${article.getDate_fin_encheres()}"></span>
+    </div>
+    <div>
+      <span class="detail_vente_label" >Vendeur</span>
+      <span class="detail_vente_donnee" th:text="${article.getVendeur().getPseudo()}"></span>
+    </div>
+    <div>
+      <span class="detail_vente_label" >Ville de retrait</span>
+      <span class="detail_vente_donnee" th:text="${article.getLieuxRetrait().getVille()}"></span>
+    </div>
+  </div>
+
   <form th:action="@{/encheres/placer}"
         method="post"
         th:object="${article}">

@@ -58,7 +58,9 @@
             <div class="encheres_article_infos">
                 <div>
                     <p>Prix actuel :
-                        <strong><span th:text="${(article.getPrix_vente() != null and article.getPrix_vente() != article.getPrix_initial()) ? article.getPrix_vente() : article.getPrix_initial()}"></span><span> points</span></strong></p>
+                        <strong>
+                         <span th:text="${(article.getPrix_vente() != null) ?article.getPrix_vente() : article.getPrix_initial()}"></span>
+                        <span> points</span></strong></p>
                     <p>Fin de l'enchère :
                         <strong><span th:text="${article.getDate_fin_encheres()}"></span></strong></p>
                     <p>Vendeur :

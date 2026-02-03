@@ -52,7 +52,7 @@ public class ArticleServiceImpl implements ArticleService{
     public List<Article> readAllArticlesEnVente() {
         List<Article> articleListeEnVente = articleRepository.readAllArticlesEnVente();
         for (Article a : articleListeEnVente){
-            if (a.getPrix_vente() == null){
+            if (a.getPrix_vente() == 0){
                 a.setPrix_vente(a.getPrix_initial());
             }
         }
