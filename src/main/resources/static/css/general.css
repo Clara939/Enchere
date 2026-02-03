@@ -21,6 +21,7 @@ body{
     background-color: var(--couleur-fond-sombre);
     color: var(--couleur-blanc-secondaire);
     font-family: "Inter Semi Bold", Arial;
+    font-size: 1rem;
 }
 
 header{
@@ -127,7 +128,7 @@ nav ul{
     height: fit-content;
     text-decoration: none;
     font-weight: bold;
-    color: var(--couleur-blanc-secondaire);
+    color: var(--couleur-fond-sombre);
     outline: none;
     border: none;
     width: fit-content;
@@ -298,10 +299,13 @@ footer{
 
 .bloc_filtre{
     margin:15px auto;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
 #encheres_form_filtre label, #encheres_form_filtre input, #encheres_form_filtre select{
-    padding:15px;
+    padding:6px;
+    margin : 5px 0;
 }
 
 #encheres_form_filtre label{
@@ -312,21 +316,57 @@ footer{
     margin: auto;
 }
 
-/*#encheres_radio_achats:checked, #encheres_radio_ventes:checked{*/
-/*    appearance: none;*/
-/*    outline: none;*/
-/*    border-radius: 50%;*/
-/*    border : solid 5px var(--couleur-orange);*/
-/*    width: 3px;*/
-/*    transform: scale(0.3)*/
-/*}*/
+#encheres_input_recherche, #encheres_select_categories{
+    color:var(--couleur-blanc-secondaire);
+    background-color: var(--couleur-fond-sombre);
+    padding: 15px 15px;
+    border-radius: 25px;
+    border: 1px solid rgba(255,255,255,0.15);
+    font-weight: 500;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    flex: 1;
+    min-width: 50%;
+    text-align: left;
+}
+
+#encheres_radio_achats, #encheres_radio_ventes{
+    appearance: none;
+    outline: none;
+    border-radius: 50%;
+    border: solid 1px var(--couleur-fond-sombre);
+    background-color: var(--couleur-blanc-secondaire);
+}
+
+#encheres_radio_achats:checked, #encheres_radio_ventes:checked{
+    appearance: none;
+    outline: none;
+    border-radius: 50%;
+    border: solid 1px var(--couleur-fond-sombre);
+    background-color: var(--couleur-orange);
+}
 
 .encheres_checkbox{
-    margin: 15px 0 0 25px;
+    margin: 0 0 0 25px;
 }
 
 .encheres_checkbox label{
     font-size: 15px;
+}
+
+.encheres_checkbox input{
+    appearance: none;
+    border: solid black var(--couleur-fond-sombre);
+    background-color: var(--couleur-blanc-secondaire);
+    /*transform: scale(0.4);*/
+    aspect-ratio: 1;
+}
+
+.encheres_checkbox input:hover, .encheres_checkbox input:checked{
+    appearance: none;
+    border: solid 1px var(--couleur-fond-sombre);
+    background-color: var(--couleur-orange);
+    /*transform: scale(0.4);*/
+    aspect-ratio: 1;
 }
 
 .bloc_filtre:not(:has(input[type="radio"]:checked)) .encheres_checkbox {
