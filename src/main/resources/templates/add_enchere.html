@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <html lang="fr" th:replace="~{layout/layout :: frag_layout(content=~{::main})}">
 <main class="page-nouvelle-vente">
-    <h2 th:text="${article.id_article == 0 ? 'Nouvelle vente' : 'Modifier vente'}"></h2>
 
     <!-- Message contextuel concernant le succès------------------------------------------------------->
-    <div th:if="${successMessage}" class="success-notification">
+    <div th:if="${successMessage}" class="success-message orange">
+        <span class="icon">✔</span>
         <span th:text="${successMessage}"></span>
     </div>
+    <div th:if="${errorMessage}" class="success-message" style="background-color: #f44336;">
+        <span class="icon">✖</span>
+        <span th:text="${errorMessage}"></span>
+    </div>
+
+    <h2 th:text="${article.id_article == 0 ? 'Nouvelle vente' : 'Modifier vente'}"></h2>
 
     <div id="article_corp_principal">
         <form id="article_formulaire" th:action="@{/encheres/save}" method="post" enctype="multipart/form-data" th:object="${article}">
