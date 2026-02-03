@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import java.util.List;
 
 @Controller
@@ -52,6 +54,15 @@ model.addAttribute("categorieList", categorieList);
 // page nouvelle vente ( création de l'article a mettre en ventes)
     @GetMapping("/encheres/add")
     public String nouvelleVente(Model model){
+
+        if (model.containsAttribute("successMessage")) {
+            model.addAttribute("successMessage", model.asMap().get("successMessage"));
+        }
+
+        if (model.containsAttribute("errorMessage")) {
+            model.addAttribute("errorMessage", model.asMap().get("errorMessage"));
+        }
+
         //utilisateur connecté
         Utilisateur utilisateurConnecte = utilisateurService.recuperationIdUtilisateurActif();
         //nouvel article
@@ -80,6 +91,15 @@ model.addAttribute("categorieList", categorieList);
     //page modification de l'article
     @GetMapping("/encheres/update")
     public String modifierArticle(@RequestParam("id")long id_article, Model model){
+
+        if (model.containsAttribute("successMessage")) {
+            model.addAttribute("successMessage", model.asMap().get("successMessage"));
+        }
+
+        if (model.containsAttribute("errorMessage")) {
+            model.addAttribute("errorMessage", model.asMap().get("errorMessage"));
+        }
+
         //recupere l'article existant
         Article article = articleService.readById(id_article);
         //verifie l'etat= cree
@@ -98,11 +118,12 @@ model.addAttribute("categorieList", categorieList);
 // page nouvelle vente validation de l'article créé et page modification de l'article
 // REMPLACEZ les 2 méthodes POST par 1 SEULE
 @PostMapping("/encheres/save")
-public String saveArticle(@RequestParam("categorieId") long categorieId,@Valid @ModelAttribute Article article, BindingResult result,  Model model){
+public String saveArticle(@RequestParam("categorieId") long categorieId, @Valid @ModelAttribute Article article, BindingResult result, Model model, RedirectAttributes redirectAttributes){
 
     if (result.hasErrors()) {
         model.addAttribute("categorieList", categorieService.readAll());
         model.addAttribute("article", article);
+
         return "add_enchere";
     }
 
@@ -124,13 +145,25 @@ public String saveArticle(@RequestParam("categorieId") long categorieId,@Valid @
     try {
         if(article.getId_article() == 0L) {
             articleService.create(article);  // CREATE
+
+            // CREEz un nouvel article vierge pour le formulaire
+            redirectAttributes.addFlashAttribute("successMessage", article.getNom_article() + " créé avec succès !");
+
+
+            return "redirect:/encheres/add";
+
         } else {
             articleService.update(article);  // UPDATE
+            redirectAttributes.addFlashAttribute("successMessage", article.getNom_article() + " mis à jour avec succès !");
+
+            return "redirect:/encheres/update?id=" + article.getId_article();
         }
-        return "redirect:/encheres";
+
     } catch (Exception e) {
         e.printStackTrace();
         model.addAttribute("categorieList", categorieService.readAll());
+        model.addAttribute("errorMessage", "Erreur lors de la sauvegarde de l'article : " + e.getMessage());
+
         return "add_enchere";
     }
 }
