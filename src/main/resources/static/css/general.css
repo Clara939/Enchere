@@ -14,6 +14,10 @@ padding :0;
 }
 
 body{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
     background-color: var(--couleur-fond-sombre);
     color: var(--couleur-blanc-secondaire);
     font-family: "Inter Semi Bold", Arial;
@@ -208,9 +212,29 @@ h3{
     text-align: center;
 }
 
+main{
+    flex: 1;
+}
+
 footer{
-    margin : auto;
+    margin : 20px auto;
     text-align: center;
+    height: auto;
+    /*align-items: flex-end;*/
+    /*justify-content: flex-end;*/
+}
+
+/*index **********************************************************************************/
+#main_index{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#btn_index_vers_encheres{
+    text-align: center;
+    font-size: 30px;
+    margin: 200px auto;
 }
 
 /*enchere **********************************************************************************/
