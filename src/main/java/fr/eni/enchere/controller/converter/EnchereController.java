@@ -124,13 +124,40 @@ public String saveArticle(@RequestParam("categorieId") long categorieId,@Valid @
     try {
         if(article.getId_article() == 0L) {
             articleService.create(article);  // CREATE
+
+            // CREEz un nouvel article vierge pour le formulaire
+            Article newArticle = new Article();
+            newArticle.setId_article(0);
+
+            Retrait newRetrait = new Retrait();
+            newRetrait.setRue(vendeurConnecte.getRue());
+            newRetrait.setCode_postal(vendeurConnecte.getCode_postal());
+            newRetrait.setVille(vendeurConnecte.getVille());
+            newArticle.setLieuxRetrait(newRetrait);
+            newArticle.setVendeur(vendeurConnecte);
+
+            // Message de succès
+            model.addAttribute("successMessage", "Article créé avec succès !");
+            model.addAttribute("article", newArticle);
+            model.addAttribute("categorieList", categorieService.readAll());
+
+            return "add_enchere";
+
         } else {
             articleService.update(article);  // UPDATE
+
+            // CREEZ le message de succès
+            model.addAttribute("successMessage", "Article modifie avec succès !");
+            model.addAttribute("article", article);
+            model.addAttribute("categorieList", categorieService.readAll());
+
+            return "add_enchere";
         }
-        return "redirect:/encheres";
+
     } catch (Exception e) {
         e.printStackTrace();
         model.addAttribute("categorieList", categorieService.readAll());
+        model.addAttribute("errorMessage", "Erreur lors de la sauvegarde de l'article : " + e.getMessage());
         return "add_enchere";
     }
 }
