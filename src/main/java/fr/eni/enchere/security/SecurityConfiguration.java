@@ -83,9 +83,10 @@ public class SecurityConfiguration {
                     //donne à tous la permission sur la page d'accueil
                     .requestMatchers("/*").permitAll()
                     //donner acces au css
-                    .requestMatchers("/css/*").permitAll()
+                    .requestMatchers("/css/**").permitAll()
                     //donner acces au image
-                    .requestMatchers("/image/*").permitAll()
+                    .requestMatchers("/image/**").permitAll()
+                    .requestMatchers("/images/**").permitAll()
                     //tous ce qui n'est pas spécifié n'est pas accessible
                     .anyRequest().denyAll();
         });

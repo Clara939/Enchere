@@ -29,8 +29,13 @@
                 </li>
                 <li>
                     <label for="photoArticle">Photo de l'article</label>
-                    <!--                <input type="file" id="photoArticle" name="photoArticle" accept="image/*"/>-->
-                    <input class="input" id="photoArticle" type="file" name="ignorePhoto" /> <!-- Nom différent = ignoré -->
+                    <input class="input" id="photoArticle" type="file" name="photoArticle" accept="image/jpeg,image/png,image/gif,image/webp" />
+                    <small>JPG, PNG, GIF, WebP (Max 5Mo)</small>
+
+                    <div th:if="${article.photoArticle != null and article.photoArticle != '/image/encheres_marteau.jpg'}">
+                        <p>Photo actuelle :</p>
+                        <img th:src="${article.photoArticle}" style="max-width: 200px; max-height: 200px;" />
+                    </div>
 
                 </li>
                 <li>

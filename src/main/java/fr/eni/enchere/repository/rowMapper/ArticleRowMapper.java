@@ -23,7 +23,7 @@ public class ArticleRowMapper implements RowMapper<Article> {
         articleResult.setPrix_initial(rs.getInt("prix_initial"));
         articleResult.setPrix_vente(rs.getInt("prix_vente"));
         articleResult.setEtat_vente(rs.getString(("etat_vente")));
-
+        articleResult.setPhotoArticle(rs.getString("photo_article"));
 //        //gestion du prix de vente initialement null
 //        int prix_vente = rs.getInt("prix_vente");
 //        if(prix_vente == 0){
