@@ -32,9 +32,10 @@ public class Article {
     // pour la validation 1 jour minimum
     @AssertTrue(message = "Fin doit être au moins 1 jour après début")
     public boolean isFinAfterDebutPlusUnJour() {
-        return date_debut_encheres != null &&
-                date_fin_encheres != null &&
-                !date_fin_encheres.isBefore(date_debut_encheres);
+        if (date_debut_encheres == null || date_fin_encheres == null){
+            return true;
+        }
+        return date_fin_encheres.isAfter(date_debut_encheres.plusDays(1));
     }
     public Article() {}
 

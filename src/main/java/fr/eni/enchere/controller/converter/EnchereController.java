@@ -4,6 +4,7 @@ package fr.eni.enchere.controller.converter;
 import fr.eni.enchere.bo.*;
 import fr.eni.enchere.service.*;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -91,7 +92,7 @@ public class EnchereController {
     }
     // page nouvelle vente validation de l'article créé
     @PostMapping("/encheres/save")
-    public String saveArticle(@RequestParam("categorieId") long categorieId, @RequestParam(value = "photoArticle", required = false) MultipartFile photoArticle, HttpServletRequest request, RedirectAttributes redirectAttributes, Model model) {
+    public String saveArticle( @RequestParam("categorieId") long categorieId, @RequestParam(value = "photoArticle", required = false) MultipartFile photoArticle, HttpServletRequest request, RedirectAttributes redirectAttributes, Model model) {
 
         System.out.println(" POST save - categorieId=" + categorieId);
 
@@ -165,7 +166,7 @@ public class EnchereController {
         return "update_article";
     }
     @PostMapping("/encheres/update")
-    public String updateArticle(@RequestParam("categorieId") long categorieId, @RequestParam(value = "photoArticle", required = false) MultipartFile photoArticle, HttpServletRequest request, RedirectAttributes redirectAttributes, Model model){
+    public String updateArticle( @RequestParam("categorieId") long categorieId, @RequestParam(value = "photoArticle", required = false) MultipartFile photoArticle, HttpServletRequest request, RedirectAttributes redirectAttributes, Model model){
         System.out.println("POST update - categorieId=" + categorieId);
 
         try {
@@ -186,7 +187,6 @@ public class EnchereController {
 //            recuperer et mettre à jour les données du formulaire
             article.setNom_article(request.getParameter("nom_article"));
             article.setDescription(request.getParameter("description"));
-
             article.setPrix_initial(Integer.parseInt(request.getParameter("prix_initial")));
             article.setDate_debut_encheres(LocalDate.parse(request.getParameter("date_debut_encheres")));
             article.setDate_fin_encheres(LocalDate.parse(request.getParameter("date_fin_encheres")));

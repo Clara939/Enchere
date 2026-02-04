@@ -58,7 +58,7 @@
                 </li>
                 <li>
                     <label for="debutEnchere">Début de l'enchère</label>
-                    <input class="input" id="debutEnchere" type="date" th:field="*{date_debut_encheres}" required/>
+                    <input class="input" id="debutEnchere" type="date" th:field="*{date_debut_encheres}" required th:attr="min=${#temporals.day(#calendars.createNow())}"/>
                     <span th:if="${#fields.hasErrors('date_debut_encheres')}" th:errors="*{date_debut_encheres}" class="error"></span>
                 </li>
                 <li>
