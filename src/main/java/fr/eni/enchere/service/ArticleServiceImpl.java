@@ -100,15 +100,15 @@ public class ArticleServiceImpl implements ArticleService{
             return articleListeFiltre;
         }
         long idUtilisateurActif = utilisateurService.recuperationIdUtilisateurActif().getId_utilisateur();
+        idArticleListeEncheresOuvertes = new ArrayList<>();
         if ("achat".equals(radioSelectionnee)) {
 
             List<Long> idArticleListeEncheresEnCours = new ArrayList<>();
             List<Long> idArticleListeEncheresEmportees = new ArrayList<>();
             if (encheres_ouvertes) {
                 //Liste des articles actuellement en vente
+                idArticleListeEncheresOuvertes = articleRepository.readAllIdArticlesEnVente();
             }
-            idArticleListeEncheresOuvertes = articleRepository.readAllIdArticlesEnVente();
-
             if (mes_encheres_cours) {
                 //Liste des articles sur lesquels l'utilisateur a fait au moins une enchère
                 idArticleListeEncheresEnCours = enchereRepository.readAllForOneUtilisateurVenteEnCours(idUtilisateurActif);
@@ -196,47 +196,47 @@ public class ArticleServiceImpl implements ArticleService{
         update(article);
     }
 
-//    creation de l'article complet
+    //    creation de l'article complet
     @Override
     @Transactional
     public Article creerArticleComplet(Article article, Long categorieId, MultipartFile photoArticle) {
 
         try {
-        // 1. Vendeur connecté
-        Utilisateur vendeur = utilisateurService.recuperationIdUtilisateurActif();
-        article.setVendeur(vendeur);
+            // 1. Vendeur connecté
+            Utilisateur vendeur = utilisateurService.recuperationIdUtilisateurActif();
+            article.setVendeur(vendeur);
 
-        // 2. Catégorie
-        Categorie categorie = categorieService.readById(categorieId);
-        article.setCategorieArticle(categorie);
-        article.setAcheteur(null);
+            // 2. Catégorie
+            Categorie categorie = categorieService.readById(categorieId);
+            article.setCategorieArticle(categorie);
+            article.setAcheteur(null);
 
-        //  3. RETRAIT
-        Retrait retrait = new Retrait();
-        retrait.setRue(vendeur.getRue());
-        retrait.setCode_postal(vendeur.getCode_postal());
-        retrait.setVille(vendeur.getVille());
-        retraitService.createRetrait(retrait);  // ← GÉNÈRE id_retrait
-        article.setLieuxRetrait(retrait);
+            //  3. RETRAIT
+            Retrait retrait = new Retrait();
+            retrait.setRue(vendeur.getRue());
+            retrait.setCode_postal(vendeur.getCode_postal());
+            retrait.setVille(vendeur.getVille());
+            retraitService.createRetrait(retrait);  // ← GÉNÈRE id_retrait
+            article.setLieuxRetrait(retrait);
 
-        // 4.  Article (avec id_retrait valide)
-        this.create(article);
+            // 4.  Article (avec id_retrait valide)
+            this.create(article);
 
 
-        // 5. Photo avec ID réel
-        if (photoArticle != null && !photoArticle.isEmpty()) {
-            String urlPhoto = photoService.SaveArticlePhoto(photoArticle, article.getId_article());
-            article.setPhotoArticle(urlPhoto);
-            this.update(article);
+            // 5. Photo avec ID réel
+            if (photoArticle != null && !photoArticle.isEmpty()) {
+                String urlPhoto = photoService.SaveArticlePhoto(photoArticle, article.getId_article());
+                article.setPhotoArticle(urlPhoto);
+                this.update(article);
+            }
+
+            mettreAJourEtatVente(article);
+            return article;
         }
-
-        mettreAJourEtatVente(article);
-        return article;
-    }
-    catch (Exception e) {
-        System.err.println("ERREUR FATALE: " + e.getMessage());
-        e.printStackTrace();
-        throw e;
-    }
+        catch (Exception e) {
+            System.err.println("ERREUR FATALE: " + e.getMessage());
+            e.printStackTrace();
+            throw e;
+        }
     }
 }
