@@ -306,7 +306,7 @@ class EnchereApplicationTests {
                     "    rue            varchar(55) not null,\n " +
                     "    code_postal    varchar(10) not null,\n " +
                     "    ville          varchar(30) not null,\n " +
-                    "    mot_de_passe   varchar(30) not null,\n " +
+                    "    mot_de_passe   varchar(100) not null,\n " +
                     "    credit         int         not null,\n " +
                     "    administrateur bit         not null,\n " +
                     "    actif          bit         not null\n " +
@@ -323,7 +323,7 @@ class EnchereApplicationTests {
                     "    id_article          bigint identity\n " +
                     "        constraint articles_pk\n " +
                     "            primary key,\n " +
-                    "    nom_article         varchar(30)  not null,\n " +
+                    "    nom_article         varchar(100)  not null,\n " +
                     "    description         varchar(300) not null,\n " +
                     "    date_debut_encheres datetime     not null,\n " +
                     "    date_fin_encheres   datetime     not null,\n " +
