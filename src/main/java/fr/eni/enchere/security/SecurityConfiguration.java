@@ -63,10 +63,13 @@ public class SecurityConfiguration {
                     .requestMatchers(HttpMethod.POST, "/encheres/placer").hasRole("UTILISATEUR")
 
                     .requestMatchers(HttpMethod.GET, "/encheres/update").hasRole("UTILISATEUR")
+                    .requestMatchers(HttpMethod.POST, "/encheres/update").hasRole("UTILISATEUR")
                     .requestMatchers(HttpMethod.GET, "/encheres/delete").hasRole("UTILISATEUR")
                     .requestMatchers(HttpMethod.GET, "/encherir").hasRole("UTILISATEUR")
                     .requestMatchers(HttpMethod.GET, "/profil").hasRole("UTILISATEUR")
                     .requestMatchers(HttpMethod.GET, "/MonProfil").hasRole("UTILISATEUR")
+                    .requestMatchers(HttpMethod.GET, "/afficheProfilVendeurApresAchat").hasRole("UTILISATEUR")
+                    .requestMatchers(HttpMethod.GET, "/afficheProfilAcheteurApresAchat").hasRole("UTILISATEUR")
                     .requestMatchers(HttpMethod.GET, "/MonProfil/update").hasRole("UTILISATEUR")
                     .requestMatchers(HttpMethod.POST, "/MonProfil/update").hasRole("UTILISATEUR")
                     .requestMatchers(HttpMethod.GET, "/MonProfil/delete").hasRole("UTILISATEUR")

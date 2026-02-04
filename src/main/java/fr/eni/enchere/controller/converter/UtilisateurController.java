@@ -1,8 +1,10 @@
 package fr.eni.enchere.controller.converter;
 
+import fr.eni.enchere.bo.Article;
 import fr.eni.enchere.bo.Role;
 import fr.eni.enchere.bo.Utilisateur;
 import fr.eni.enchere.repository.RoleRepository;
+import fr.eni.enchere.service.ArticleService;
 import fr.eni.enchere.service.UtilisateurService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -28,12 +30,14 @@ import java.util.List;
 
 @Controller
 public class UtilisateurController {
+    private final ArticleService articleService;
     private UtilisateurService utilisateurService;
     private RoleRepository roleRepository;
 
-    public UtilisateurController(UtilisateurService utilisateurService, RoleRepository roleRepository) {
+    public UtilisateurController(UtilisateurService utilisateurService, RoleRepository roleRepository, ArticleService articleService) {
         this.utilisateurService = utilisateurService;
         this.roleRepository = roleRepository;
+        this.articleService = articleService;
     }
 
     //    page d'inscription le get et le post, le post renvoie sur la page d'accueil si inscription reussie et si annulation de l'inscription renvoie sur page accueil aussi.
@@ -161,6 +165,24 @@ Utilisateur utilisateurConnecte = utilisateurService.recuperationIdUtilisateurAc
         Utilisateur vendeur = utilisateurService.readById(id);
         model.addAttribute("utilisateur", vendeur);
         return "afficher_un_profil";
+    }
+
+    @GetMapping("/afficheProfilVendeurApresAchat")
+    public String afficherProfilVendeurApresAchat(@RequestParam("id_vendeur") long id_vendeur, @RequestParam("id_article") long id_article, Model model){
+        Utilisateur vendeur = utilisateurService.readById(id_vendeur);
+        Article article = articleService.readById(id_article);
+        model.addAttribute("utilisateur", vendeur);
+        model.addAttribute("article", article);
+        return "enchere_remporter_acheteur";
+    }
+
+    @GetMapping("/afficheProfilAcheteurApresAchat")
+    public String afficherProfilAcheteurApresAchat(@RequestParam("id_acheteur") long id_acheteur, @RequestParam("id_article") long id_article, Model model){
+        Utilisateur acheteur = utilisateurService.readById(id_acheteur);
+        Article article = articleService.readById(id_article);
+        model.addAttribute("utilisateur", acheteur);
+        model.addAttribute("article", article);
+        return "enchere_remporter_acheteur";
     }
 
     @GetMapping("/MonProfil/addCredit")

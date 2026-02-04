@@ -26,4 +26,6 @@ public interface ArticleService {
     public void mettreAJourEtatVente(Article article);
 
     Article creerArticleComplet(Article article, Long categorieId, MultipartFile photoArticle);
+
+    void modifierArticleComplet(Article article, long categorieId, MultipartFile photoArticle);
 }

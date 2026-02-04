@@ -306,7 +306,7 @@ class EnchereApplicationTests {
                     "    rue            varchar(55) not null,\n " +
                     "    code_postal    varchar(10) not null,\n " +
                     "    ville          varchar(30) not null,\n " +
-                    "    mot_de_passe   varchar(100) not null,\n " +
+                    "    mot_de_passe   varchar(255) not null,\n " +
                     "    credit         int         not null,\n " +
                     "    administrateur bit         not null,\n " +
                     "    actif          bit         not null\n " +

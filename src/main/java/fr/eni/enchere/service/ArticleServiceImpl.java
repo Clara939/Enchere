@@ -78,7 +78,7 @@ public class ArticleServiceImpl implements ArticleService{
         List<Article> articleListeFiltre = new ArrayList<>();
         List<Long> idArticleListeEncheresOuvertes = new ArrayList<>();
 
-        articleListeFiltreRecherche = articleRepository.readAllArticlesEnVenteFiltreSearch(search);
+            articleListeFiltreRecherche = articleRepository.readAllArticlesEnVenteFiltreSearch(search);
         if (!(id_categorie == 0)){ //si une categorie est choisie, on filtre la première liste
             articleListeFiltreRecherche = articleListeFiltreRecherche.stream()
                     .filter(a -> a.getCategorieArticle().getId_categorie() == id_categorie)
@@ -96,19 +96,24 @@ public class ArticleServiceImpl implements ArticleService{
             articleListeFiltre = idArticleRechercheListe.stream()
                     .map(l -> articleRepository.readById(l))
                     .collect(Collectors.toList());
+            for (Article a : articleListeFiltre){
+                if (a.getPrix_vente() == 0){
+                    a.setPrix_vente(a.getPrix_initial());
+                }
+            }
 
             return articleListeFiltre;
         }
         long idUtilisateurActif = utilisateurService.recuperationIdUtilisateurActif().getId_utilisateur();
+        idArticleListeEncheresOuvertes = new ArrayList<>();
         if ("achat".equals(radioSelectionnee)) {
 
             List<Long> idArticleListeEncheresEnCours = new ArrayList<>();
             List<Long> idArticleListeEncheresEmportees = new ArrayList<>();
-            if (encheres_ouvertes) {
+            if (encheres_ouvertes || (!encheres_ouvertes & !mes_encheres_cours & !mes_encheres_remportees)) {
                 //Liste des articles actuellement en vente
+                idArticleListeEncheresOuvertes = articleRepository.readAllIdArticlesEnVente();
             }
-            idArticleListeEncheresOuvertes = articleRepository.readAllIdArticlesEnVente();
-
             if (mes_encheres_cours) {
                 //Liste des articles sur lesquels l'utilisateur a fait au moins une enchère
                 idArticleListeEncheresEnCours = enchereRepository.readAllForOneUtilisateurVenteEnCours(idUtilisateurActif);
@@ -116,7 +121,6 @@ public class ArticleServiceImpl implements ArticleService{
             if (mes_encheres_remportees) {
                 //Liste des articles pour lesquels la meilleure anchère est faite par l'utilisateur
                 idArticleListeEncheresEmportees = articleRepository.readIdArticlesMeilleureOffreUtilisateur(idUtilisateurActif);
-
             }
             idArticleListeAchatTotale.addAll(idArticleListeEncheresOuvertes);
             idArticleListeAchatTotale.addAll(idArticleListeEncheresEnCours);
@@ -196,47 +200,98 @@ public class ArticleServiceImpl implements ArticleService{
         update(article);
     }
 
-//    creation de l'article complet
+    //    creation de l'article complet
     @Override
     @Transactional
     public Article creerArticleComplet(Article article, Long categorieId, MultipartFile photoArticle) {
 
         try {
-        // 1. Vendeur connecté
-        Utilisateur vendeur = utilisateurService.recuperationIdUtilisateurActif();
-        article.setVendeur(vendeur);
+            // 1. Vendeur connecté
+            Utilisateur vendeur = utilisateurService.recuperationIdUtilisateurActif();
+            article.setVendeur(vendeur);
 
-        // 2. Catégorie
-        Categorie categorie = categorieService.readById(categorieId);
-        article.setCategorieArticle(categorie);
-        article.setAcheteur(null);
+            // 2. Catégorie
+            Categorie categorie = categorieService.readById(categorieId);
+            article.setCategorieArticle(categorie);
+            article.setAcheteur(null);
 
-        //  3. RETRAIT
-        Retrait retrait = new Retrait();
-        retrait.setRue(vendeur.getRue());
-        retrait.setCode_postal(vendeur.getCode_postal());
-        retrait.setVille(vendeur.getVille());
-        retraitService.createRetrait(retrait);  // ← GÉNÈRE id_retrait
-        article.setLieuxRetrait(retrait);
+            //  3. RETRAIT
+            Retrait retrait = new Retrait();
+            retrait.setRue(vendeur.getRue());
+            retrait.setCode_postal(vendeur.getCode_postal());
+            retrait.setVille(vendeur.getVille());
+            retraitService.createRetrait(retrait);  // ← GÉNÈRE id_retrait
+            article.setLieuxRetrait(retrait);
 
-        // 4.  Article (avec id_retrait valide)
-        this.create(article);
+            // 4.  Article (avec id_retrait valide)
+            this.create(article);
 
 
-        // 5. Photo avec ID réel
-        if (photoArticle != null && !photoArticle.isEmpty()) {
-            String urlPhoto = photoService.SaveArticlePhoto(photoArticle, article.getId_article());
-            article.setPhotoArticle(urlPhoto);
-            this.update(article);
+            // 5. Photo avec ID réel
+            if (photoArticle != null && !photoArticle.isEmpty()) {
+                String urlPhoto = photoService.SaveArticlePhoto(photoArticle, article.getId_article());
+                article.setPhotoArticle(urlPhoto);
+                this.update(article);
+            }
+
+            mettreAJourEtatVente(article);
+            return article;
+        }
+        catch (Exception e) {
+            System.err.println("ERREUR FATALE: " + e.getMessage());
+            e.printStackTrace();
+            throw e;
+        }
+    }
+        @Transactional
+        public void modifierArticleComplet(Article article, long categorieId, MultipartFile photoArticle) {
+            try {
+                // 1. Vendeur (ne change pas)
+                Utilisateur vendeur = article.getVendeur();
+
+                // 2. Catégorie mise à jour
+                Categorie categorie = categorieService.readById(categorieId);
+                article.setCategorieArticle(categorie);
+
+                // 3. RETRAIT - Mettre à jour l'existant ou créer si null
+                Retrait retrait = article.getLieuxRetrait();
+                if (retrait == null) {
+                    retrait = new Retrait();
+                    article.setLieuxRetrait(retrait);
+                }
+                retraitService.updateRetrait(retrait); // Met à jour l'existant ou crée
+
+                // 4. Mise à jour de l'article principal
+                this.update(article);
+
+                // 5. Photo - Supprimer l'ancienne si nouvelle photo fournie
+                if (photoArticle != null && !photoArticle.isEmpty()) {
+                    // Supprimer l'ancienne photo si elle existe
+                    if (article.getPhotoArticle() != null &&
+                            !article.getPhotoArticle().equals("/image/encheres_marteau.jpg")) {
+                        photoService.deleteArticlePhoto(article.getPhotoArticle());
+                    }
+
+                    // Sauvegarder la nouvelle photo
+                    String nouvelleUrlPhoto = photoService.SaveArticlePhoto(photoArticle, article.getId_article());
+                    article.setPhotoArticle(nouvelleUrlPhoto);
+                    this.update(article);
+                }
+
+                // 6. Mettre à jour l'état de vente
+                mettreAJourEtatVente(article);
+
+                System.out.println("✓ Article modifié: " + article.getNom_article());
+
+            } catch (Exception e) {
+                System.err.println("ERREUR MODIFICATION ARTICLE: " + e.getMessage());
+                e.printStackTrace();
+                throw new RuntimeException("Erreur lors de la modification complète de l'article", e);
+            }
         }
 
-        mettreAJourEtatVente(article);
-        return article;
     }
-    catch (Exception e) {
-        System.err.println("ERREUR FATALE: " + e.getMessage());
-        e.printStackTrace();
-        throw e;
-    }
-    }
-}
+
+
+
+

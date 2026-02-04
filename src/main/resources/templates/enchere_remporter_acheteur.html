@@ -5,7 +5,7 @@
   <div class="enchere_remporter_acheteur_corp">
     <div class="remporter_item">
       <span class="acheteur-label">Article</span>
-      <span class="acheteur-value" th:text="${article.nom_article}"></span>
+      <span class="acheteur-value" th:text="${article.getNom_article()}"></span>
     </div>
     <div class="remporter_item">
       <span class="acheteur-label">Description</span>
@@ -21,15 +21,23 @@
     </div>
     <div class="remporter_item">
       <span class="acheteur-label">Retrait</span>
-      <span class="acheteur-value" th:text="${article.lieuxRetrait}"></span>
+      <span class="acheteur-value" th:text="${article.getLieuxRetrait().getRue()}"></span>
+    </div>
+    <div class="remporter_item">
+      <span class="acheteur-label">Retrait</span>
+      <span class="acheteur-value" th:text="${article.getLieuxRetrait().getCode_postal()}"></span>
+    </div>
+    <div class="remporter_item">
+      <span class="acheteur-label">Retrait</span>
+      <span class="acheteur-value" th:text="${article.getLieuxRetrait().getVille()}"></span>
     </div>
     <div class="remporter_item">
       <span class="acheteur-label">Vendeur</span>
-      <span class="acheteur-value" th:text="${article.vendeur.pseudo}"></span>
+      <span class="acheteur-value" th:text="${utilisateur.getPseudo()}"></span>
     </div>
     <div class="remporter_item">
       <span class="acheteur-label">Tel</span>
-      <span class="acheteur-value" th:text="${article.vendeur.telephone}"></span>
+      <span class="acheteur-value" th:text="${utilisateur.getTelephone()}"></span>
     </div>
   </div>
 </main>
