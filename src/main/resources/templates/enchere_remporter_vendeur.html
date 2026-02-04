@@ -25,11 +25,11 @@
         </div>
         <div class="remporter_item">
             <span class="vendeur_label">Acheteur</span>
-            <span class="vendeur-value" th:text="${article.acheteur.pseudo}"></span>
+            <span class="vendeur-value" th:text="${utilisateur.getPseudo()}"></span>
         </div>
         <div class="remporter_item">
             <span class="vendeur-label">Tel de l'acheteur</span>
-            <span class="vendeur-value" th:text="${article.acheteur.telephone}"></span>
+            <span class="vendeur-value" th:text="${utilisateur.getTelephone()}"></span>
         </div>
     </div>
 </main>

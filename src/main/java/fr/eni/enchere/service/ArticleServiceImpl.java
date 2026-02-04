@@ -78,7 +78,7 @@ public class ArticleServiceImpl implements ArticleService{
         List<Article> articleListeFiltre = new ArrayList<>();
         List<Long> idArticleListeEncheresOuvertes = new ArrayList<>();
 
-        articleListeFiltreRecherche = articleRepository.readAllArticlesEnVenteFiltreSearch(search);
+            articleListeFiltreRecherche = articleRepository.readAllArticlesEnVenteFiltreSearch(search);
         if (!(id_categorie == 0)){ //si une categorie est choisie, on filtre la première liste
             articleListeFiltreRecherche = articleListeFiltreRecherche.stream()
                     .filter(a -> a.getCategorieArticle().getId_categorie() == id_categorie)
