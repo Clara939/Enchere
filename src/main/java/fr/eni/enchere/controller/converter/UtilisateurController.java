@@ -102,8 +102,10 @@ Utilisateur utilisateurConnecte = utilisateurService.recuperationIdUtilisateurAc
 
 //    boutton de mise a jour du profil
     @PostMapping("/MonProfil/update")
-    public String profilUpdate(@ModelAttribute("utilisateur") Utilisateur utilisateur){
+    public String profilUpdate(@ModelAttribute("utilisateur") Utilisateur utilisateur, RedirectAttributes redirectAttributes){
+
         utilisateurService.updateUtilisateur(utilisateur);
+        redirectAttributes.addFlashAttribute("successMessage", "Profil mis à jour avec succès !");
         return "redirect:/MonProfil";
     }
 
