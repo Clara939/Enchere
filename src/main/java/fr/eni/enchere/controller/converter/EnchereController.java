@@ -120,34 +120,56 @@ model.addAttribute("categorieList", categorieList);
 
 
 // page nouvelle vente validation de l'article créé et page modification de l'article
-@PostMapping("/encheres/save")
-public String saveArticle(@RequestParam("categorieId") long categorieId, @RequestParam(value = "photoArticle", required = false) MultipartFile photoArticle, HttpServletRequest request, Model model) {
+    @PostMapping("/encheres/save")
+    public String saveArticle(@RequestParam("categorieId") long categorieId, @RequestParam(value = "photoArticle", required = false) MultipartFile photoArticle, HttpServletRequest request, RedirectAttributes redirectAttributes, Model model) {
 
-    // Créer Article MANUELLEMENT (évite binding photoArticle)
-    Article article = new Article();
-    article.setNom_article(request.getParameter("nom_article"));
-    article.setDescription(request.getParameter("description"));
-    article.setPrix_initial(Integer.parseInt(request.getParameter("prix_initial")));
-    article.setDate_debut_encheres(LocalDate.parse(request.getParameter("date_debut_encheres")));
-    article.setDate_fin_encheres(LocalDate.parse(request.getParameter("date_fin_encheres")));
-    article.setEtat_vente("CREE");
+        System.out.println("📋 POST save - categorieId=" + categorieId);
 
-    try {
-//        appelle service
-        articleService.creerArticleComplet(article, categorieId, photoArticle);
-//        succes redirection
-        return "redirect:/encheres?success=cree";
+        try {
+            // Créer Article MANUELLEMENT
+            Article article = new Article();
+            article.setNom_article(request.getParameter("nom_article"));
+            article.setDescription(request.getParameter("description"));
+            article.setPrix_initial(Integer.parseInt(request.getParameter("prix_initial")));
+            article.setDate_debut_encheres(LocalDate.parse(request.getParameter("date_debut_encheres")));
+            article.setDate_fin_encheres(LocalDate.parse(request.getParameter("date_fin_encheres")));
+            article.setEtat_vente("CREE");
 
-    } catch (Exception e) {
-        System.err.println(" ERREUR SERVICE: " + e.getMessage());
-        e.printStackTrace();
-        model.addAttribute("categorieList", categorieService.readAll());
-        model.addAttribute("utilisateurConnecte", utilisateurService.recuperationIdUtilisateurActif());
-        model.addAttribute("article", article);
-        model.addAttribute("error", e.getMessage());
-        return "add_enchere";
+            //  RETRAIT depuis formulaire
+            Retrait retrait = new Retrait();
+            retrait.setRue(request.getParameter("lieuxRetrait.rue"));
+            retrait.setCode_postal(request.getParameter("lieuxRetrait.code_postal"));
+            retrait.setVille(request.getParameter("lieuxRetrait.ville"));
+            retrait.setId_retrait(0L);
+            article.setLieuxRetrait(retrait);
+
+            // VENDEUR connecté
+            Utilisateur vendeur = utilisateurService.recuperationIdUtilisateurActif();
+            article.setVendeur(vendeur);
+
+            System.out.println("➕ CRÉATION: " + article.getNom_article() + " à " + retrait.getRue());
+
+            // Service
+            articleService.creerArticleComplet(article, categorieId, photoArticle);
+
+            // SUCCÈS avec flash message
+            redirectAttributes.addFlashAttribute("successMessage", "Article créé avec succès !");
+            return "redirect:/encheres";
+
+        } catch (Exception e) {
+            System.err.println(" ERREUR SAVE: " + e.getMessage());
+            e.printStackTrace();
+
+            // Erreur → Retour formulaire + article + messages
+            Article article = new Article();
+            model.addAttribute("article", article);
+            model.addAttribute("categorieList", categorieService.readAll());
+            model.addAttribute("utilisateurConnecte", utilisateurService.recuperationIdUtilisateurActif());
+            redirectAttributes.addFlashAttribute("errorMessage", "Erreur création: " + e.getMessage());
+            return "redirect:/encheres/add";
+        }
     }
-}
+
 
     @PostMapping("/encheres/filtres")
     public String filtrerArticles(Model model, @RequestParam(value = "search", defaultValue = "") String search,
