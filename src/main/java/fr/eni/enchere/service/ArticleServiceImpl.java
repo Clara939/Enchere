@@ -179,7 +179,7 @@ public class ArticleServiceImpl implements ArticleService{
 
 //        EN_VENTE
         else if (aujourdhui.isAfter(debut) || aujourdhui.equals(debut)) {
-            if (aujourdhui.isBefore(fin) || aujourdhui.isEqual(fin)){
+            if (aujourdhui.isBefore(fin)){
                 article.setEtat_vente("EN_VENTE");
             }
         }
@@ -189,7 +189,7 @@ public class ArticleServiceImpl implements ArticleService{
             if (article.getPrix_vente() == null || article.getPrix_vente() == 0){
                 article.setEtat_vente("NON_VENDU");
             }
-            else {
+            else if (aujourdhui.isEqual(fin) || (aujourdhui.isAfter(fin))){
                 article.setEtat_vente("VENDU");
             }
         }
