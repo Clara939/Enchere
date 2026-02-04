@@ -62,12 +62,12 @@
                 </li>
                 <li>
                     <label for="debutEnchere">Début de l'enchère</label>
-                    <input class="input" id="debutEnchere" type="date" th:field="*{date_debut_encheres}" required th:attr="min=${#temporals.day(#calendars.createNow())}"/>
+                    <input class="input" id="debutEnchere" type="date" th:field="*{date_debut_encheres}" required th:min="${T(java.time.LocalDate).now().toString()}"/>
                     <span th:if="${#fields.hasErrors('date_debut_encheres')}" th:errors="*{date_debut_encheres}" class="error"></span>
                 </li>
                 <li>
                     <label for="finEnchere">Fin de l'enchère</label>
-                    <input class="input" id="finEnchere" type="date" th:field="*{date_fin_encheres}" required/>
+                    <input class="input" id="finEnchere" type="date" th:field="*{date_fin_encheres}" required th:min="${T(java.time.LocalDate).now().plusDays(1).toString()}"/>
                     <span th:if="${#fields.hasErrors('date_fin_encheres')}" th:errors="*{date_fin_encheres}" class="error"></span>
                 </li>
                 <li class="retrait_adresse">
