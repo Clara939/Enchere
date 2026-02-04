@@ -359,7 +359,7 @@ footer{
 
 .encheres_checkbox input{
     appearance: none;
-    border: solid black var(--couleur-fond-sombre);
+    border: solid 1px var(--couleur-fond-sombre);
     background-color: var(--couleur-blanc-secondaire);
     /*transform: scale(0.4);*/
     aspect-ratio: 1;
