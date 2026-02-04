@@ -239,4 +239,55 @@ public class ArticleServiceImpl implements ArticleService{
         throw e;
     }
     }
-}
+        @Transactional
+        public void modifierArticleComplet(Article article, long categorieId, MultipartFile photoArticle) {
+            try {
+                // 1. Vendeur (ne change pas)
+                Utilisateur vendeur = article.getVendeur();
+
+                // 2. Catégorie mise à jour
+                Categorie categorie = categorieService.readById(categorieId);
+                article.setCategorieArticle(categorie);
+
+                // 3. RETRAIT - Mettre à jour l'existant ou créer si null
+                Retrait retrait = article.getLieuxRetrait();
+                if (retrait == null) {
+                    retrait = new Retrait();
+                    article.setLieuxRetrait(retrait);
+                }
+                retraitService.updateRetrait(retrait); // Met à jour l'existant ou crée
+
+                // 4. Mise à jour de l'article principal
+                this.update(article);
+
+                // 5. Photo - Supprimer l'ancienne si nouvelle photo fournie
+                if (photoArticle != null && !photoArticle.isEmpty()) {
+                    // Supprimer l'ancienne photo si elle existe
+                    if (article.getPhotoArticle() != null &&
+                            !article.getPhotoArticle().equals("/image/encheres_marteau.jpg")) {
+                        photoService.deleteArticlePhoto(article.getPhotoArticle());
+                    }
+
+                    // Sauvegarder la nouvelle photo
+                    String nouvelleUrlPhoto = photoService.SaveArticlePhoto(photoArticle, article.getId_article());
+                    article.setPhotoArticle(nouvelleUrlPhoto);
+                    this.update(article);
+                }
+
+                // 6. Mettre à jour l'état de vente
+                mettreAJourEtatVente(article);
+
+                System.out.println("✓ Article modifié: " + article.getNom_article());
+
+            } catch (Exception e) {
+                System.err.println("ERREUR MODIFICATION ARTICLE: " + e.getMessage());
+                e.printStackTrace();
+                throw new RuntimeException("Erreur lors de la modification complète de l'article", e);
+            }
+        }
+
+    }
+
+
+
+

@@ -43,5 +43,28 @@ public class PhotoService {
     private String sanitizeFileName(String originalName) {
         return originalName != null ? originalName.replaceAll("[^a-zA-Z0-9._-]", "_") : "image.jpg";
     }
+
+//    fonction pour supprimer la photo
+    public void deleteArticlePhoto(String urlPhoto) {
+        // image par deffaut si photo enlever
+        if (urlPhoto == null || urlPhoto.equals("/images/encheres_marteau.jpg")) {
+            return;
+        }
+
+        try {
+            // Extraire le nom du fichier depuis l'URL
+            String fileName = urlPhoto.substring(urlPhoto.lastIndexOf("/") + 1);
+            Path uploadPath = Paths.get(UPLOAD_DIR).toAbsolutePath();
+            Path filePath = uploadPath.resolve(fileName);
+
+            if (Files.exists(filePath)) {
+                Files.delete(filePath);
+                System.out.println(" Photo supprimée: " + fileName);
+            }
+        } catch (Exception e) {
+            System.err.println(" Erreur suppression photo " + urlPhoto + ": " + e.getMessage());
+        }
+    }
+
 }
 

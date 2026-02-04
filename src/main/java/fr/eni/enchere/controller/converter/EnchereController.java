@@ -6,9 +6,7 @@ import fr.eni.enchere.service.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -91,39 +89,11 @@ model.addAttribute("categorieList", categorieList);
 
         return "add_enchere";
     }
-
-    //page modification de l'article
-    @GetMapping("/encheres/update")
-    public String modifierArticle(@RequestParam("id")long id_article, Model model){
-
-        if (model.containsAttribute("successMessage")) {
-            model.addAttribute("successMessage", model.asMap().get("successMessage"));
-        }
-
-        if (model.containsAttribute("errorMessage")) {
-            model.addAttribute("errorMessage", model.asMap().get("errorMessage"));
-        }
-
-        //recupere l'article existant
-        Article article = articleService.readById(id_article);
-        //verifie l'etat= cree
-        if(!"CREE".equalsIgnoreCase(article.getEtat_vente())){
-            return "redirect:/encheres";
-        }
-        //pré-remplis le formulaire
-        model.addAttribute("article", article);
-        model.addAttribute("categorieList", categorieService.readAll());
-        model.addAttribute("utilisateurConnecte", utilisateurService.recuperationIdUtilisateurActif());
-
-        return "add_enchere";
-    }
-
-
-// page nouvelle vente validation de l'article créé et page modification de l'article
+    // page nouvelle vente validation de l'article créé
     @PostMapping("/encheres/save")
     public String saveArticle(@RequestParam("categorieId") long categorieId, @RequestParam(value = "photoArticle", required = false) MultipartFile photoArticle, HttpServletRequest request, RedirectAttributes redirectAttributes, Model model) {
 
-        System.out.println("📋 POST save - categorieId=" + categorieId);
+        System.out.println(" POST save - categorieId=" + categorieId);
 
         try {
             // Créer Article MANUELLEMENT
@@ -147,7 +117,7 @@ model.addAttribute("categorieList", categorieList);
             Utilisateur vendeur = utilisateurService.recuperationIdUtilisateurActif();
             article.setVendeur(vendeur);
 
-            System.out.println("➕ CRÉATION: " + article.getNom_article() + " à " + retrait.getRue());
+            System.out.println(" CRÉATION: " + article.getNom_article() + " à " + retrait.getRue());
 
             // Service
             articleService.creerArticleComplet(article, categorieId, photoArticle);
@@ -169,6 +139,88 @@ model.addAttribute("categorieList", categorieList);
             return "redirect:/encheres/add";
         }
     }
+    //page modification de l'article
+    @GetMapping("/encheres/update")
+    public String modifierArticle(@RequestParam("id")long id_article, Model model){
+
+        if (model.containsAttribute("successMessage")) {
+            model.addAttribute("successMessage", model.asMap().get("successMessage"));
+        }
+
+        if (model.containsAttribute("errorMessage")) {
+            model.addAttribute("errorMessage", model.asMap().get("errorMessage"));
+        }
+
+        //recupere l'article existant
+        Article article = articleService.readById(id_article);
+        //verifie l'etat= cree
+        if(!"CREE".equalsIgnoreCase(article.getEtat_vente())){
+            return "redirect:/encheres";
+        }
+        //pré-remplis le formulaire
+        model.addAttribute("article", article);
+        model.addAttribute("categorieList", categorieService.readAll());
+        model.addAttribute("utilisateurConnecte", utilisateurService.recuperationIdUtilisateurActif());
+
+        return "update_article";
+    }
+    @PostMapping("/encheres/update")
+    public String updateArticle(@RequestParam("categorieId") long categorieId, @RequestParam(value = "photoArticle", required = false) MultipartFile photoArticle, HttpServletRequest request, RedirectAttributes redirectAttributes, Model model){
+        System.out.println("POST update - categorieId=" + categorieId);
+
+        try {
+//            recuperer article existant par son id
+            long idArticle = Long.parseLong(request.getParameter("id_article"));
+//            verifier que l'article existe et est modifiable (etat "CREE")
+            Article article = articleService.readById(idArticle);
+            if (article == null || !"CREE".equalsIgnoreCase(article.getEtat_vente())){
+                redirectAttributes.addFlashAttribute("errorMessage", "Article introuvable ou non modifiable.");
+                return "redirect:/encheres";
+            }
+//            verifier que c'est bien le proprietaire
+            Utilisateur vendeurConnecte = utilisateurService.recuperationIdUtilisateurActif();
+            if (article.getVendeur().getId_utilisateur() != vendeurConnecte.getId_utilisateur()){
+                redirectAttributes.addFlashAttribute("errorMessage", "Non autorisé à modifier cet article.");
+                return "redirect:/encheres";
+            }
+//            recuperer et mettre à jour les données du formulaire
+            article.setNom_article(request.getParameter("nom_article"));
+            article.setDescription(request.getParameter("description"));
+
+            article.setPrix_initial(Integer.parseInt(request.getParameter("prix_initial")));
+            article.setDate_debut_encheres(LocalDate.parse(request.getParameter("date_debut_encheres")));
+            article.setDate_fin_encheres(LocalDate.parse(request.getParameter("date_fin_encheres")));
+
+//            mise à jour du retrait
+            Retrait retrait = article.getLieuxRetrait();
+            if (retrait == null){
+                retrait = new Retrait();
+                article.setLieuxRetrait(retrait);
+            }
+            retrait.setRue(request.getParameter("lieuxRetrait.rue"));
+            retrait.setCode_postal(request.getParameter("lieuxRetrait.code_postal"));
+            retrait.setVille(request.getParameter("lieuxRetrait.ville"));
+
+            System.out.println("MODIFICATION: " + article.getNom_article() + " à " + retrait.getRue());
+
+//            mise à jour via le service
+            articleService.modifierArticleComplet(article, categorieId, photoArticle);
+
+//            succes avec flash message
+            redirectAttributes.addFlashAttribute("successMessage", "Article modifié avec succès !");
+            return "redirect:/encheres";
+        }
+        catch (Exception e) {
+            System.err.println("ERREUR UPDATE: " + e.getMessage());
+            e.printStackTrace();
+
+            // En cas d'erreur : retour au formulaire de modification avec données pré-remplies
+            redirectAttributes.addFlashAttribute("errorMessage", "Erreur modification: " + e.getMessage());
+            return "redirect:/encheres/update?id=" + request.getParameter("id_article");
+        }
+    }
+
+
 
 
     @PostMapping("/encheres/filtres")
