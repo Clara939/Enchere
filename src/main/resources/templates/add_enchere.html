@@ -3,12 +3,12 @@
 <main class="page-nouvelle-vente">
 
     <!-- Message contextuel concernant le succès------------------------------------------------------->
-    <div th:if="${successMessage}" class="success-message orange">
-        <span class="icon">✔</span>
+    <div th:if="${successMessage}" class="success-message orange" style="background-color: var(--couleur-vert-vif);">
+        <span class="icon"></span>
         <span th:text="${successMessage}"></span>
     </div>
     <div th:if="${errorMessage}" class="success-message" style="background-color: #f44336;">
-        <span class="icon">✖</span>
+        <span class="icon"></span>
         <span th:text="${errorMessage}"></span>
     </div>
 
