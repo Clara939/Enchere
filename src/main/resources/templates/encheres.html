@@ -53,7 +53,18 @@
         <!--        <section id="encheres_section_liste_encheres">-->
         <div th:each="article : ${articleList}" class="encheres_article_vente">
             <h3 th:text="${article.getNom_article()}"></h3>
-            <img id="encheres_photo_article" th:src="${article.getPhotoArticle()}" alt="photo de l'article">
+            <div th:if="${article.photoArticle} and ${article.photoArticle != '/images/marteau.jpg'}">
+                <img id="encheres_photo_article"
+                     th:src="@{${article.photoArticle}}"
+                     alt="photo de l'article">
+                <p>Photo de l'article</p>
+            </div>
+            <div th:unless="${article.photoArticle} and ${article.photoArticle != '/images/marteau.jpg'}">
+                <img id="encheres_photo_article"
+                     src="/images/marteau.jpg"
+                     alt="Pas de photo">
+                <p>Photo de l'article</p>
+            </div>
             <div class="encheres_article_infos">
                 <div>
                     <p>Prix actuel :

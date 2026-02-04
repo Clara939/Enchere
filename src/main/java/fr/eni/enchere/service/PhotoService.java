@@ -11,12 +11,12 @@ import java.nio.file.Paths;
 @Service
 public class PhotoService {
     //  chemin de sauvegarde
-    private final String UPLOAD_DIR = "target/classes/static/images/articles/";
+    private final String UPLOAD_DIR = "src/main/resources/static/images/articles/";
 
     public String SaveArticlePhoto(MultipartFile photo, long articleId){
 //        si photo est vide ou null on mais l'image marteau par defaut
         if (photo == null || photo.isEmpty()) {
-            return "/image/encheres_marteau.jpg";
+            return "/images/encheres_marteau.jpg";
         }
 
         try {
@@ -36,7 +36,7 @@ public class PhotoService {
         catch (Exception e) {
             System.err.println("ERREUR PhotoService: " + e.getMessage());
             e.printStackTrace();
-            return "/image/encheres_marteau.jpg";
+            return "/images/encheres_marteau.jpg";
         }
     }
 //    securite sur le nom pour eviter les injection
