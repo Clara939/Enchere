@@ -584,7 +584,7 @@ main.page-nouvelle-vente .error {
     background-color: var(--couleur-orange);
 }
 
-@keyframes fadeInOut  {
+@keyframes fadeInOut {
     0% {opacity: 0; transform: translateY(-20px);}
     15% {opacity: 1; transform: translateY(0);}
     85% {opacity: 1; transform: translateY(0);}
@@ -594,6 +594,7 @@ main.page-nouvelle-vente .error {
 .success-message.icon {
     margin-right: 10px;
     font-size: 1.2rem;
+    font-weight: bold;
 }
 
 /*page profil *****************************************************************************************/
@@ -1182,7 +1183,7 @@ align-items: center;
     color: var(--couleur-fond-sombre);
     font-size: 20px;
     box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-    height: fit-content();
+    height: fit-content;
 }
 
 #btn_detail_vente_formulaire{

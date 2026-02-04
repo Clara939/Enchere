@@ -92,7 +92,7 @@ public class VenteController {
             redirectAttributes.addFlashAttribute("success", "Enchere placee avec succes");
             return "redirect:/encherir?id=" + idArticle;
 
-            // il faut changer tout les execptions
+            // il faut changer tout les execptions rest "To DO"
         } catch (Exception e) {
             Article article = articleService.readById(idArticle);
 

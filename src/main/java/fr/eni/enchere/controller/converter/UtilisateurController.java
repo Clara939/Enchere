@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import java.util.UUID;
 
 
@@ -162,15 +164,30 @@ Utilisateur utilisateurConnecte = utilisateurService.recuperationIdUtilisateurAc
     }
 
     @GetMapping("/MonProfil/addCredit")
-    public String ajouterDesCredits(){
+    public String ajouterDesCredits(Model model){
 
         return "ajouterCredit";
     }
 
     @PostMapping("/MonProfil/addCredit")
-    public String validerAjoutCredit(@RequestParam("credit") int credit, Model model){
-        Utilisateur utilisateur = utilisateurService.recuperationIdUtilisateurActif();
-        utilisateurService.ajouterDesCredits(utilisateur, credit);
-        return "redirect:/MonProfil";
+    public String validerAjoutCredit(@RequestParam("credit") int credit, Model model, RedirectAttributes redirectAttributes){
+
+        if (credit <= 0) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Le nombre de crédits à ajouter doit être supérieur à zéro.");
+            return "redirect:/MonProfil/addCredit";
+        }
+
+        try {
+            Utilisateur utilisateur = utilisateurService.recuperationIdUtilisateurActif();
+            utilisateurService.ajouterDesCredits(utilisateur, credit);
+
+            redirectAttributes.addFlashAttribute("successMessage", "Crédits ajoutés avec succès !");
+
+            return "redirect:/MonProfil";
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Une erreur est survenue lors de l'ajout des crédits : " + e.getMessage());
+            return "redirect:/MonProfil/addCredit";
+        }
+
     }
 }

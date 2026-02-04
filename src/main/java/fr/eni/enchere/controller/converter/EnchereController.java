@@ -48,8 +48,8 @@ public class EnchereController {
          List<Article> articleList = articleService.readAllArticlesEnVente();
         List<Categorie> categorieList = categorieService.readAll();
         model.addAttribute("utilisateurConnecte", utilisateurConnecte);
-model.addAttribute("articleList", articleList);
-model.addAttribute("categorieList", categorieList);
+        model.addAttribute("articleList", articleList);
+        model.addAttribute("categorieList", categorieList);
         model.addAttribute("id_categorie_selectionnee", 0);
         model.addAttribute("search", "");
         return "encheres";
