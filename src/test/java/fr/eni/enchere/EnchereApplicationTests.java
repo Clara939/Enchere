@@ -323,7 +323,7 @@ class EnchereApplicationTests {
                     "    id_article          bigint identity\n " +
                     "        constraint articles_pk\n " +
                     "            primary key,\n " +
-                    "    nom_article         varchar(30)  not null,\n " +
+                    "    nom_article         varchar(100)  not null,\n " +
                     "    description         varchar(300) not null,\n " +
                     "    date_debut_encheres datetime     not null,\n " +
                     "    date_fin_encheres   datetime     not null,\n " +

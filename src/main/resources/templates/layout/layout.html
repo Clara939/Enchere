@@ -17,16 +17,21 @@
     <label for="menu-toggle" class="burger-menu">☰</label>
     <nav>
         <ul>
-            <li ><a href="/encheres" class="nav-link boutonBlanc">Enchères</a></li>
+            <li><a href="/encheres" class="nav-link boutonBlanc">Enchères</a></li>
 
             <li><a href="/" class="nav-link boutonNoirEtBlanc">Accueil</a></li>
 
-            <li th:if="${#authorization.expression('hasRole(''UTILISATEUR'')')}"><a href="/encheres/add" class="nav-link boutonNoirEtBlanc">Vendre un article</a></li>
+            <li th:if="${#authorization.expression('hasRole(''UTILISATEUR'')')}"><a href="/encheres/add"
+                                                                                    class="nav-link boutonNoirEtBlanc">Vendre
+                un article</a></li>
 
-            <li th:if="${!#authorization.expression('isAuthenticated()')}"><a href="/inscription" class="nav-link boutonBlanc">Inscription</a> </li>
+            <li th:if="${!#authorization.expression('isAuthenticated()')}"><a href="/inscription"
+                                                                              class="nav-link boutonBlanc">Inscription</a>
+            </li>
 
-            <li th:if="${#authorization.expression('hasRole(''UTILISATEUR'')')}"><a href="/MonProfil" class="nav-link boutonNoirEtBlanc" >Mon profil</a> </li>
-
+            <li th:if="${#authorization.expression('hasRole(''UTILISATEUR'')')}"><a href="/MonProfil"
+                                                                                    class="nav-link boutonNoirEtBlanc">Mon
+                profil</a></li>
 
 
             <!-- le lien s'affiche uniquement si on est déconnecté -->
@@ -41,6 +46,16 @@
         </ul>
     </nav>
 </header>
+
+<div th:if="${successMessage}" class="success-message orange" style="background-color: var(--couleur-vert-vif);">
+    <span class="icon"></span>
+    <span th:text="${successMessage}"></span>
+</div>
+
+<div th:if="${errorMessage}" class="success-message" style="background-color: #f44336;">
+    <span class="icon"></span>
+    <span th:text="${errorMessage}"></span>
+</div>
 
 <main data-th-replace="${content}"></main>
 

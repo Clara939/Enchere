@@ -1,15 +1,25 @@
 <!DOCTYPE html>
 <html lang="fr" th:replace="~{layout/layout :: frag_layout(content=~{::main})}">
 <main id="main_formulaire_ajout_credit">
+
+  <!-- Message de succès ou d'erreur ----------------------------------------------------------------------------->
+  <div th:if="${successMessage}" class="success-message orange" style="background-color: var(--couleur-vert-vif);">
+    <span th:text="${successMessage}"></span>
+  </div>
+
+  <div th:if="${errorMessage}" class="success-message" style="background-color: #f44336;">
+    <span th:text="${errorMessage}"></span>
+  </div>
+
   <h2>Ajouter des crédits</h2>
   <form id="ajout_credit_formmulaire" th:action="@{/MonProfil/addCredit}" method="post">
     <div>
-    <label for="nbCredit">Combien de crédits voulez-vous ajouter ?</label>
-    <input id="nbCredit" type="number" name="credit" min="0" required>
+      <label for="nbCredit">Combien de crédits voulez-vous ajouter ?</label>
+      <input id="nbCredit" type="number" name="credit" min="0" required>
     </div>
     <div>
-    <button type="submit" class="boutonVert">Valider</button>
-    <button class="boutonOrange"><a th:href="@{/MonProfil}">Annuler</a></button>
+      <button type="submit" class="boutonVert">Valider</button>
+      <button class="boutonOrange"><a th:href="@{/MonProfil}">Annuler</a></button>
     </div>
   </form>
 
