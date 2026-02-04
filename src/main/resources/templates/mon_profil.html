@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="fr" th:replace="~{layout/layout :: frag_layout(content=~{::main})}">
 <main class="page-profil">
+
+    <div th:if="${!#strings.isEmpty(successMessage)}" class="success-message orange" style="background-color: var(--couleur-vert-vif);">
+        <span th:text="${successMessage}"></span>
+    </div>
+    <div th:if="${!#strings.isEmpty(errorMessage)}" class="success-message" style="background-color: #f44336;">
+        <span th:text="${errorMessage}"></span>
+    </div>
+
     <h2>Mon Profil</h2>
     <div class="profil-grid">
         <div class="profil-item">

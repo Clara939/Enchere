@@ -57,7 +57,7 @@ public class UtilisateurController {
     }
 
     @PostMapping("/inscription")
-    public String inscrireUtilisateur(@Valid @ModelAttribute(name = "utilisateur") Utilisateur utilisateur, BindingResult bindingResult, @RequestParam("confirmationMDP") String confirmationMDP){
+    public String inscrireUtilisateur(@Valid @ModelAttribute(name = "utilisateur") Utilisateur utilisateur, BindingResult bindingResult, @RequestParam("confirmationMDP") String confirmationMDP, RedirectAttributes redirectAttributes){
         //vérification des erreurs simples de format sur le formulaire
         if (bindingResult.hasErrors()){
            return "inscription";
@@ -70,6 +70,8 @@ public class UtilisateurController {
         }
 
         utilisateurService.createUtilisateur(utilisateur);
+
+        redirectAttributes.addFlashAttribute("successMessage", "Inscription réussie ! Vous pouvez maintenant vous connecter.");
 
         return "redirect:/login";
     }
@@ -106,8 +108,10 @@ Utilisateur utilisateurConnecte = utilisateurService.recuperationIdUtilisateurAc
 
 //    boutton de mise a jour du profil
     @PostMapping("/MonProfil/update")
-    public String profilUpdate(@ModelAttribute("utilisateur") Utilisateur utilisateur){
+    public String profilUpdate(@ModelAttribute("utilisateur") Utilisateur utilisateur, RedirectAttributes redirectAttributes){
+
         utilisateurService.updateUtilisateur(utilisateur);
+        redirectAttributes.addFlashAttribute("successMessage", "Profil mis à jour avec succès !");
         return "redirect:/MonProfil";
     }
 
