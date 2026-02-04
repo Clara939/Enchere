@@ -26,4 +26,8 @@ public interface EnchereService {
 
 
     boolean afficherBoutonEnchereEnCours(LocalDate date_debut, LocalDate date_fin);
+
+    List<Utilisateur> afficherListeEncherisseurs(long id);
+
+    int getBestEnchereByUtilisateurByArticle(long id_encherisseur, long id_article);
 }

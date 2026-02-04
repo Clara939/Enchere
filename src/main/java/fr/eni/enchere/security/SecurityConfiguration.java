@@ -75,6 +75,7 @@ public class SecurityConfiguration {
                     .requestMatchers(HttpMethod.GET, "/MonProfil/delete").hasRole("UTILISATEUR")
                     .requestMatchers(HttpMethod.GET, "/MonProfil/addCredit").hasRole("UTILISATEUR")
                     .requestMatchers(HttpMethod.POST, "/MonProfil/addCredit").hasRole("UTILISATEUR")
+                    .requestMatchers(HttpMethod.GET, "/Encherisseurs/list").hasRole("UTILISATEUR")
                     //donne à tous la permission de s'inscrire
                     .requestMatchers(HttpMethod.GET, "/inscription").permitAll()
                     .requestMatchers(HttpMethod.POST, "/inscription").permitAll()
