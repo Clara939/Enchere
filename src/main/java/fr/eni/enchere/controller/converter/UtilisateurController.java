@@ -51,7 +51,7 @@ public class UtilisateurController {
     }
 
     @PostMapping("/inscription")
-    public String inscrireUtilisateur(@Valid @ModelAttribute(name = "utilisateur") Utilisateur utilisateur, BindingResult bindingResult, @RequestParam("confirmationMDP") String confirmationMDP){
+    public String inscrireUtilisateur(@Valid @ModelAttribute(name = "utilisateur") Utilisateur utilisateur, BindingResult bindingResult, @RequestParam("confirmationMDP") String confirmationMDP, RedirectAttributes redirectAttributes){
         //vérification des erreurs simples de format sur le formulaire
         if (bindingResult.hasErrors()){
            return "inscription";
@@ -64,6 +64,8 @@ public class UtilisateurController {
         }
 
         utilisateurService.createUtilisateur(utilisateur);
+
+        redirectAttributes.addFlashAttribute("successMessage", "Inscription réussie ! Vous pouvez maintenant vous connecter.");
 
         return "redirect:/login";
     }
