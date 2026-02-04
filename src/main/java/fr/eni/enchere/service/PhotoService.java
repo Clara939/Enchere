@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 @Service
 public class PhotoService {
     //  chemin de sauvegarde
-    private final String UPLOAD_DIR = "src/main/resources/static/images/articles/";
+    private final String UPLOAD_DIR = "uploads/articles/";
 
     public String SaveArticlePhoto(MultipartFile photo, long articleId){
 //        si photo est vide ou null on mais l'image marteau par defaut
