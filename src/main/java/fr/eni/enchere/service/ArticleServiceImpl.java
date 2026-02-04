@@ -96,6 +96,11 @@ public class ArticleServiceImpl implements ArticleService{
             articleListeFiltre = idArticleRechercheListe.stream()
                     .map(l -> articleRepository.readById(l))
                     .collect(Collectors.toList());
+            for (Article a : articleListeFiltre){
+                if (a.getPrix_vente() == 0){
+                    a.setPrix_vente(a.getPrix_initial());
+                }
+            }
 
             return articleListeFiltre;
         }
@@ -105,7 +110,7 @@ public class ArticleServiceImpl implements ArticleService{
 
             List<Long> idArticleListeEncheresEnCours = new ArrayList<>();
             List<Long> idArticleListeEncheresEmportees = new ArrayList<>();
-            if (encheres_ouvertes) {
+            if (encheres_ouvertes || (!encheres_ouvertes & !mes_encheres_cours & !mes_encheres_remportees)) {
                 //Liste des articles actuellement en vente
                 idArticleListeEncheresOuvertes = articleRepository.readAllIdArticlesEnVente();
             }
@@ -116,7 +121,6 @@ public class ArticleServiceImpl implements ArticleService{
             if (mes_encheres_remportees) {
                 //Liste des articles pour lesquels la meilleure anchère est faite par l'utilisateur
                 idArticleListeEncheresEmportees = articleRepository.readIdArticlesMeilleureOffreUtilisateur(idUtilisateurActif);
-
             }
             idArticleListeAchatTotale.addAll(idArticleListeEncheresOuvertes);
             idArticleListeAchatTotale.addAll(idArticleListeEncheresEnCours);
