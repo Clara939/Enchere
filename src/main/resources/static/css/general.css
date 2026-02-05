@@ -13,7 +13,7 @@ padding :0;
     margin:0;
 }
 
-body{
+body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -22,6 +22,7 @@ body{
     color: var(--couleur-blanc-secondaire);
     font-family: "Inter Semi Bold", Arial;
     font-size: 1rem;
+
 }
 
 header{
@@ -1273,4 +1274,27 @@ align-items: center;
     flex: 1;
     min-width: 50%;
     text-align: left;
+}
+.logo {
+    font-family: 'Montserrat', 'Inter', sans-serif;
+    font-size: 48px;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    background: linear-gradient(
+            90deg,
+            var(--couleur-vert-fonce),
+            var(--couleur-orange)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.logo::after {
+    content: "ENCHÈRES";
+    display: block;
+    font-size: 14px;
+    letter-spacing: 5px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.6);
+    margin-top: 4px;
 }
