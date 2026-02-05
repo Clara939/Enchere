@@ -279,16 +279,6 @@ footer{
     box-shadow: 6px 6px 25px rgba(0, 0, 0, 0.5);
 }
 
-/*#encheres_form_mes_encheres{*/
-/*    padding: 20px;*/
-/*    border-radius :50px;*/
-/*    background-color: var(--couleur-blanc-secondaire);*/
-/*    aspect-ratio: 1/1;*/
-/*    !*permet d'adapter la taille des images à celle de l'écran en gardant ici une hauteur égale à la largeur*!*/
-/*    object-fit: cover;*/
-/*    max-height: 350px;*/
-/*}*/
-
 #encheres_form_mes_encheres{
     display: flex;
     flex-direction: row;
@@ -825,6 +815,11 @@ main.page-login .flex-out li:has(input[type="checkbox"]) {
     padding: 5px 0;
 }
 
+#idSouvenir{
+    max-width: 15px;
+    margin: auto;
+}
+
 main.page-login .flex-out .boutonVert {
     width: 100%;
     padding: 18px;
@@ -1124,6 +1119,20 @@ align-items: center;
 
 /*page detail_vente **************************************************************************************/
 
+.error-message{
+    color: #262624;
+    padding: 15px;
+    border: 2px solid #262624;
+    margin-bottom: 30px;
+}
+
+.success-message{
+    color: #262624;
+    padding: 15px;
+    border: 2px solid #262624;
+    background-color: #98CE00;
+    margin-bottom: 30px;
+}
 
 #detail_vente_conteneur{
     display: flex;
