@@ -229,7 +229,7 @@ class EnchereApplicationTests {
 
     @Test
     void deleteArticle() {
-        articleRepository.delete(40);
+        articleRepository.delete(49);
         articleRepository.readAll().forEach(System.out::println);
     }
 

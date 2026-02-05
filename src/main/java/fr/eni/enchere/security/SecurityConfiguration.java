@@ -97,7 +97,7 @@ public class SecurityConfiguration {
                     //tous ce qui n'est pas spécifié n'est pas accessible
                     .anyRequest().denyAll();
         });
-//CONFIGURATION DE LA GESTION DE SESSIONS (Raman)---------------------------------------------------
+        //CONFIGURATION DE LA GESTION DE SESSIONS ---------------------------------------------------
         http.sessionManagement(session -> session
                 .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 .sessionFixation().migrateSession()

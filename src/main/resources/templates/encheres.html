@@ -73,8 +73,9 @@
                 <div>
 <!--                    modification de l'enchere par le vendeur avant le démarrage de l'enchère-->
                     <button th:if="${#authorization.expression('isAuthenticated()') and vente == true and ventes_non_debutees == true and article.getEtat_vente() == 'CREE'}" type="button" class="boutonVert"><a th:href="@{/encheres/update(id=${article.getId_article()})}">Modifier</a></button>
-<!--                   faire une enchere par un utilisateur autre que le vendeur si connecté-->
-                    <button th:if="${(not #authorization.expression('isAuthenticated()') or (vente != true)) and article.getEtat_vente() != 'VENDU' }" type="button" class="boutonOrange"><a th:href="@{/encherir(id=${article.id_article})}">Enchérir</a></button>
+<!--faire une enchere par un utilisateur autre que le vendeur si connecté-->
+                    <button th:if="${(not #authorization.expression('isAuthenticated()') or (vente != true)) and article.getEtat_vente() != 'VENDU' }"
+                            type="button" class="boutonOrange"><a th:href="@{/encherir(id=${article.id_article})}">Enchérir</a></button>
 <!--                voir fiche profil acheteur si enchere terminée-->
                     <button th:if="${#authorization.expression('isAuthenticated()') and vente == true and ventes_terminees == true and article.getEtat_vente() == 'VENDU'}" type="button" class="boutonVert"><a th:href="@{/afficheProfilAcheteurApresAchat(id_acheteur=${article.getAcheteur().getId_utilisateur()}, id_article=${article.getId_article()})}">Contact</a></button>
 <!--            voir fiche profil vendeur si enchere terminee-->
