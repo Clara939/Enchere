@@ -537,7 +537,13 @@ color: var(--couleur-vert-vif);
     flex-direction: row;
     gap: 20px;
     flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
 }
+
+/*. btn-enchere-add{*/
+/*    margin: auto;*/
+/*}*/
 
 .champs-retrait {
     display: flex;
