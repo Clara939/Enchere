@@ -168,4 +168,29 @@ public class EnchereRepositorySql implements EnchereRepository{
 
         return namedParameterJdbcTemplate.queryForList(sql, map, Long.class);
         }
+
+    @Override
+    public List<Long> readAllidUtilisateurByIdArticle(long id){
+        String sql = """
+                SELECT DISTINCT id_encherisseur FROM Encheres WHERE id_article = :id
+                """;
+        MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue("id", id);
+
+        return namedParameterJdbcTemplate.queryForList(sql, map, Long.class);
+    }
+
+    @Override
+    public List<Long> readAllByIdUtilisateurAndByIdArticle(long id_utilisateur, long id_article){
+        String sql = """
+                SELECT DISTINCT montant_enchere FROM Encheres
+                WHERE id_article = :id_article AND id_encherisseur = :id_utilisateur
+                ORDER BY montant_enchere DESC
+                """;
+        MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue("id_article", id_article);
+        map.addValue("id_utilisateur", id_utilisateur);
+
+        return namedParameterJdbcTemplate.queryForList(sql, map, Long.class);
+    }
 }

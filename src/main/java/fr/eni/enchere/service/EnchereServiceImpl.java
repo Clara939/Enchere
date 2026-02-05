@@ -5,24 +5,31 @@ import fr.eni.enchere.bo.Enchere;
 import fr.eni.enchere.bo.Utilisateur;
 import fr.eni.enchere.repository.ArticleRepositorySQL;
 import fr.eni.enchere.repository.EnchereRepository;
+import fr.eni.enchere.repository.UtilisateurRepository;
+import fr.eni.enchere.repository.UtilisateurRepositorySql;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class EnchereServiceImpl implements EnchereService{
     private final ArticleRepositorySQL articleRepositorySQL;
     private final ArticleService articleService;
     private final UtilisateurService utilisateurService;
+    //private final UtilisateurRepositorySql utilisateurRepositorySql;
     EnchereRepository enchereRepository;
+    private final UtilisateurRepository utilisateurRepository;
 
-    public EnchereServiceImpl(EnchereRepository enchereRepository, ArticleRepositorySQL articleRepositorySQL, ArticleService articleService, UtilisateurService utilisateurService) {
+    public EnchereServiceImpl(EnchereRepository enchereRepository, ArticleRepositorySQL articleRepositorySQL, ArticleService articleService, UtilisateurService utilisateurService, UtilisateurRepositorySql utilisateurRepositorySql, UtilisateurRepository utilisateurRepository) {
         this.enchereRepository = enchereRepository;
         this.articleRepositorySQL = articleRepositorySQL;
         this.articleService = articleService;
         this.utilisateurService = utilisateurService;
+        //this.utilisateurRepositorySql = utilisateurRepositorySql;
+        this.utilisateurRepository = utilisateurRepository;
     }
 
     @Override
@@ -154,5 +161,27 @@ public class EnchereServiceImpl implements EnchereService{
         } else{
             return false;
         }
-}
+    }
+
+    @Override
+    public List<Utilisateur> afficherListeEncherisseurs(long id){
+        List<Long> listeidEncherisseurs = enchereRepository.readAllidUtilisateurByIdArticle(id);
+        List<Utilisateur> listeEncherisseurs = listeidEncherisseurs.stream()
+                .map(i -> utilisateurRepository.readById(i))
+                .collect(Collectors.toList());
+        return listeEncherisseurs;
+    }
+
+    @Override
+    public int getBestEnchereByUtilisateurByArticle(long id_encherisseur, long id_article){
+        List<Long> enchereIdList = enchereRepository.readAllByIdUtilisateurAndByIdArticle(id_encherisseur, id_article);
+        if(enchereIdList.isEmpty()){
+            return 0;
+        } else{
+            return enchereIdList.get(0).intValue();
+        }
+
+    }
+
+
 }

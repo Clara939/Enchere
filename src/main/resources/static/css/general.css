@@ -359,7 +359,7 @@ footer{
 
 .encheres_checkbox input{
     appearance: none;
-    border: solid black var(--couleur-fond-sombre);
+    border: solid 1px var(--couleur-fond-sombre);
     background-color: var(--couleur-blanc-secondaire);
     /*transform: scale(0.4);*/
     aspect-ratio: 1;
@@ -418,6 +418,10 @@ encheres_article_vente{
 
 #lienVersProfil:hover{
 color: var(--couleur-vert-vif);
+}
+
+.encheres_lien_encherisseurs:hover{
+    color: var(--couleur-orange);
 }
 
 .encheres_photo_article{
@@ -1286,4 +1290,33 @@ align-items: center;
     flex: 1;
     min-width: 50%;
     text-align: left;
+}
+
+#encherisseur_conteneur{
+    gap: 25px;
+    color: var(--couleur-fond-sombre);
+    margin: 25px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: min(30px, 5vw);
+    justify-content: center;
+    margin: 30px auto;
+    max-width: 90%;
+    overflow: hidden;
+}
+
+.encherisseur_capsule{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    gap : 15px;
+    padding: 20px;
+    border-radius :50px;
+    background-color: var(--couleur-blanc-secondaire);
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    max-height: 400px;
+    box-shadow: 6px 6px 25px rgba(0, 0, 0, 0.5);
 }

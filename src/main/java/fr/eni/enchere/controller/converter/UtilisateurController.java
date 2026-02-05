@@ -1,10 +1,12 @@
 package fr.eni.enchere.controller.converter;
 
 import fr.eni.enchere.bo.Article;
+import fr.eni.enchere.bo.Enchere;
 import fr.eni.enchere.bo.Role;
 import fr.eni.enchere.bo.Utilisateur;
 import fr.eni.enchere.repository.RoleRepository;
 import fr.eni.enchere.service.ArticleService;
+import fr.eni.enchere.service.EnchereService;
 import fr.eni.enchere.service.UtilisateurService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -22,6 +24,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 
@@ -31,13 +35,15 @@ import java.util.List;
 @Controller
 public class UtilisateurController {
     private final ArticleService articleService;
+    private final EnchereService enchereService;
     private UtilisateurService utilisateurService;
     private RoleRepository roleRepository;
 
-    public UtilisateurController(UtilisateurService utilisateurService, RoleRepository roleRepository, ArticleService articleService) {
+    public UtilisateurController(UtilisateurService utilisateurService, RoleRepository roleRepository, ArticleService articleService, EnchereService enchereService) {
         this.utilisateurService = utilisateurService;
         this.roleRepository = roleRepository;
         this.articleService = articleService;
+        this.enchereService = enchereService;
     }
 
     //    page d'inscription le get et le post, le post renvoie sur la page d'accueil si inscription reussie et si annulation de l'inscription renvoie sur page accueil aussi.
@@ -51,7 +57,7 @@ public class UtilisateurController {
     }
 
     @PostMapping("/inscription")
-    public String inscrireUtilisateur(@Valid @ModelAttribute(name = "utilisateur") Utilisateur utilisateur, BindingResult bindingResult, @RequestParam("confirmationMDP") String confirmationMDP){
+    public String inscrireUtilisateur(@Valid @ModelAttribute(name = "utilisateur") Utilisateur utilisateur, BindingResult bindingResult, @RequestParam("confirmationMDP") String confirmationMDP, RedirectAttributes redirectAttributes){
         //vérification des erreurs simples de format sur le formulaire
         if (bindingResult.hasErrors()){
            return "inscription";
@@ -64,6 +70,8 @@ public class UtilisateurController {
         }
 
         utilisateurService.createUtilisateur(utilisateur);
+
+        redirectAttributes.addFlashAttribute("successMessage", "Inscription réussie ! Vous pouvez maintenant vous connecter.");
 
         return "redirect:/login";
     }
@@ -100,8 +108,10 @@ Utilisateur utilisateurConnecte = utilisateurService.recuperationIdUtilisateurAc
 
 //    boutton de mise a jour du profil
     @PostMapping("/MonProfil/update")
-    public String profilUpdate(@ModelAttribute("utilisateur") Utilisateur utilisateur){
+    public String profilUpdate(@ModelAttribute("utilisateur") Utilisateur utilisateur, RedirectAttributes redirectAttributes){
+
         utilisateurService.updateUtilisateur(utilisateur);
+        redirectAttributes.addFlashAttribute("successMessage", "Profil mis à jour avec succès !");
         return "redirect:/MonProfil";
     }
 
@@ -211,5 +221,19 @@ Utilisateur utilisateurConnecte = utilisateurService.recuperationIdUtilisateurAc
             return "redirect:/MonProfil/addCredit";
         }
 
+    }
+
+    @GetMapping("/Encherisseurs/list")
+    public  String afficherListeEncherisseurs(@RequestParam ("id") long id, Model model){
+List<Utilisateur> encherisseurListe = enchereService.afficherListeEncherisseurs(id);
+//association de chaque utilisateur à la meilleure offre qu'il ait fait pour l'article
+        Map<Long, Integer> montants = new HashMap<>();
+
+        for (Utilisateur u : encherisseurListe) {
+            montants.put(u.getId_utilisateur(), enchereService.getBestEnchereByUtilisateurByArticle(u.getId_utilisateur(), id));
+        }
+model.addAttribute("encherisseurListe", encherisseurListe);
+        model.addAttribute("montants", montants);
+        return "encherisseurs";
     }
 }
