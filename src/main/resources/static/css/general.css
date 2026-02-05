@@ -13,7 +13,7 @@ padding :0;
     margin:0;
 }
 
-body {
+body{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -22,7 +22,6 @@ body {
     color: var(--couleur-blanc-secondaire);
     font-family: "Inter Semi Bold", Arial;
     font-size: 1rem;
-
 }
 
 header{
@@ -414,15 +413,25 @@ encheres_article_vente{
 color: var(--couleur-vert-vif);
 }
 
+.encheres_lien_encherisseurs:hover{
+    color: var(--couleur-orange);
+}
+
 .encheres_photo_article{
-    display: block;
-    max-width: 90%;
-    max-height: 200px;
-    width: auto;
-    height: auto;
-    margin: 10px auto;
-    border-radius: 20px;
+    width: 220px;
+    height: 220px;
+    max-width: 220px;
+    max-height: 220px;
     object-fit: cover;
+    display: block;
+    margin: 15px auto;
+    border-radius: 20px;
+    border: 4px solid rgba(0,0,0,0.1);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
+}
+.encheres_photo_article:hover {
+    transform: scale(1.05);
 }
 
 /*page formulaire article  **************************************************************************************************************************************/

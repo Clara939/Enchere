@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="fr" th:replace="~{layout/layout :: frag_layout(content=~{::main})}">
+<main id="main_index">
+    <h2>Liste des enchérisseurs</h2>
+    <div id="encherisseur_conteneur">
+        <div class="encherisseur_capsule" th:each="encherisseur : ${encherisseurListe}">
+            <p>Pseudo <strong><span th:text="${encherisseur.getPseudo()}"></span></strong></p>
+            <p>Ville <strong><span th:text="${encherisseur.getVille()}"></span></strong></p>
+            <p>Montant <strong><span th:text="${montants[encherisseur.id_utilisateur] ?: 0}"></span><span> 🥕</span></strong></p>
+            <button class="boutonOrange"><a  th:href="@{/profil(id=${encherisseur.getId_utilisateur()})}">Voir profil</a></button>
+        </div>
+    </div>
+</main>
+</html>
