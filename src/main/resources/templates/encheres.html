@@ -84,9 +84,9 @@
 <!--                   faire une enchere par un utilisateur autre que le vendeur si connecté-->
                     <button th:if="${(not #authorization.expression('isAuthenticated()') or (vente != true)) and article.getEtat_vente() != 'VENDU' }" type="button" class="boutonOrange"><a th:href="@{/encherir(id=${article.id_article})}">Enchérir</a></button>
 <!--                voir fiche profil acheteur si enchere terminée-->
-                    <button th:if="${#authorization.expression('isAuthenticated()') and vente == true and ventes_terminees == true and article.getEtat_vente() == 'VENDU'}" type="button" class="boutonVert"><a th:href="@{/afficheProfilAcheteurApresAchat(id_acheteur=${article.getAcheteur().getId_utilisateur()}, id_article=${article.getId_article()})}">Contacter l'acheteur</a></button>
+                    <button th:if="${#authorization.expression('isAuthenticated()') and vente == true and ventes_terminees == true and article.getEtat_vente() == 'VENDU'}" type="button" class="boutonVert"><a th:href="@{/afficheProfilAcheteurApresAchat(id_acheteur=${article.getAcheteur().getId_utilisateur()}, id_article=${article.getId_article()})}">Contact</a></button>
 <!--            voir fiche profil vendeur si enchere terminee-->
-                    <button th:if="${#authorization.expression('isAuthenticated()') and achat == true and mes_encheres_remportees == true and article.getEtat_vente() == 'VENDU'}" type="button" class="boutonVert"><a th:href="@{/afficheProfilVendeurApresAchat(id_vendeur=${article.getVendeur().getId_utilisateur()}, id_article=${article.getId_article()})}">Contacter le vendeur</a></button>
+                    <button th:if="${#authorization.expression('isAuthenticated()') and achat == true and mes_encheres_remportees == true and article.getEtat_vente() == 'VENDU'}" type="button" class="boutonVert"><a th:href="@{/afficheProfilVendeurApresAchat(id_vendeur=${article.getVendeur().getId_utilisateur()}, id_article=${article.getId_article()})}">Contact</a></button>
                 </div>
         </div>
         <!--        </section>-->
