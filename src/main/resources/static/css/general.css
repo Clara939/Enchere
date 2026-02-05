@@ -1300,3 +1300,22 @@ align-items: center;
     color: rgba(255,255,255,0.6);
     margin-top: 4px;
 }
+
+.titre-gradient {
+    font-family: 'Inter', 'Montserrat', sans-serif;
+    font-size: clamp(32px, 4vw, 46px);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    text-align: center;
+
+    background: linear-gradient(
+            90deg,
+            var(--couleur-vert-fonce),
+            var(--couleur-orange)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    margin: 40px 0 60px 0;
+    position: relative;
+}

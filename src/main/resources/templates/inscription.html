@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr" th:replace="~{layout/layout :: frag_layout(content=~{::main})}">
 <main class="page-inscription">
-    <h2>Inscription</h2>
+    <h2 class="titre-gradient">Inscription</h2>
     <form th:action="@{/inscription}" method="post" th:object="${utilisateur}">
         <div class="colonnes">
         <!-- gauche -->

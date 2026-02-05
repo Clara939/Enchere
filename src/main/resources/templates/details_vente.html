@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr" th:replace="~{layout/layout :: frag_layout(content=~{::main})}">
 <main>
-  <h2>Détails ventes</h2>
+  <h2 class="titre-gradient">Détails ventes</h2>
   <!-- bloc d'affichage des erreurs-->
   <div th:if="${error}" class="error-message" style="color: #262624; padding: 15px; border: 2px solid #262624; margin-bottom: 30px;">
     <strong>Error :  </strong> <span th:text="${error}"></span>
