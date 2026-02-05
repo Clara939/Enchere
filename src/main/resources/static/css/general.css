@@ -357,9 +357,9 @@ footer{
     font-size: 15px;
 }
 
-.encheres_checkbox input{
+.encheres_checkbox input {
     appearance: none;
-    border: solid 1px var(--couleur-fond-sombre);
+    border: solid black var(--couleur-fond-sombre);
     background-color: var(--couleur-blanc-secondaire);
     /*transform: scale(0.4);*/
     aspect-ratio: 1;
@@ -379,17 +379,10 @@ footer{
 }
 
 encheres_article_vente{
-    padding: 20px;
-    border-radius: 50px;
-    background-color: var(--couleur-blanc-secondaire);
-    aspect-ratio: 1/1;
-    max-height: 400px;
-    box-shadow: 6px 6px 25px rgba(0, 0, 0, 0.5);
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    gap: 15px;
 }
 
 .encheres_article_vente h3, #encheres_form_filtre label{
@@ -824,19 +817,6 @@ main.page-login .flex-out li:has(input[type="checkbox"]) {
     align-items: center;
     gap: 12px;
     padding: 5px 0;
-}
-
-main.page-login .flex-out input[type="checkbox"] {
-    width: auto;
-    height: 20px;
-    padding: 0;
-    margin: 0;
-    flex-shrink: 0;
-}
-
-main.page-login .flex-out li:has(.boutonVert) {
-    display: grid;
-    grid-template-columns: 1fr;
 }
 
 main.page-login .flex-out .boutonVert {
@@ -1291,32 +1271,26 @@ align-items: center;
     min-width: 50%;
     text-align: left;
 }
-
-#encherisseur_conteneur{
-    gap: 25px;
-    color: var(--couleur-fond-sombre);
-    margin: 25px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: min(30px, 5vw);
-    justify-content: center;
-    margin: 30px auto;
-    max-width: 90%;
-    overflow: hidden;
+.logo {
+    font-family: 'Montserrat', 'Inter', sans-serif;
+    font-size: 48px;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    background: linear-gradient(
+            90deg,
+            var(--couleur-vert-fonce),
+            var(--couleur-orange)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-.encherisseur_capsule{
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    align-items: center;
-    gap : 15px;
-    padding: 20px;
-    border-radius :50px;
-    background-color: var(--couleur-blanc-secondaire);
-    aspect-ratio: 1/1;
-    object-fit: cover;
-    max-height: 400px;
-    box-shadow: 6px 6px 25px rgba(0, 0, 0, 0.5);
+.logo::after {
+    content: "ENCHÈRES";
+    display: block;
+    font-size: 14px;
+    letter-spacing: 5px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.6);
+    margin-top: 4px;
 }

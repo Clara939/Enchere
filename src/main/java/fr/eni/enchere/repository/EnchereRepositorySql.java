@@ -23,7 +23,6 @@ public class EnchereRepositorySql implements EnchereRepository{
 
     @Override
     public void createEnchere(Enchere enchere) {
-
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
 
         String sql = "insert into Encheres (date_enchere, montant_enchere, id_encherisseur, id_article)\n " +
@@ -35,10 +34,7 @@ public class EnchereRepositorySql implements EnchereRepository{
         map.addValue("id_article", enchere.getArticles().getId_article());
 
         namedParameterJdbcTemplate.update(sql, map, keyHolder);
-
-//        long id = Objects.requireNonNull(keyHolder.getKey()).longValue();
         long id = keyHolder.getKey().longValue();
-
         enchere.setId_enchere(id);
     }
 
