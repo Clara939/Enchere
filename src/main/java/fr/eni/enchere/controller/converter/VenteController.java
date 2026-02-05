@@ -37,6 +37,7 @@ public class VenteController {
     }
 
 
+
     //permet d'encherir sur un article
     @GetMapping("/encherir")
     public String afficherPageEncherir(
@@ -53,18 +54,16 @@ public class VenteController {
         model.addAttribute("enchereMinimale", enchereMinimale);
 
         return "details_vente";
-
     }
+
+
 
     @PostMapping("/encheres/placer")
     public String placerEnchere(
-            @RequestParam("id_article") long idArticle,
-            @RequestParam("montantPropose") int montantPropose,
-            Model model,
-            RedirectAttributes redirectAttributes
+            @RequestParam("id_article") long idArticle, @RequestParam("montantPropose") int montantPropose,
+            Model model, RedirectAttributes redirectAttributes
     ) {
-
-        // Obtenir l'utilisateur autorisé, renvoie l'objet Utilisateur (l'utilisateur actuellement connecté)
+        // Obtenir l'utilisateur autorisé, renvoie l'utilisateur actuellement connecté
         Utilisateur utilisateurConnecte = utilisateurService.recuperationIdUtilisateurActif();
 
         if (utilisateurConnecte == null) {
@@ -74,28 +73,20 @@ public class VenteController {
         // Service (place enchère)
         try {
             enchereService.placerEnchere(idArticle, utilisateurConnecte.getId_utilisateur(), montantPropose);
-
-            redirectAttributes.addFlashAttribute("success", "Enchere placee avec succes");
+            redirectAttributes.addFlashAttribute("success", "Enchère placée avec succès");
             return "redirect:/encherir?id=" + idArticle;
-
-            // il faut changer tout les execptions rest "To DO"
         } catch (Exception e) {
-            Article article = articleService.readById(idArticle);
 
-            int prixActuel = article.getPrix_vente();
-            if (prixActuel == 0) {
-                prixActuel = article.getPrix_initial();
-            }
-            int enchereMinimale = prixActuel + 1;
+            Article article = articleService.readById(idArticle);
+            int enchereMinimale = article.getPrix_vente() + 1;
 
             // Transmission des données au modèle
             model.addAttribute("article", article);
-            model.addAttribute("utilisateurConnecte", utilisateurConnecte);
-            model.addAttribute("prixActuel", prixActuel);
+            //model.addAttribute("utilisateurConnecte", utilisateurConnecte);
             model.addAttribute("enchereMinimale", enchereMinimale);
 
-            if (e.getMessage().contains("Credit isuffisant")) {
-                model.addAttribute("error", "Crédits insuffisants pour placer ce pari. Votre solde :" + utilisateurConnecte.getCredit());
+            if (e.getMessage().contains("Credit insuffisant")) {
+                model.addAttribute("error", "Crédit insuffisant pour placer ce pari. Votre solde :" + utilisateurConnecte.getCredit());
             } else {
                 model.addAttribute("error", e.getMessage());
             }
