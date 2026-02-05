@@ -46,6 +46,7 @@
             <!-- le lien s'affiche uniquement si on est déconnecté -->
             <li th:if="${!#authorization.expression('isAuthenticated()')}"
             ><a href="/login" class="nav-link boutonOrange">Connexion</a></li>
+
             <li th:if="${#authorization.expression('isAuthenticated()')}">
                 <form th:action="@{/logout}" method="post">
                     <input type="hidden" name="_csrf" value="${_csrf.token}">
