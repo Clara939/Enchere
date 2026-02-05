@@ -61,27 +61,28 @@
                 <div>
                     <p>Prix actuel :
                         <strong>
-                         <span th:text="${(article.getPrix_vente() != null) ? article.getPrix_vente() : article.getPrix_initial()}"></span>
-                        <span> 🥕</span></strong></p>
+                            <span th:text="${(article.getPrix_vente() != null) ? article.getPrix_vente() : article.getPrix_initial()}"></span>
+                            <span> 🥕</span></strong></p>
                     <p>Fin de l'enchère :
                         <strong><span th:text="${article.getDate_fin_encheres()}"></span></strong></p>
                     <p th:if="${article.getVendeur() != null}">Vendeur :
                         <a id="lienVersProfil" th:href="@{/afficheProfilVendeur(id=${article.getVendeur().getId_utilisateur()})}"><strong><span th:text="${article.getVendeur().getPseudo()}"></span></strong></a></p>
-<!--                lien vers la liste des encherisseurs-->
+                    <!--                lien vers la liste des encherisseurs-->
                     <p  th:if="${#authorization.expression('isAuthenticated()') and vente == true and (article.getEtat_vente() == 'EN_VENTE' or article.getEtat_vente() == 'VENDU') and article.getPrix_vente() != null and article.getPrix_vente()>article.getPrix_initial()}">Liste des <a class="encheres_lien_encherisseurs" th:href="@{/Encherisseurs/list(id=${article.getId_article()})}"><strong>enchérisseurs</strong></a></p>
                 </div>
                 <div>
-<!--                    modification de l'enchere par le vendeur avant le démarrage de l'enchère-->
+                    <!--                    modification de l'enchere par le vendeur avant le démarrage de l'enchère-->
                     <button th:if="${#authorization.expression('isAuthenticated()') and vente == true and ventes_non_debutees == true and article.getEtat_vente() == 'CREE'}" type="button" class="boutonVert"><a th:href="@{/encheres/update(id=${article.getId_article()})}">Modifier</a></button>
-<!--                   faire une enchere par un utilisateur autre que le vendeur si connecté-->
+                    <!--                   faire une enchere par un utilisateur autre que le vendeur si connecté-->
                     <button th:if="${(not #authorization.expression('isAuthenticated()') or (vente != true)) and article.getEtat_vente() != 'VENDU' }" type="button" class="boutonOrange"><a th:href="@{/encherir(id=${article.id_article})}">Enchérir</a></button>
-<!--                voir fiche profil acheteur si enchere terminée-->
+                    <!--                voir fiche profil acheteur si enchere terminée-->
                     <button th:if="${#authorization.expression('isAuthenticated()') and vente == true and ventes_terminees == true and article.getEtat_vente() == 'VENDU'}" type="button" class="boutonVert"><a th:href="@{/afficheProfilAcheteurApresAchat(id_acheteur=${article.getAcheteur().getId_utilisateur()}, id_article=${article.getId_article()})}">Contact</a></button>
-<!--            voir fiche profil vendeur si enchere terminee-->
+                    <!--            voir fiche profil vendeur si enchere terminee-->
                     <button th:if="${#authorization.expression('isAuthenticated()') and achat == true and mes_encheres_remportees == true and article.getEtat_vente() == 'VENDU'}" type="button" class="boutonVert"><a th:href="@{/afficheProfilVendeurApresAchat(id_vendeur=${article.getVendeur().getId_utilisateur()}, id_article=${article.getId_article()})}">Contact</a></button>
                 </div>
+            </div>
+            <!--        </section>-->
         </div>
-        <!--        </section>-->
     </div>
 </main>
 </html>

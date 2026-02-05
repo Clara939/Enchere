@@ -47,14 +47,18 @@ public class EnchereServiceImpl implements EnchereService{
     @Override
     public void deleteEnchere(long id) { this.enchereRepository.deleteEnchere(id); }
 
-    ///////////// Logique d'un enchere (Raman)
+    ///////////// Logique d'une enchere (Raman)
+
+
     @Override
     public void placerEnchere(long idArticle, long idUtilisateur, int montantPropose) throws Exception {
+
+
         Article article = articleService.readById(idArticle);
 
         // Vérifier si l'article existe
         if (article == null) {
-            throw new Exception("Article introvable.");
+            throw new Exception("Article introuvable.");
         }
 
         //// Récupération d'un utilisateur à partir de la base de données
@@ -75,10 +79,11 @@ public class EnchereServiceImpl implements EnchereService{
 
         //// Vérifier si le montant proposé est supérieur au prix actuel
         if (montantPropose <= prixActuel) {
-            throw new Exception("Le montrant propose doit etre superieur au prix actuel.");
+            throw new Exception("Le montant proposé doit être supérieur au prix actuel.");
         }
 
         //// VÉRIFICATION - L'utilisateur dispose-t-il de suffisamment de points
+
         if (encherisseur.getCredit() < montantPropose) {
             throw new Exception("Crédit insuffisant pour effectuer cette enchère.");
         }
@@ -93,7 +98,7 @@ public class EnchereServiceImpl implements EnchereService{
             // Le montant a son enchere
             int montantRembourser = ancienneEnchere.getMontant_enchere();
 
-            // REMBOURS les points: ancien prêt + montant
+            // REMBOURSE les points: ancien prêt + montant
             ancienEncherisseur.setCredit(ancienEncherisseur.getCredit() + montantRembourser);
 
             // Met à jour la base de données
@@ -108,17 +113,16 @@ public class EnchereServiceImpl implements EnchereService{
 
         //// Mise à jour du prix de vente de article
         article.setPrix_vente(montantPropose); // Nouveau prix de vente = montant proposé
-        article.setAcheteur(encherisseur); // Nous avons defini acheteur comme participant actuel
-        articleService.update(article); // Met a jour la base de données
+        article.setAcheteur(encherisseur); // le nouvel acheteur est l'utilisateur actif
+        articleService.update(article); // Met à jour la base de données
 
 
         //// Création d'une nouvelle enchère
         Enchere nouvelleEnchere = new Enchere();
-
-        nouvelleEnchere.setDate_enchere(LocalDate.now()); // Date actuelle
-        nouvelleEnchere.setMontant_enchere(montantPropose); // Montant sum
-        nouvelleEnchere.setEncherisseur(encherisseur); // Contacter l'enchanteur
-        nouvelleEnchere.setArticles(article); // Contacter l'article
+        nouvelleEnchere.setDate_enchere(LocalDate.now()); // Date du jour
+        nouvelleEnchere.setMontant_enchere(montantPropose); // Montant de l'enchère
+        nouvelleEnchere.setEncherisseur(encherisseur); // enchérisseur
+        nouvelleEnchere.setArticles(article); // article
         enchereRepository.createEnchere(nouvelleEnchere); // Enregistrer dans la base de données
     }
 
