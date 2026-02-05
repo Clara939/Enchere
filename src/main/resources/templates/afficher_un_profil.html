@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr" th:replace="~{layout/layout :: frag_layout(content=~{::main})}">
 <main>
-    <h2>Profil</h2>
+    <h2 class="titre-gradient">Profil</h2>
     <div id="afficher_profil_conteneur">
         <div>
             <span class="afficher_profil_label">Pseudo</span><span class="afficher_profil_donnees" th:text="${utilisateur.getPseudo()}"></span>
