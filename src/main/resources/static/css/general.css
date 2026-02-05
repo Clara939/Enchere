@@ -359,7 +359,7 @@ footer{
 
 .encheres_checkbox input {
     appearance: none;
-    border: solid 1px var(--couleur-fond-sombre);
+    border: solid black var(--couleur-fond-sombre);
     background-color: var(--couleur-blanc-secondaire);
     /*transform: scale(0.4);*/
     aspect-ratio: 1;
@@ -418,14 +418,20 @@ color: var(--couleur-vert-vif);
 }
 
 .encheres_photo_article{
-    display: block;
-    max-width: 90%;
-    max-height: 200px;
-    width: auto;
-    height: auto;
-    margin: 10px auto;
-    border-radius: 20px;
+    width: 220px;
+    height: 220px;
+    max-width: 220px;
+    max-height: 220px;
     object-fit: cover;
+    display: block;
+    margin: 15px auto;
+    border-radius: 20px;
+    border: 4px solid rgba(0,0,0,0.1);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
+}
+.encheres_photo_article:hover {
+    transform: scale(1.05);
 }
 
 /*page formulaire article  **************************************************************************************************************************************/
@@ -1265,32 +1271,26 @@ align-items: center;
     min-width: 50%;
     text-align: left;
 }
-
-#encherisseur_conteneur{
-    gap: 25px;
-    color: var(--couleur-fond-sombre);
-    margin: 25px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: min(30px, 5vw);
-    justify-content: center;
-    margin: 30px auto;
-    max-width: 90%;
-    overflow: hidden;
+.logo {
+    font-family: 'Montserrat', 'Inter', sans-serif;
+    font-size: 48px;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    background: linear-gradient(
+            90deg,
+            var(--couleur-vert-fonce),
+            var(--couleur-orange)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-.encherisseur_capsule{
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    align-items: center;
-    gap : 15px;
-    padding: 20px;
-    border-radius :50px;
-    background-color: var(--couleur-blanc-secondaire);
-    aspect-ratio: 1/1;
-    object-fit: cover;
-    max-height: 400px;
-    box-shadow: 6px 6px 25px rgba(0, 0, 0, 0.5);
+.logo::after {
+    content: "ENCHÈRES";
+    display: block;
+    font-size: 14px;
+    letter-spacing: 5px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.6);
+    margin-top: 4px;
 }
