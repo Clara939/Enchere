@@ -1328,3 +1328,36 @@ align-items: center;
     margin: 40px 0 60px 0;
     position: relative;
 }
+
+#encherisseur_conteneur{
+    gap: 25px;
+    color: var(--couleur-fond-sombre);
+    margin: 25px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: min(30px, 5vw);
+    justify-content: center;
+    margin: 30px auto;
+    max-width: 90%;
+    overflow: hidden;
+}
+
+.encherisseur_capsule{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: var(--couleur-gris-clair);
+    padding: 20px;
+    border-radius :50px;
+    width: fit-content;
+    margin: 20px auto;
+    color: var(--couleur-fond-sombre);
+    font-size: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    aspect-ratio: 1;
+}
+
+.encherisseur_capsule button{
+    margin: auto;
+}
