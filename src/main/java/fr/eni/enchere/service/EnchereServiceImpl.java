@@ -171,6 +171,7 @@ public class EnchereServiceImpl implements EnchereService{
     public List<Utilisateur> afficherListeEncherisseurs(long id){
         List<Long> listeidEncherisseurs = enchereRepository.readAllidUtilisateurByIdArticle(id);
         List<Utilisateur> listeEncherisseurs = listeidEncherisseurs.stream()
+                .distinct()
                 .map(i -> utilisateurRepository.readById(i))
                 .collect(Collectors.toList());
         return listeEncherisseurs;

@@ -168,7 +168,11 @@ public class EnchereRepositorySql implements EnchereRepository{
     @Override
     public List<Long> readAllidUtilisateurByIdArticle(long id){
         String sql = """
-                SELECT DISTINCT id_encherisseur FROM Encheres WHERE id_article = :id
+                            SELECT id_encherisseur
+                            FROM Encheres\s
+                            WHERE id_article = :id
+                            GROUP BY id_encherisseur
+                            ORDER BY MAX(montant_enchere) DESC
                 """;
         MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue("id", id);
