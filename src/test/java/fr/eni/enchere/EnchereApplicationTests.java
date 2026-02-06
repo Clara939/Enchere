@@ -9,6 +9,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.time.LocalDate;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 @SpringBootTest
 class EnchereApplicationTests {
 
@@ -254,6 +257,28 @@ class EnchereApplicationTests {
     void testCreateEnchere(){
         enchereDAO.createEnchere(new Enchere(LocalDate.of(2026, 01, 25), 200, utilisateurDAO.readById(1), articleRepository.readById(1)));
     enchereDAO.createEnchere(new Enchere(LocalDate.of(2026, 1, 4), 55, utilisateurDAO.readById(2), articleRepository.readById(2)));
+    }
+
+    @Test
+    void testUnitaireCreateEnchere(){
+        //création d'une enchère
+        Enchere enchereTest = new Enchere(
+                LocalDate.of(2026, 1, 25),
+                300,
+                utilisateurDAO.readById(2),
+                articleRepository.readById(2));
+        //insertion de l'enchère dans la base de données
+        enchereDAO.createEnchere(enchereTest);
+        //récupération de l'enchère qui vient d'être insérée dans la bdd
+        Enchere enchereRecuperee = enchereDAO.readById(enchereTest.getId_enchere());
+        //On vérifie que l'enchère a bien été créée
+        assertNotNull(enchereRecuperee);
+        //on vérifie que l'enchère insérée dans la bdd est la même que celle récupérée:
+        //on vérifie que les champs ont des valeurs identiques
+        assertEquals(LocalDate.of(2026, 1, 25), enchereRecuperee.getDate_enchere());
+        assertEquals(300, enchereRecuperee.getMontant_enchere());
+        assertEquals(2, enchereRecuperee.getEncherisseur().getId_utilisateur());
+        assertEquals(2, enchereRecuperee.getArticles().getId_article());
     }
 
     @Test
