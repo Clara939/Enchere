@@ -1,42 +1,39 @@
-# 🥕 Enchère – Site d'enchères en carottes
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=FF8C00&text=Ench%C3%A8res%20Carottes&height=120&section=header&fontColor=000000"/>
+</p>
 
-Application web d'enchères collaborative (**3 développeurs**) avec système de points **carottes**.  
-Interface sombre **noir/gris/orange** pleine de carottes ! 🥕
+# 🥕 **Enchère – Le site qui enchérit en CAROTTES** 🥕
 
----
-
-## ✨ **Fonctionnalités principales**
-
-### 👥 **Gestion utilisateurs (sécurisée)**
-- 🔐 Inscription / Connexion avec **"Se souvenir de moi"**
-- 🔐 **Mots de passe cryptés avec BCrypt**
-- 🔑 **Mot de passe oublié**
-- ✏️ **Modification profil** + photo de profil
-- 🗑️ **Suppression compte** (désactivation)
-- 💰 Crédit **carottes** (points)
-
-### 🥕 **Système enchères**
-- 📋 Consultation publique (enchères en cours)
-- 👁️ **Détail enchère** → Redirection connexion
-- ➕ **Créer enchère** avec **upload photo article**
-- ✏️ **Modifier enchère** : photo + détails
-- 🗑️ Supprimer ses enchères
-- 🎯 **Enchérir** en carottes
-- 📊 **Historique** : Mes offres + ventes gagnées
-- 🔍 **Filtres** : En cours, À moi, Terminées, Gagnées
-
-### ⚙️ **Sécurité & UX**
-- 🚪 **Déconnexion auto** après 5 min d'inactivité
-- 📸 **Upload photo** articles (création + modification)
-- 🔒 Authentification pour détails enchères
+<div align="center">
+  <img src="https://readme-typing-svg.demolab.com?font=Fira%20Code&size=24&pause=1000&color=FF8C00&background=F1FF0000&width=600&height=50&lines=Spring+Boot+%2B+BCrypt+%2B+SQL+Server;Upload+photos+articles+%F0%9F%8F%A0;3+d%C3%A9veloppeurs+%F0%9F%A4%B9"/>
+</div>
 
 ---
 
-## 🧱 **Stack technique**
+## ✨ **Fonctionnalités phares**
+
+| 👥 **Utilisateurs** | 🥕 **Enchères** | 🔐 **Sécurité** |
+|--------------------|----------------|---------------|
+| Inscription/Connexion | Créer/Modifier avec **📸 photo** | **BCrypt** mots de passe |
+| **"Se souvenir de moi"** | **Filtres** : En cours, À moi, Gagnées | Déconnexion **5min** |
+| Modifier profil + photo | **Enchérir en carottes** | Comptes **désactivés** |
+| **Mot de passe oublié** | Historique offres/gagnées | |
 
 ---
 
-## 🎯 **TODO / Améliorations**
+## 🧱 **Tech Stack**
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=java,spring,sqlserver,bcrypt,thymeleaf"/>
+</p>
+
+<div align="center">
+  🎨 **Thème** : **Noir/Gris/Orange** + carottes partout ! 🥕
+</div>
+
+---
+
+## 🎯 **À venir**
+
 - 👑 **Interface admin** : Gestion utilisateurs
 - 🔔 Notifications enchères gagnées
 - 💳 Historique transactions carottes
@@ -44,11 +41,18 @@ Interface sombre **noir/gris/orange** pleine de carottes ! 🥕
 
 ---
 
-## 👥 **Équipe & Contexte**
+## 👥 **L'équipe**
+
 **Projet de groupe de 3** - Formation **ENI Rennes**  
 Dépôt back-end Spring Boot + version actuelle.
-
 <div align="center">
-  <img src="https://img.shields.io/badge/Tech-Spring%20Boot%20BCrypt%20SQL-orange?style=flat&logo=spring-boot&logoColor=white" />
-  <img src="https://img.shields.io/badge/Carottes-%F0%9F%8D%B0-brightgreen" />
+  <img src="https://img.shields.io/badge/Projet-3%20d%C3%A9veloppeurs-orange?style=flat&logo=team&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Formation-ENI%20Rennes-brightgreen"/>
+  <img src="https://img.shields.io/badge/Carottes-%F0%9F%8D%B0-FF7518"/>
 </div>
+
+---
+
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=FF8C00&height=100&section=footer&fontColor=000000"/>
+</p>
